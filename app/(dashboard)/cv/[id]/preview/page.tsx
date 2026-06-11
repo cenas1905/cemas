@@ -9,6 +9,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { ArrowLeft, Download, Share2, Copy, Check, MessageSquare, Send, Sparkles, AlertTriangle } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import CoverLetterGenerator from '@/components/cv-builder/CoverLetterGenerator';
+import JobMatcher from '@/components/cv-builder/JobMatcher';
 
 interface PreviewCVPageProps {
   params: Promise<{ id: string }>;
@@ -260,83 +263,146 @@ export default function PreviewCVPage({ params }: PreviewCVPageProps) {
             </CardContent>
           </Card>
 
-          {/* AI Career Coach Card */}
-          <Card className="border-slate-800 bg-slate-900/60 backdrop-blur-md">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base font-bold text-white flex items-center justify-between">
-                <span className="flex items-center gap-1.5">
-                  <MessageSquare className="w-4.5 h-4.5 text-purple-400" />
-                  AI Kariyer Koçu
-                </span>
-                {!isPro && (
-                  <span className="text-[9px] bg-amber-500/20 text-amber-300 border border-amber-500/35 px-2 py-0.5 rounded-full uppercase font-black shrink-0">
-                    Pro Özellik 🔒
-                  </span>
-                )}
-              </CardTitle>
-              <CardDescription className="text-slate-400 text-xs">
-                Özgeçmişinize özel kariyer hedefleri belirleyin, mülakat simülasyonları yapın ve tavsiyeler alın.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-0 border-t border-slate-900">
-              {isPro ? (
-                <div className="flex flex-col h-[350px]">
-                  {/* Chat logs */}
-                  <div className="flex-1 overflow-y-auto p-4 space-y-3 text-xs">
-                    {messages.map((msg, idx) => (
-                      <div
-                        key={idx}
-                        className={`p-2.5 rounded-xl max-w-[85%] ${
-                          msg.sender === 'user'
-                            ? 'bg-indigo-600 text-white ml-auto'
-                            : 'bg-slate-950/80 border border-slate-850 text-slate-300'
-                        }`}
-                      >
-                        <p className="leading-relaxed whitespace-pre-line">{msg.text}</p>
-                      </div>
-                    ))}
-                    {sendingMessage && (
-                      <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-850 text-slate-400 w-fit flex items-center space-x-1.5">
-                        <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                        <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                        <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                      </div>
+          {/* AI Career Tools Tabs Card */}
+          <Tabs defaultValue="coach" className="w-full">
+            <TabsList className="grid w-full grid-cols-3 bg-slate-950 border border-slate-900 rounded-xl p-1 mb-4">
+              <TabsTrigger value="coach" className="text-xs font-semibold py-1.5 rounded-lg data-[state=active]:bg-slate-900 data-[state=active]:text-white">Kariyer Koçu</TabsTrigger>
+              <TabsTrigger value="cover-letter" className="text-xs font-semibold py-1.5 rounded-lg data-[state=active]:bg-slate-900 data-[state=active]:text-white">Ön Yazı</TabsTrigger>
+              <TabsTrigger value="job-match" className="text-xs font-semibold py-1.5 rounded-lg data-[state=active]:bg-slate-900 data-[state=active]:text-white">İş Eşleştirme</TabsTrigger>
+            </TabsList>
+
+            {/* AI Career Coach Tab */}
+            <TabsContent value="coach">
+              <Card className="border-slate-800 bg-slate-900/60 backdrop-blur-md">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-base font-bold text-white flex items-center justify-between">
+                    <span className="flex items-center gap-1.5">
+                      <MessageSquare className="w-4.5 h-4.5 text-purple-400" />
+                      AI Kariyer Koçu
+                    </span>
+                    {!isPro && (
+                      <span className="text-[9px] bg-amber-500/20 text-amber-300 border border-amber-500/35 px-2 py-0.5 rounded-full uppercase font-black shrink-0">
+                        Pro Özellik 🔒
+                      </span>
                     )}
-                  </div>
-                  {/* Input field */}
-                  <form onSubmit={handleSendMessage} className="p-3 border-t border-slate-900 flex gap-2">
-                    <Input
-                      value={inputMessage}
-                      onChange={(e) => setInputMessage(e.target.value)}
-                      placeholder="Sorunuzu buraya yazın..."
-                      disabled={sendingMessage}
-                      className="bg-slate-950/50 border-slate-800 text-white text-xs h-8 flex-1 focus-visible:ring-indigo-500"
-                    />
-                    <Button type="submit" disabled={sendingMessage || !inputMessage.trim()} size="icon" className="h-8 w-8 bg-indigo-600 hover:bg-indigo-700 text-white">
-                      <Send className="w-3.5 h-3.5" />
-                    </Button>
-                  </form>
-                </div>
+                  </CardTitle>
+                  <CardDescription className="text-slate-400 text-xs">
+                    Özgeçmişinize özel kariyer hedefleri belirleyin, mülakat hazırlığı yapın ve koçunuzdan tavsiyeler alın.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-0 border-t border-slate-900">
+                  {isPro ? (
+                    <div className="flex flex-col h-[350px]">
+                      {/* Chat logs */}
+                      <div className="flex-1 overflow-y-auto p-4 space-y-3 text-xs">
+                        {messages.map((msg, idx) => (
+                          <div
+                            key={idx}
+                            className={`p-2.5 rounded-xl max-w-[85%] ${
+                              msg.sender === 'user'
+                                ? 'bg-indigo-600 text-white ml-auto'
+                                : 'bg-slate-950/80 border border-slate-850 text-slate-300'
+                            }`}
+                          >
+                            <p className="leading-relaxed whitespace-pre-line">{msg.text}</p>
+                          </div>
+                        ))}
+                        {sendingMessage && (
+                          <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-850 text-slate-400 w-fit flex items-center space-x-1.5">
+                            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                          </div>
+                        )}
+                      </div>
+                      {/* Input field */}
+                      <form onSubmit={handleSendMessage} className="p-3 border-t border-slate-900 flex gap-2">
+                        <Input
+                          value={inputMessage}
+                          onChange={(e) => setInputMessage(e.target.value)}
+                          placeholder="Sorunuzu buraya yazın..."
+                          disabled={sendingMessage}
+                          className="bg-slate-950/50 border-slate-800 text-white text-xs h-8 flex-1 focus-visible:ring-indigo-500"
+                        />
+                        <Button type="submit" disabled={sendingMessage || !inputMessage.trim()} size="icon" className="h-8 w-8 bg-indigo-600 hover:bg-indigo-700 text-white">
+                          <Send className="w-3.5 h-3.5" />
+                        </Button>
+                      </form>
+                    </div>
+                  ) : (
+                    <div className="p-6 text-center space-y-4">
+                      <div className="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/25 flex items-center justify-center text-amber-300 mx-auto">
+                        <Sparkles className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h5 className="text-sm font-semibold text-white">Kariyer Koçunu Etkinleştirin</h5>
+                        <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
+                          Özgeçmişinizden yola çıkarak size özel mülakat tavsiyeleri veren yapay zeka koçuyla görüşmek için Pro'ya yükseltin.
+                        </p>
+                      </div>
+                      <Link href="/upgrade">
+                        <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs mt-2">
+                          Aylık $9.99'a Abone Ol
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* AI Cover Letter Tab */}
+            <TabsContent value="cover-letter">
+              {isPro ? (
+                <CoverLetterGenerator cvData={cv.data} isPro={isPro} />
               ) : (
-                <div className="p-6 text-center space-y-4">
-                  <div className="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/25 flex items-center justify-center text-amber-300 mx-auto">
-                    <Sparkles className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h5 className="text-sm font-semibold text-white">Kariyer Koçunu Etkinleştirin</h5>
-                    <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
-                      Özgeçmişinizden yola çıkarak size özel mülakat tavsiyeleri veren yapay zeka koçuyla görüşmek için Pro'ya yükseltin.
-                    </p>
-                  </div>
-                  <Link href="/upgrade">
-                    <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs mt-2">
-                      Aylık $9.99'a Abone Ol
-                    </Button>
-                  </Link>
-                </div>
+                <Card className="border-slate-800 bg-slate-900/60 backdrop-blur-md">
+                  <CardContent className="p-6 text-center space-y-4">
+                    <div className="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/25 flex items-center justify-center text-amber-300 mx-auto">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h5 className="text-sm font-semibold text-white">AI Ön Yazı Oluşturucuyu Etkinleştirin</h5>
+                      <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
+                        Şirketlere ve pozisyonlara özel ATS uyumlu kapak yazıları (cover letter) üretmek için Pro'ya yükseltin.
+                      </p>
+                    </div>
+                    <Link href="/upgrade">
+                      <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs mt-2">
+                        Aylık $9.99'a Abone Ol
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
               )}
-            </CardContent>
-          </Card>
+            </TabsContent>
+
+            {/* AI Job Matching Tab */}
+            <TabsContent value="job-match">
+              {isPro ? (
+                <JobMatcher cvData={cv.data} isPro={isPro} />
+              ) : (
+                <Card className="border-slate-800 bg-slate-900/60 backdrop-blur-md">
+                  <CardContent className="p-6 text-center space-y-4">
+                    <div className="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/25 flex items-center justify-center text-amber-300 mx-auto">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h5 className="text-sm font-semibold text-white">İş İlanı Eşleştirmeyi Etkinleştirin</h5>
+                      <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
+                        İlan detaylarını yapıştırarak CV'nizin uyumluluk yüzdesini, eksik yeteneklerinizi ve iyileştirme tavsiyelerini raporlamak için Pro'ya yükseltin.
+                      </p>
+                    </div>
+                    <Link href="/upgrade">
+                      <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs mt-2">
+                        Aylık $9.99'a Abone Ol
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              )}
+            </TabsContent>
+          </Tabs>
         </div>
 
         {/* Right Side: Render CV preview */}

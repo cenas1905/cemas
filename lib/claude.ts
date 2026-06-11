@@ -57,3 +57,81 @@ export async function careerCoach(message: string, cvData: any) {
 
   return response.content[0].type === 'text' ? response.content[0].text : '';
 }
+
+// AI ile Kapak Yazısı (Cover Letter) üret
+export async function generateCoverLetter(cvData: any, companyName: string, jobTitle: string, jobDescription?: string) {
+  const jobDescSection = jobDescription ? `İş Tanımı:\n${jobDescription}\n` : '';
+  const prompt = `Lütfen aşağıdaki CV verilerine göre, ${companyName} şirketindeki "${jobTitle}" pozisyonuna başvuru için profesyonel, etkileyici ve kişiselleştirilmiş bir Kapak Yazısı (Cover Letter) taslağı oluştur.
+  
+CV Verisi:
+${JSON.stringify(cvData, null, 2)}
+
+${jobDescSection}
+Yazı; samimi, profesyonel, ikna edici ve adayın güçlü yanlarını vurgulayan bir yapıda olmalıdır. Lütfen doğrudan mektup içeriğini Türkçe olarak döndür (giriş, hitap, gövde paragrafları ve saygılarımla kısmı dahil).`;
+
+  const response = await anthropic.messages.create({
+    model: 'claude-3-5-sonnet-20241022',
+    max_tokens: 2000,
+    messages: [
+      { role: 'user', content: prompt }
+    ]
+  });
+
+  return response.content[0].type === 'text' ? response.content[0].text : '';
+}
+
+// AI ile İş İlanı Eşleşme Analizi yap
+export async function analyzeJobMatch(cvData: any, jobDescription: string) {
+  const prompt = `Aşağıdaki CV ile verilen iş tanımını (Job Description) detaylıca karşılaştır. Eşleşme yüzdesini (%) hesapla ve güçlü yanları, CV'de eksik olan beceri veya tecrübeleri (gaps) ve CV'yi bu ilana göre optimize etmek için yapılması gereken net düzeltmeleri belirle.
+  
+CV Verisi:
+${JSON.stringify(cvData, null, 2)}
+
+İş Tanımı:
+${jobDescription}
+
+Lütfen analizi sadece ve sadece geçerli bir JSON nesnesi formatında döndür. JSON nesnesi şu alanları tam olarak içermelidir:
+{
+  "score": 75, // 0 ile 100 arasında bir tam sayı (tahmini eşleşme skoru)
+  "strengths": ["...", "..."], // Adayın bu ilanla eşleşen en güçlü 3-4 yanı
+  "gaps": ["...", "..."], // İlanda istenen ama CV'de eksik olan 3-4 yetenek/deneyim
+  "suggestions": ["...", "..."] // CV'yi bu ilana özel uyarlamak için 3-4 somut iyileştirme önerisi
+}
+
+Cevabında hiçbir açıklama, markdown fesi (fenced block) ya da giriş cümlesi olmasın, sadece saf JSON verisi döndür.`;
+
+  const response = await anthropic.messages.create({
+    model: 'claude-3-5-sonnet-20241022',
+    max_tokens: 2000,
+    messages: [
+      { role: 'user', content: prompt }
+    ]
+  });
+
+  const content = response.content[0].type === 'text' ? response.content[0].text : '{}';
+  
+  let jsonString = content.trim();
+  if (jsonString.startsWith('```json')) {
+    jsonString = jsonString.slice(7);
+  }
+  if (jsonString.startsWith('```')) {
+    jsonString = jsonString.slice(3);
+  }
+  if (jsonString.endsWith('```')) {
+    jsonString = jsonString.slice(0, -3);
+  }
+  jsonString = jsonString.trim();
+
+  try {
+    return JSON.parse(jsonString);
+  } catch (e) {
+    console.error('Failed to parse Job Match JSON:', e, 'Raw content:', content);
+    return {
+      score: 50,
+      strengths: ['Analiz tamamlanamadı'],
+      gaps: ['Servis geçici olarak yanıt vermedi'],
+      suggestions: ['Lütfen ilanı sadeleştirip tekrar deneyin']
+    };
+  }
+}
+
