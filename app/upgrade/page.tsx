@@ -1,213 +1,254 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { createClientComponentClient } from '@/lib/supabase-client';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { AlertTriangle, Check, Sparkles, ArrowLeft } from 'lucide-react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import {
+  Check, Sparkles, Zap, Shield, ArrowLeft,
+  ChevronRight, Star, Award, Clock
+} from 'lucide-react';
 
-function UpgradeContent() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const supabase = createClientComponentClient();
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({
+    opacity: 1, y: 0,
+    transition: { duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }
+  })
+};
 
-  const isExpired = searchParams.get('expired') === 'true';
-  const expiredSlug = searchParams.get('slug');
+const monthlyFeatures = [
+  'Kalıcı paylaşım linki (asla silinmez)',
+  'Şirkete özel URL (/cv/adınız-şirket)',
+  'Tüm premium CV şablonları',
+  'Sınırsız PDF indirme',
+  'AI Kariyer Koçu sohbeti (sınırsız)',
+  'Sınırsız LinkedIn import',
+  'Gerçek zamanlı görüntülenme analitiği',
+  'Cover letter oluşturucu',
+  'Job matching (iş eşleştirme)',
+  'Öncelikli müşteri desteği',
+];
 
-  const [user, setUser] = useState<any>(null);
-  const [loadingPrice, setLoadingPrice] = useState<string | null>(null);
+const annualExtras = [
+  'Aylık plan\'daki her şey +',
+  'Öncelikli AI işlem sırası',
+  'Yeni özelliklere erken erişim',
+  '1 yıllık veri saklama garantisi',
+  'Özel onboarding seansı',
+];
 
-  useEffect(() => {
-    async function getUser() {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-    }
-    getUser();
-  }, [supabase]);
-
-  const handleCheckout = async (priceType: 'monthly' | 'annual') => {
-    if (!user) {
-      // If not logged in, redirect to login
-      router.push(`/login?redirectTo=/upgrade`);
-      return;
-    }
-
-    setLoadingPrice(priceType);
-
-    try {
-      const response = await fetch('/api/stripe/create-checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          priceId: priceType === 'monthly'
-            ? process.env.NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PRICE_ID || 'price_pro_monthly'
-            : process.env.NEXT_PUBLIC_STRIPE_PRO_ANNUAL_PRICE_ID || 'price_pro_annual',
-          userId: user.id,
-          returnUrl: window.location.href
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Checkout oluşturulamadı.');
-      }
-
-      const result = await response.json();
-      if (result.url) {
-        window.location.href = result.url;
-      }
-    } catch (err) {
-      alert('Ödeme sayfasına yönlendirilirken hata oluştu.');
-    } finally {
-      setLoadingPrice(null);
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-[#090d16] text-white py-16 px-4">
-      <div className="max-w-4xl mx-auto space-y-8">
-        {/* Go back helper if user is logged in */}
-        {user && (
-          <div>
-            <Link href="/dashboard" className="inline-flex items-center text-xs text-slate-400 hover:text-white transition font-medium gap-1">
-              <ArrowLeft className="w-3.5 h-3.5" />
-              Panele Geri Dön
-            </Link>
-          </div>
-        )}
-
-        {/* Link Expired Alert */}
-        {isExpired && (
-          <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-start gap-3 text-red-300">
-            <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
-            <div>
-              <p className="font-semibold text-white">Özgeçmiş Bağlantısının Süresi Doldu!</p>
-              <p className="text-xs text-slate-400 mt-1">
-                Görüntülemeye çalıştığınız <strong>/cv/{expiredSlug}</strong> bağlantısı ücretsiz plan limitleri (7 gün) nedeniyle pasif hale gelmiştir. Bağlantıyı kalıcı hale getirmek ve yeniden aktifleştirmek için lütfen Pro planına yükseltin.
-              </p>
-            </div>
-          </div>
-        )}
-
-        <div className="text-center space-y-3">
-          <h2 className="text-4xl font-extrabold tracking-tight text-white flex items-center justify-center gap-2">
-            <Sparkles className="w-6 h-6 text-amber-400 fill-amber-400" />
-            CVio Pro'ya Geçin
-          </h2>
-          <p className="text-slate-400 text-sm max-w-lg mx-auto">
-            Özgeçmişinizi mülakat uzmanlarına kalıcı olarak ulaştırın, yapay zeka kariyer koçu ile iş tekliflerini yakalayın.
-          </p>
-        </div>
-
-        {/* Plan Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto pt-4">
-          {/* Plan Pro Monthly */}
-          <Card className="border-slate-800 bg-slate-900/60 backdrop-blur-md flex flex-col justify-between relative">
-            <CardHeader>
-              <CardTitle className="text-xl font-bold text-white">Aylık Pro Plan</CardTitle>
-              <CardDescription className="text-slate-400">Aylık faturalandırılan kariyer desteği.</CardDescription>
-              <div className="mt-4">
-                <span className="text-4xl font-black text-white">$9.99</span>
-                <span className="text-slate-400 text-xs font-semibold"> / ay</span>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm text-slate-350">
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-indigo-400 shrink-0" />
-                <span>Kalıcı paylaşım linki (asla silinmez)</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-indigo-400 shrink-0" />
-                <span>Şirkete özel bağlantılar (/cv/ali-google)</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-indigo-400 shrink-0" />
-                <span>Sınırsız PDF indirme</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-indigo-400 shrink-0" />
-                <span>Tüm tasarım şablonları</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-indigo-400 shrink-0" />
-                <span>AI Kariyer Koçu sohbeti</span>
-              </div>
-            </CardContent>
-            <CardFooter className="pt-6 pb-6">
-              <Button
-                onClick={() => handleCheckout('monthly')}
-                disabled={loadingPrice !== null}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold"
-              >
-                {loadingPrice === 'monthly' ? 'Yönlendiriliyor...' : 'Aylık Abone Ol'}
-              </Button>
-            </CardFooter>
-          </Card>
-
-          {/* Plan Pro Annual */}
-          <Card className="border-amber-500/30 bg-slate-900/80 backdrop-blur-md flex flex-col justify-between relative ring-2 ring-amber-500/20">
-            <div className="absolute top-0 right-6 -translate-y-1/2 bg-amber-500 text-slate-950 text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border-2 border-[#090d16]">
-              EN POPÜLER (%35 TASARRUF)
-            </div>
-            
-            <CardHeader>
-              <CardTitle className="text-xl font-bold text-white">Yıllık Pro Plan</CardTitle>
-              <CardDescription className="text-slate-400">Yıllık ödeme ile kesintisiz destek.</CardDescription>
-              <div className="mt-4">
-                <span className="text-4xl font-black text-white">$79</span>
-                <span className="text-slate-400 text-xs font-semibold"> / yıl</span>
-                <span className="block text-[10px] text-amber-400 font-bold mt-1">($6.58 / aya denk gelir)</span>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm text-slate-350">
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>Kalıcı paylaşım linki (asla silinmez)</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>Şirkete özel bağlantılar (/cv/ali-google)</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>Sınırsız PDF indirme</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>Tüm tasarım şablonları</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>AI Kariyer Koçu sohbeti</span>
-              </div>
-            </CardContent>
-            <CardFooter className="pt-6 pb-6">
-              <Button
-                onClick={() => handleCheckout('annual')}
-                disabled={loadingPrice !== null}
-                className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold"
-              >
-                {loadingPrice === 'annual' ? 'Yönlendiriliyor...' : 'Yıllık Abone Ol'}
-              </Button>
-            </CardFooter>
-          </Card>
-        </div>
-      </div>
-    </div>
-  );
-}
+const faqs = [
+  { q: 'İstediğim zaman iptal edebilir miyim?', a: 'Evet, istediğiniz zaman iptal edebilirsiniz. İptal ettikten sonra abonelik sürenizin sonuna kadar Pro özelliklerine erişiminiz devam eder.' },
+  { q: 'Para iade garantisi var mı?', a: 'Evet! İlk 14 gün içinde memnun kalmazsanız ücretin tamamını iade ediyoruz. Hiç soru sormuyoruz.' },
+  { q: 'Mevcut CV\'lerim silinir mi?', a: 'Hayır. Ücretsiz plana geçseniz bile CV içerikleriniz hesabınızda kalır. Yalnızca kalıcı linkler geçici linklere dönüşür.' },
+  { q: 'Ödeme güvenli mi?', a: 'Tüm ödemeler Stripe ile işlenir. Kart bilgileriniz sunucularımızda saklanmaz.' },
+];
 
 export default function UpgradePage() {
+  const [billing, setBilling] = useState<'monthly' | 'annual'>('annual');
+
+  const monthlyPrice = 9.99;
+  const annualPrice = 79;
+  const annualMonthly = (annualPrice / 12).toFixed(2);
+  const savings = Math.round((1 - annualPrice / (monthlyPrice * 12)) * 100);
+
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-[#090d16] flex items-center justify-center text-slate-400">
-        Yükleniyor...
+    <div className="min-h-screen bg-[#03060b] text-white">
+
+      {/* Ambient glows */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-indigo-500/8 rounded-full blur-[140px]" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-[100px]" />
       </div>
-    }>
-      <UpgradeContent />
-    </Suspense>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+
+        {/* ── Back + Header ── */}
+        <div className="space-y-8">
+          <Link href="/dashboard" className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors">
+            <ArrowLeft className="w-4 h-4" /> Dashboard'a dön
+          </Link>
+
+          <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.1 } } }} className="text-center space-y-4 max-w-3xl mx-auto">
+            <motion.div custom={0} variants={fadeUp}>
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-300 text-xs font-semibold border border-indigo-500/20">
+                <Sparkles className="w-3 h-3" /> CVio Pro
+              </span>
+            </motion.div>
+            <motion.h1 custom={1} variants={fadeUp} className="text-4xl sm:text-5xl font-black tracking-tight">
+              Kariyerinize <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Yatırım Yapın</span>
+            </motion.h1>
+            <motion.p custom={2} variants={fadeUp} className="text-slate-400 text-lg max-w-xl mx-auto">
+              Tek bir mülakat daveti, aboneliğinizin maliyetini çıkarır. Rakiplerinizin önüne geçin.
+            </motion.p>
+
+            {/* Social proof */}
+            <motion.div custom={3} variants={fadeUp} className="flex items-center justify-center gap-5 text-xs text-slate-500">
+              <span className="flex items-center gap-1.5"><Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" /> 4.9/5 puan</span>
+              <span className="flex items-center gap-1.5"><Award className="w-3.5 h-3.5 text-emerald-500" /> 2.400+ Pro kullanıcı</span>
+              <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-blue-400" /> 14 gün iade garantisi</span>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* ── Billing toggle ── */}
+        <div className="flex justify-center">
+          <div className="inline-flex items-center gap-1 p-1 rounded-xl bg-white/5 border border-white/8">
+            <button
+              onClick={() => setBilling('monthly')}
+              className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${billing === 'monthly' ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white'}`}
+            >
+              Aylık
+            </button>
+            <button
+              onClick={() => setBilling('annual')}
+              className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${billing === 'annual' ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white'}`}
+            >
+              Yıllık
+              <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded-full border border-emerald-500/20 font-bold">%{savings} İNDİRİM</span>
+            </button>
+          </div>
+        </div>
+
+        {/* ── Pricing cards ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+
+          {/* Pro Monthly */}
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+            <div className={`h-full rounded-2xl border p-8 flex flex-col transition-all ${billing === 'monthly' ? 'border-indigo-500/40 bg-indigo-500/5' : 'border-white/8 bg-white/2'}`}>
+              <div className="mb-6">
+                <p className="text-xs text-indigo-400 font-bold uppercase tracking-widest mb-2">PRO AYLIK</p>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-5xl font-black text-white">${monthlyPrice}</span>
+                  <span className="text-slate-400 text-sm">/ay</span>
+                </div>
+                <p className="text-slate-500 text-sm mt-2 flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5" /> Her ay yenilenir · İstediğin zaman iptal
+                </p>
+              </div>
+              <ul className="space-y-3 mb-8 flex-1">
+                {monthlyFeatures.map(f => (
+                  <li key={f} className="flex items-start gap-2.5 text-sm text-slate-300">
+                    <div className="w-4 h-4 rounded-full bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-2.5 h-2.5 text-indigo-400" />
+                    </div>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Button
+                onClick={() => {}}
+                className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white font-bold h-12 shadow-xl shadow-indigo-500/20 transition-all hover:scale-[1.02] text-base"
+              >
+                Aylık Pro'ya Başla <ChevronRight className="w-4 h-4 ml-1" />
+              </Button>
+            </div>
+          </motion.div>
+
+          {/* Pro Annual */}
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+            <div className="relative h-full">
+              {/* Glow border */}
+              <div className="absolute -inset-px bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl opacity-60" />
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                <span className="px-4 py-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 text-[11px] font-black shadow-lg shadow-amber-500/30">
+                  4 AY BEDAVA 🎉
+                </span>
+              </div>
+              <div className="relative h-full rounded-2xl bg-[#0c0e18] border-0 p-8 flex flex-col">
+                <div className="mb-6">
+                  <p className="text-xs text-amber-400 font-bold uppercase tracking-widest mb-2">PRO YILLIK</p>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-5xl font-black text-white">${annualMonthly}</span>
+                    <span className="text-slate-400 text-sm">/ay</span>
+                  </div>
+                  <p className="text-amber-400 text-sm mt-1 font-semibold">${annualPrice}/yıl — ${Math.round(monthlyPrice * 12 - annualPrice)} tasarruf</p>
+                  <p className="text-slate-500 text-sm mt-1 flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5" /> Yıllık faturalandırılır
+                  </p>
+                </div>
+                <ul className="space-y-3 mb-8 flex-1">
+                  {annualExtras.map(f => (
+                    <li key={f} className="flex items-start gap-2.5 text-sm text-slate-200">
+                      <div className="w-4 h-4 rounded-full bg-amber-500/15 border border-amber-500/25 flex items-center justify-center shrink-0 mt-0.5">
+                        <Check className="w-2.5 h-2.5 text-amber-400" />
+                      </div>
+                      {f}
+                    </li>
+                  ))}
+                  <li className="text-xs text-slate-500 italic ml-6.5">+ aylık plandaki tüm özellikler</li>
+                </ul>
+                <Button
+                  onClick={() => {}}
+                  className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black h-12 shadow-xl shadow-amber-500/20 transition-all hover:scale-[1.02] text-base"
+                >
+                  <Zap className="w-4 h-4 mr-2" />
+                  Yıllık Pro'ya Başla
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* ── Feature comparison table ── */}
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl font-black text-white text-center mb-8">Özellik Karşılaştırması</h2>
+          <div className="rounded-2xl border border-white/8 overflow-hidden">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-white/8 bg-white/2">
+                  <th className="text-left px-6 py-4 text-slate-400 font-semibold">Özellik</th>
+                  <th className="text-center px-6 py-4 text-slate-400 font-semibold">Ücretsiz</th>
+                  <th className="text-center px-6 py-4 text-indigo-400 font-semibold">Pro</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['CV oluşturma', 'Sınırsız', 'Sınırsız'],
+                  ['CV şablonları', '1 şablon', 'Tüm şablonlar'],
+                  ['PDF indirme', '7 gün', 'Sınırsız'],
+                  ['Paylaşım linki', '7 gün geçici', 'Kalıcı ✓'],
+                  ['Şirkete özel URL', '✗', '✓'],
+                  ['LinkedIn import', '1 hak', 'Sınırsız'],
+                  ['AI optimizasyon', '✗', '✓'],
+                  ['AI Kariyer Koçu', '✗', 'Sınırsız'],
+                  ['Görüntülenme analitiği', '✗', '✓'],
+                  ['Cover letter oluşturucu', '✗', '✓'],
+                ].map(([feature, free, pro], i) => (
+                  <tr key={feature} className={`border-b border-white/5 ${i % 2 === 0 ? '' : 'bg-white/1'}`}>
+                    <td className="px-6 py-3.5 text-slate-300">{feature}</td>
+                    <td className="px-6 py-3.5 text-center text-slate-500">{free}</td>
+                    <td className="px-6 py-3.5 text-center text-indigo-300 font-medium">{pro}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* ── FAQ ── */}
+        <div className="max-w-2xl mx-auto space-y-4">
+          <h2 className="text-2xl font-black text-white text-center mb-8">Sık Sorulan Sorular</h2>
+          {faqs.map((faq, i) => (
+            <div key={i} className="p-5 rounded-xl border border-white/8 bg-white/2 space-y-2">
+              <h3 className="text-base font-semibold text-white">{faq.q}</h3>
+              <p className="text-sm text-slate-400 leading-relaxed">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* ── Trust badges ── */}
+        <div className="text-center space-y-3">
+          <div className="flex flex-wrap justify-center items-center gap-6 text-xs text-slate-500">
+            <span className="flex items-center gap-1.5"><Shield className="w-4 h-4 text-emerald-500" /> 256-bit SSL şifreleme</span>
+            <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-500" /> Stripe ile güvenli ödeme</span>
+            <span className="flex items-center gap-1.5"><Clock className="w-4 h-4 text-emerald-500" /> 14 gün para iade garantisi</span>
+            <span className="flex items-center gap-1.5"><Zap className="w-4 h-4 text-emerald-500" /> Anında aktivasyon</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
   );
 }
