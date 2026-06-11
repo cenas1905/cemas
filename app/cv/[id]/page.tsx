@@ -6,11 +6,11 @@ import CVPreview from '@/components/cv-builder/CVPreview';
 import { CVTemplate } from '@/components/cv-builder/TemplateSelector';
 
 interface PublicCVPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ id: string }>;
 }
 
 export default async function PublicCVPage({ params }: PublicCVPageProps) {
-  const { slug } = await params;
+  const { id: slug } = await params;
   const supabase = await createClient();
 
   // 1. Fetch CV details matching the slug
