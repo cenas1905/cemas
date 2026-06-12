@@ -17,7 +17,7 @@ export async function POST(req: Request) {
         <div style="background-color: #f8fafc; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e2e8f0;">
           <h4 style="margin-top: 0; color: #475569;">Neler Yapabilirsiniz?</h4>
           <ul style="margin-bottom: 0; padding-left: 20px; font-size: 14px; color: #334155;">
-            <li>Tek tıkla LinkedIn profilinizi içe aktarabilirsiniz.</li>
+            <li>Saniyeler içinde profesyonel CV taslağınızı oluşturabilirsiniz.</li>
             <li>Claude 3.5 Sonnet desteği ile CV içeriklerinizi ATS uyumlu hale getirebilirsiniz.</li>
             <li>Şirketlere özel paylaşım linkleri üretebilirsiniz.</li>
             <li>AI Kariyer Koçu ile mülakatlara hazırlanabilirsiniz.</li>

@@ -116,7 +116,7 @@ export const CVDocument: React.FC<CVDocumentProps> = ({ data }) => {
           <View style={styles.contactGrid}>
             {personal.email && <Text>✉ {personal.email}</Text>}
             {personal.location && <Text>📍 {personal.location}</Text>}
-            {personal.linkedin && <Text>🔗 LinkedIn</Text>}
+            {personal.linkedin && <Text>🔗 {personal.linkedin}</Text>}
           </View>
         </View>
 

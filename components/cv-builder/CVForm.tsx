@@ -200,12 +200,12 @@ export default function CVForm({ cvData, setCvData, onOptimize, optimizing }: CV
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="linkedin" className="text-slate-200 text-xs">LinkedIn Linki</Label>
+              <Label htmlFor="linkedin" className="text-slate-200 text-xs">Kişisel Web Sitesi / Portfolyo</Label>
               <Input
                 id="linkedin"
                 value={personal.linkedin || ''}
                 onChange={(e) => handlePersonalChange('linkedin', e.target.value)}
-                placeholder="linkedin.com/in/ahmet"
+                placeholder="yazar.com veya github.com/ahmet"
                 className="bg-slate-950/40 border-slate-800 text-white placeholder-slate-600 focus-visible:ring-indigo-500"
               />
             </div>
@@ -271,7 +271,7 @@ export default function CVForm({ cvData, setCvData, onOptimize, optimizing }: CV
                       <Input
                         value={exp.company || ''}
                         onChange={(e) => handleExperienceChange(idx, 'company', e.target.value)}
-                        placeholder="Google"
+                        placeholder="Örn: Teknoloji Firması"
                         className="h-8 text-xs bg-slate-950/50 border-slate-850"
                       />
                     </div>

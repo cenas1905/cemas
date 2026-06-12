@@ -93,7 +93,7 @@ export default function CVPreview({ data, template }: CVPreviewProps) {
           )}
           {personal.linkedin && (
             <span className="flex items-center gap-1">
-              <span>🔗</span> LinkedIn
+              <span>🔗</span> {personal.linkedin}
             </span>
           )}
         </div>

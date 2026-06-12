@@ -123,7 +123,7 @@ export default async function DashboardPage() {
             <div>
               <h3 className="text-lg font-bold text-white mb-1">Henüz CV Yok</h3>
               <p className="text-slate-500 text-sm max-w-sm">
-                LinkedIn profilinizden içe aktarın ya da sıfırdan oluşturun.
+                Hemen yeni bir CV oluşturarak dakikalar içinde profesyonel bir tasarım elde edin.
               </p>
             </div>
             <Link href="/cv/new">
@@ -230,7 +230,7 @@ export default async function DashboardPage() {
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-slate-500 group-hover:text-slate-300 transition-colors">Yeni CV Ekle</p>
-                  <p className="text-xs text-slate-600 mt-0.5">LinkedIn veya sıfırdan</p>
+                  <p className="text-xs text-slate-600 mt-0.5">Şablon seçin ve başlayın</p>
                 </div>
               </div>
             </Link>
@@ -248,7 +248,7 @@ export default async function DashboardPage() {
             <p className="text-sm font-bold text-white mb-0.5">Pro İpucu</p>
             <p className="text-xs text-slate-400 leading-relaxed">
               Şirkete özel CV linkleri oluşturmak için CV düzenle → Önizle → Hedef Şirket belirle. 
-              Örn: <span className="text-indigo-400 font-mono">/cv/adınız-google</span>
+              Örn: <span className="text-indigo-400 font-mono">/cv/adiniz-sirket</span>
             </p>
           </div>
         </div>

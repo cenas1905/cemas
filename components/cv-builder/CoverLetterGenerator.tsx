@@ -94,7 +94,7 @@ export default function CoverLetterGenerator({ cvData, isPro }: CoverLetterGener
                 <Input
                   id="company-name"
                   type="text"
-                  placeholder="Örn: Google, Trendyol, Siemens"
+                  placeholder="Örn: Teknoloji A.Ş., Lojistik Firması"
                   required
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}

@@ -11,8 +11,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "CVio — AI Destekli CV Oluşturucu & Kariyer Koçu",
   description:
-    "LinkedIn profilinizi 60 saniyede profesyonel CV'ye dönüştürün. ATS uyumlu şablonlar, AI kariyer koçu ve paylaşılabilir link özelliği.",
-  keywords: ["cv oluşturucu", "özgeçmiş", "ai cv", "linkedin import", "kariyer"],
+    "Yapay zeka ile 60 saniyede profesyonel CV oluşturun. ATS uyumlu şablonlar, AI kariyer koçu ve paylaşılabilir link özelliği.",
+  keywords: ["cv oluşturucu", "özgeçmiş", "ai cv", "akıllı cv", "kariyer"],
   authors: [{ name: "CVio" }],
   openGraph: {
     title: "CVio — AI Destekli CV Oluşturucu",

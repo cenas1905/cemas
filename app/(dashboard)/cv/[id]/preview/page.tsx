@@ -5,9 +5,13 @@ import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@/lib/supabase-client';
 import Link from 'next/link';
 import CVPreview from '@/components/cv-builder/CVPreview';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { ArrowLeft, Download, Share2, Copy, Check, MessageSquare, Send, Sparkles, AlertTriangle } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import CoverLetterGenerator from '@/components/cv-builder/CoverLetterGenerator';
 import JobMatcher from '@/components/cv-builder/JobMatcher';
-import { ArrowLeft, Download, Share2, Copy, Check, Send, Sparkles, AlertTriangle, Brain, FileText, Target, Link2 } from 'lucide-react';
 
 interface PreviewCVPageProps {
   params: Promise<{ id: string }>;
@@ -22,13 +26,15 @@ export default function PreviewCVPage({ params }: PreviewCVPageProps) {
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
+  // Link Sharing States
   const [targetCompany, setTargetCompany] = useState('');
   const [generatingLink, setGeneratingLink] = useState(false);
   const [shareLink, setShareLink] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [linkExpires, setLinkExpires] = useState<string | null>(null);
 
-  const [activeTab, setActiveTab] = useState<'coach' | 'cover' | 'job'>('coach');
+  // AI Career Coach States
+  const [coachOpen, setCoachOpen] = useState(false);
   const [messages, setMessages] = useState<Array<{ sender: 'user' | 'coach'; text: string }>>([
     { sender: 'coach', text: 'Merhaba! Ben sizin kişisel kariyer koçunuzum. Özgeçmişinizi inceledim. Mülakat hazırlığı, kariyer tavsiyeleri veya CV iyileştirmesi hakkında bana istediğinizi sorabilirsiniz!' }
   ]);
@@ -36,13 +42,32 @@ export default function PreviewCVPage({ params }: PreviewCVPageProps) {
   const [sendingMessage, setSendingMessage] = useState(false);
 
   useEffect(() => {
-    async function load() {
+    async function loadData() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
-      const { data: prof } = await supabase.from('profiles').select('plan').eq('id', user.id).single();
-      setProfile(prof);
-      const { data, error } = await supabase.from('cvs').select('*').eq('id', id).eq('user_id', user.id).single();
-      if (error || !data) { router.push('/dashboard'); return; }
+
+      // Fetch profile
+      const { data: profData } = await supabase
+        .from('profiles')
+        .select('plan')
+        .eq('id', user.id)
+        .single();
+      setProfile(profData);
+
+      // Fetch CV
+      const { data, error } = await supabase
+        .from('cvs')
+        .select('*')
+        .eq('id', id)
+        .eq('user_id', user.id)
+        .single();
+
+      if (error || !data) {
+        alert('Özgeçmiş bulunamadı.');
+        router.push('/dashboard');
+        return;
+      }
+
       setCv(data);
       if (data.is_public && data.slug) {
         setShareLink(`${window.location.origin}/cv/${data.slug}`);
@@ -50,27 +75,50 @@ export default function PreviewCVPage({ params }: PreviewCVPageProps) {
       }
       setLoading(false);
     }
-    load();
+    loadData();
   }, [id, supabase, router]);
 
   const isPro = profile?.plan === 'pro' || profile?.plan === 'annual';
 
+  // 1. Generate Sharing Link
   const handleGenerateLink = async () => {
     setGeneratingLink(true);
     try {
-      const res = await fetch('/api/cv/generate-link', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cvId: id, targetCompany: targetCompany.trim() || undefined })
+      const response = await fetch('/api/cv/generate-link', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          cvId: id,
+          targetCompany: targetCompany.trim() || undefined
+        })
       });
-      if (!res.ok) { const e = await res.json(); throw new Error(e.error); }
-      const result = await res.json();
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Paylaşım linki oluşturulamadı.');
+      }
+
+      const result = await response.json();
       setShareLink(result.link);
       setLinkExpires(result.expiresAt);
-      setCv((p: any) => ({ ...p, is_public: true, slug: result.link.split('/').pop(), link_expires_at: result.expiresAt }));
-    } catch (err: any) { alert(err.message); }
-    finally { setGeneratingLink(false); }
+
+      // Update local CV state
+      setCv((prev: any) => ({
+        ...prev,
+        is_public: true,
+        slug: result.link.split('/').pop(),
+        link_expires_at: result.expiresAt
+      }));
+    } catch (err: any) {
+      alert(err.message || 'Bir hata oluştu.');
+    } finally {
+      setGeneratingLink(false);
+    }
   };
 
+  // 2. Copy Link to Clipboard
   const handleCopy = () => {
     if (!shareLink) return;
     navigator.clipboard.writeText(shareLink);
@@ -78,233 +126,290 @@ export default function PreviewCVPage({ params }: PreviewCVPageProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // 3. Send message to AI Career Coach
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputMessage.trim() || sendingMessage) return;
-    if (!isPro) { alert('AI kariyer koçu sadece Pro üyeler için.'); return; }
+
+    if (!isPro) {
+      alert('Yapay zeka kariyer koçu sohbeti sadece PRO üyeler için geçerlidir.');
+      return;
+    }
+
     const userMsg = inputMessage;
     setInputMessage('');
     setMessages(prev => [...prev, { sender: 'user', text: userMsg }]);
     setSendingMessage(true);
+
     try {
-      const res = await fetch('/api/ai/career-coach', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMsg, cvData: cv.data })
+      const response = await fetch('/api/ai/career-coach', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: userMsg,
+          cvData: cv.data
+        })
       });
-      if (!res.ok) throw new Error('Yanıt alınamadı');
-      const result = await res.json();
+
+      if (!response.ok) {
+        throw new Error('Yanıt alınamadı.');
+      }
+
+      const result = await response.json();
       setMessages(prev => [...prev, { sender: 'coach', text: result.reply }]);
-    } catch { setMessages(prev => [...prev, { sender: 'coach', text: 'Bağlantı hatası. Tekrar deneyin.' }]); }
-    finally { setSendingMessage(false); }
+    } catch (err) {
+      setMessages(prev => [...prev, { sender: 'coach', text: 'Koç ile bağlantı kurulurken bir hata oluştu. Lütfen tekrar deneyin.' }]);
+    } finally {
+      setSendingMessage(false);
+    }
   };
 
   if (loading) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center">
-        <div className="w-10 h-10 border-3 rounded-full animate-spin mb-4"
-          style={{ borderColor: 'rgba(99,102,241,0.2)', borderTopColor: '#6366f1' }} />
-        <p className="text-slate-500 text-sm">Hazırlanıyor...</p>
+      <div className="min-h-[70vh] flex flex-col items-center justify-center text-slate-400">
+        <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mb-4" />
+        <span>Özgeçmiş Hazırlanıyor...</span>
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      {/* ── Top bar ── */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 pb-5 border-b border-white/6">
-        <div className="flex items-center gap-3">
+      {/* Top Navigation */}
+      <div className="flex items-center justify-between border-b border-slate-900 pb-4">
+        <div className="flex items-center space-x-3">
           <Link href={`/cv/${id}/edit`}>
-            <button className="w-9 h-9 rounded-xl border border-white/8 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+            <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white hover:bg-slate-900 border border-slate-800">
               <ArrowLeft className="w-4 h-4" />
-            </button>
+            </Button>
           </Link>
-          <h1 className="text-xl font-black text-white">{cv.title}</h1>
-          <span className="text-xs font-semibold px-2.5 py-1 rounded-full border"
-            style={{ background: 'rgba(99,102,241,0.08)', borderColor: 'rgba(99,102,241,0.2)', color: '#a5b4fc' }}>
-            Önizleme & Paylaşım
-          </span>
+          <h2 className="text-xl font-bold text-white">{cv.title} — Önizleme & Paylaşım</h2>
         </div>
 
         <Link href={`/api/cv/generate-pdf?cvId=${id}`} target="_blank">
-          <button className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:scale-[1.02]"
-            style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)', boxShadow: '0 4px 16px rgba(99,102,241,0.25)' }}>
-            <Download className="w-4 h-4" /> PDF İndir
-          </button>
+          <Button className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold gap-2 shadow-lg shadow-indigo-600/20">
+            <Download className="w-4 h-4" />
+            PDF İndir
+          </Button>
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* ── Left — Actions ── */}
-        <div className="lg:col-span-5 space-y-5">
-
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Side: Actions, Link generation & Coach */}
+        <div className="lg:col-span-5 space-y-6">
           {/* Share Link Card */}
-          <div className="rounded-2xl border border-white/8 overflow-hidden" style={{ background: 'linear-gradient(180deg,rgba(13,18,32,0.9),rgba(9,13,26,0.9))' }}>
-            <div className="px-6 py-4 border-b border-white/6 flex items-center gap-2">
-              <Link2 className="w-4 h-4 text-indigo-400" />
-              <h3 className="text-sm font-bold text-white">Paylaşım Linki</h3>
-            </div>
-            <div className="p-6 space-y-4">
+          <Card className="border-slate-800 bg-slate-900/60 backdrop-blur-md">
+            <CardHeader>
+              <CardTitle className="text-base font-bold text-white flex items-center gap-1.5">
+                <Share2 className="w-4.5 h-4.5 text-indigo-400" />
+                Paylaşım Linki Oluştur
+              </CardTitle>
+              <CardDescription className="text-slate-400 text-xs">
+                Özgeçmişinizi mülakat uzmanlarına ve işe alım yöneticilerine göndermek için benzersiz bir web bağlantısı üretin.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
               {shareLink ? (
                 <div className="space-y-3">
                   <div className="flex gap-2">
-                    <input readOnly value={shareLink}
-                      className="flex-1 px-3 py-2.5 rounded-xl border border-white/8 bg-white/4 text-indigo-300 font-mono text-xs outline-none" />
-                    <button onClick={handleCopy}
-                      className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all"
-                      style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)' }}>
-                      {copied ? <Check className="w-4 h-4 text-white" /> : <Copy className="w-4 h-4 text-white" />}
-                    </button>
+                    <Input
+                      readOnly
+                      value={shareLink}
+                      className="bg-slate-950/50 border-slate-800 text-indigo-300 font-mono text-xs select-all focus-visible:ring-0"
+                    />
+                    <Button onClick={handleCopy} size="icon" className="bg-indigo-600 hover:bg-indigo-700 shrink-0 h-9 w-9">
+                      {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    </Button>
                   </div>
+
                   {linkExpires ? (
-                    <div className="flex items-start gap-2.5 p-3.5 rounded-xl border"
-                      style={{ background: 'rgba(245,158,11,0.06)', borderColor: 'rgba(245,158,11,0.2)' }}>
-                      <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                      <div className="text-xs">
-                        <p className="text-white font-semibold">Geçici Link — 7 gün</p>
-                        <p className="text-slate-400 mt-0.5">
-                          Son geçerlilik: <strong className="text-amber-300">{new Date(linkExpires).toLocaleDateString('tr-TR')}</strong>
+                    <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300 flex items-start gap-2">
+                      <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-semibold text-white">Geçici Link Aktif</p>
+                        <p className="mt-0.5 text-slate-400">
+                          Bu link <strong>7 gün sonra ({new Date(linkExpires).toLocaleDateString('tr-TR')})</strong> pasif hale gelerek ziyaretçileri üyelik yükseltme sayfasına yönlendirecektir. Linki kalıcı yapmak için Pro plana geçin.
                         </p>
-                        <Link href="/upgrade" className="text-amber-400 underline underline-offset-2 mt-1 inline-block">Kalıcı yap →</Link>
                       </div>
                     </div>
                   ) : (
-                    <div className="flex items-center gap-2 p-3 rounded-xl border"
-                      style={{ background: 'rgba(16,185,129,0.06)', borderColor: 'rgba(16,185,129,0.2)' }}>
-                      <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                      <span className="text-xs text-emerald-300 font-semibold">Kalıcı link — süresi asla dolmaz (Pro)</span>
+                    <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-300">
+                      ✨ Bu link **kalıcıdır** ve süresi asla dolmaz (PRO Plan).
                     </div>
                   )}
                 </div>
               ) : (
-                <div className="space-y-3">
-                  <div>
-                    <label className="text-xs font-medium text-slate-300 mb-1.5 block">Hedef Şirket (isteğe bağlı)</label>
-                    <input value={targetCompany} onChange={e => setTargetCompany(e.target.value)}
-                      placeholder="Google → /cv/adiniz-google"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-white/8 bg-white/4 text-white placeholder-slate-600 text-sm outline-none focus:border-indigo-500/50 transition-all" />
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-xs text-slate-300 font-medium">Hedef Şirket (Özel slug için isteğe bağlı)</label>
+                    <Input
+                      placeholder="Örn: Teknoloji Şirketi"
+                      value={targetCompany}
+                      onChange={(e) => setTargetCompany(e.target.value)}
+                      className="bg-slate-950/50 border-slate-800 text-white text-xs"
+                    />
                   </div>
-                  <button onClick={handleGenerateLink} disabled={generatingLink}
-                    className="w-full py-3 rounded-xl font-bold text-sm text-white disabled:opacity-50 transition-all hover:scale-[1.01]"
-                    style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)', boxShadow: '0 4px 16px rgba(99,102,241,0.25)' }}>
-                    {generatingLink ? 'Oluşturuluyor...' : 'Link Oluştur'}
-                  </button>
+                  <Button
+                    onClick={handleGenerateLink}
+                    disabled={generatingLink}
+                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 font-semibold text-xs py-2"
+                  >
+                    {generatingLink ? 'Link Oluşturuluyor...' : 'Bağlantı Linkini Oluştur'}
+                  </Button>
                 </div>
               )}
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
-          {/* ── AI Tools Tabs ── */}
-          <div className="rounded-2xl border border-white/8 overflow-hidden" style={{ background: 'linear-gradient(180deg,rgba(13,18,32,0.9),rgba(9,13,26,0.9))' }}>
-            {/* Tab headers */}
-            <div className="flex border-b border-white/6">
-              {([
-                { key: 'coach' as const, label: 'AI Koç', icon: <Brain className="w-3.5 h-3.5" /> },
-                { key: 'cover' as const, label: 'Ön Yazı', icon: <FileText className="w-3.5 h-3.5" /> },
-                { key: 'job' as const, label: 'İş Eşleştir', icon: <Target className="w-3.5 h-3.5" /> },
-              ]).map(tab => (
-                <button key={tab.key} onClick={() => setActiveTab(tab.key)}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-3.5 text-xs font-semibold transition-all border-b-2 ${
-                    activeTab === tab.key
-                      ? 'text-indigo-300 border-indigo-500'
-                      : 'text-slate-500 border-transparent hover:text-slate-300'
-                  }`}>
-                  {tab.icon} {tab.label}
-                </button>
-              ))}
-            </div>
+          {/* AI Career Tools Tabs Card */}
+          <Tabs defaultValue="coach" className="w-full">
+            <TabsList className="grid w-full grid-cols-3 bg-slate-950 border border-slate-900 rounded-xl p-1 mb-4">
+              <TabsTrigger value="coach" className="text-xs font-semibold py-1.5 rounded-lg data-[state=active]:bg-slate-900 data-[state=active]:text-white">Kariyer Koçu</TabsTrigger>
+              <TabsTrigger value="cover-letter" className="text-xs font-semibold py-1.5 rounded-lg data-[state=active]:bg-slate-900 data-[state=active]:text-white">Ön Yazı</TabsTrigger>
+              <TabsTrigger value="job-match" className="text-xs font-semibold py-1.5 rounded-lg data-[state=active]:bg-slate-900 data-[state=active]:text-white">İş Eşleştirme</TabsTrigger>
+            </TabsList>
 
-            {/* Tab content */}
-            <div>
-              {activeTab === 'coach' && (
-                isPro ? (
-                  <div className="flex flex-col" style={{ height: '380px' }}>
-                    <div className="flex-1 overflow-y-auto p-4 space-y-3 text-xs">
-                      {messages.map((msg, i) => (
-                        <div key={i} className={`p-3 rounded-xl max-w-[85%] leading-relaxed whitespace-pre-line ${
-                          msg.sender === 'user'
-                            ? 'ml-auto text-white' : 'text-slate-300 border border-white/6'
-                        }`} style={msg.sender === 'user'
-                          ? { background: 'linear-gradient(135deg,#6366f1,#8b5cf6)' }
-                          : { background: 'rgba(255,255,255,0.02)' }}>
-                          {msg.text}
-                        </div>
-                      ))}
-                      {sendingMessage && (
-                        <div className="p-3 rounded-xl border border-white/6 w-fit flex gap-1.5" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                          {[0, 150, 300].map(d => (
-                            <div key={d} className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: `${d}ms` }} />
-                          ))}
-                        </div>
-                      )}
+            {/* AI Career Coach Tab */}
+            <TabsContent value="coach">
+              <Card className="border-slate-800 bg-slate-900/60 backdrop-blur-md">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-base font-bold text-white flex items-center justify-between">
+                    <span className="flex items-center gap-1.5">
+                      <MessageSquare className="w-4.5 h-4.5 text-purple-400" />
+                      AI Kariyer Koçu
+                    </span>
+                    {!isPro && (
+                      <span className="text-[9px] bg-amber-500/20 text-amber-300 border border-amber-500/35 px-2 py-0.5 rounded-full uppercase font-black shrink-0">
+                        Pro Özellik 🔒
+                      </span>
+                    )}
+                  </CardTitle>
+                  <CardDescription className="text-slate-400 text-xs">
+                    Özgeçmişinize özel kariyer hedefleri belirleyin, mülakat hazırlığı yapın ve koçunuzdan tavsiyeler alın.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-0 border-t border-slate-900">
+                  {isPro ? (
+                    <div className="flex flex-col h-[350px]">
+                      {/* Chat logs */}
+                      <div className="flex-1 overflow-y-auto p-4 space-y-3 text-xs">
+                        {messages.map((msg, idx) => (
+                          <div
+                            key={idx}
+                            className={`p-2.5 rounded-xl max-w-[85%] ${msg.sender === 'user'
+                                ? 'bg-indigo-600 text-white ml-auto'
+                                : 'bg-slate-950/80 border border-slate-850 text-slate-300'
+                              }`}
+                          >
+                            <p className="leading-relaxed whitespace-pre-line">{msg.text}</p>
+                          </div>
+                        ))}
+                        {sendingMessage && (
+                          <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-850 text-slate-400 w-fit flex items-center space-x-1.5">
+                            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                          </div>
+                        )}
+                      </div>
+                      {/* Input field */}
+                      <form onSubmit={handleSendMessage} className="p-3 border-t border-slate-900 flex gap-2">
+                        <Input
+                          value={inputMessage}
+                          onChange={(e) => setInputMessage(e.target.value)}
+                          placeholder="Sorunuzu buraya yazın..."
+                          disabled={sendingMessage}
+                          className="bg-slate-950/50 border-slate-800 text-white text-xs h-8 flex-1 focus-visible:ring-indigo-500"
+                        />
+                        <Button type="submit" disabled={sendingMessage || !inputMessage.trim()} size="icon" className="h-8 w-8 bg-indigo-600 hover:bg-indigo-700 text-white">
+                          <Send className="w-3.5 h-3.5" />
+                        </Button>
+                      </form>
                     </div>
-                    <form onSubmit={handleSendMessage} className="p-3 border-t border-white/6 flex gap-2">
-                      <input value={inputMessage} onChange={e => setInputMessage(e.target.value)} disabled={sendingMessage}
-                        placeholder="Sorunuzu yazın..."
-                        className="flex-1 px-3 py-2 rounded-xl border border-white/8 bg-white/4 text-white placeholder-slate-600 text-xs outline-none focus:border-indigo-500/50 transition-all" />
-                      <button type="submit" disabled={sendingMessage || !inputMessage.trim()}
-                        className="w-9 h-9 rounded-xl flex items-center justify-center disabled:opacity-40"
-                        style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)' }}>
-                        <Send className="w-3.5 h-3.5 text-white" />
-                      </button>
-                    </form>
-                  </div>
-                ) : (
-                  <ProLockedState title="AI Kariyer Koçu" desc="CV'nize özel mülakat hazırlığı ve kariyer tavsiyeleri için Pro'ya geçin." />
-                )
-              )}
+                  ) : (
+                    <div className="p-6 text-center space-y-4">
+                      <div className="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/25 flex items-center justify-center text-amber-300 mx-auto">
+                        <Sparkles className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h5 className="text-sm font-semibold text-white">Kariyer Koçunu Etkinleştirin</h5>
+                        <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
+                          Özgeçmişinizden yola çıkarak size özel mülakat tavsiyeleri veren yapay zeka koçuyla görüşmek için Pro'ya yükseltin.
+                        </p>
+                      </div>
+                      <Link href="/upgrade">
+                        <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs mt-2">
+                          Aylık ₺199'a Abone Ol
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
 
-              {activeTab === 'cover' && (
-                isPro ? <div className="p-5"><CoverLetterGenerator cvData={cv.data} isPro={isPro} /></div>
-                : <ProLockedState title="AI Ön Yazı Oluşturucu" desc="Şirkete özel kapak mektubu oluşturmak için Pro'ya geçin." />
+            {/* AI Cover Letter Tab */}
+            <TabsContent value="cover-letter">
+              {isPro ? (
+                <CoverLetterGenerator cvData={cv.data} isPro={isPro} />
+              ) : (
+                <Card className="border-slate-800 bg-slate-900/60 backdrop-blur-md">
+                  <CardContent className="p-6 text-center space-y-4">
+                    <div className="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/25 flex items-center justify-center text-amber-300 mx-auto">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h5 className="text-sm font-semibold text-white">AI Ön Yazı Oluşturucuyu Etkinleştirin</h5>
+                      <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
+                        Şirketlere ve pozisyonlara özel ATS uyumlu kapak yazıları (cover letter) üretmek için Pro'ya yükseltin.
+                      </p>
+                    </div>
+                    <Link href="/upgrade">
+                      <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs mt-2">
+                        Aylık ₺199'a Abone Ol
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
               )}
+            </TabsContent>
 
-              {activeTab === 'job' && (
-                isPro ? <div className="p-5"><JobMatcher cvData={cv.data} isPro={isPro} /></div>
-                : <ProLockedState title="İş İlanı Eşleştirme" desc="CV-ilan uyumluluk analizi için Pro'ya geçin." />
+            {/* AI Job Matching Tab */}
+            <TabsContent value="job-match">
+              {isPro ? (
+                <JobMatcher cvData={cv.data} isPro={isPro} />
+              ) : (
+                <Card className="border-slate-800 bg-slate-900/60 backdrop-blur-md">
+                  <CardContent className="p-6 text-center space-y-4">
+                    <div className="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/25 flex items-center justify-center text-amber-300 mx-auto">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h5 className="text-sm font-semibold text-white">İş İlanı Eşleştirmeyi Etkinleştirin</h5>
+                      <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
+                        İlan detaylarını yapıştırarak CV'nizin uyumluluk yüzdesini, eksik yeteneklerinizi ve iyileştirme tavsiyelerini raporlamak için Pro'ya yükseltin.
+                      </p>
+                    </div>
+                    <Link href="/upgrade">
+                      <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs mt-2">
+                        Aylık ₺199'a Abone Ol
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
               )}
-            </div>
-          </div>
+            </TabsContent>
+          </Tabs>
         </div>
 
-        {/* ── Right — Preview ── */}
-        <div className="lg:col-span-7 sticky top-24">
-          <div className="rounded-2xl border border-white/6 overflow-hidden" style={{ background: 'rgba(13,18,32,0.6)' }}>
-            <div className="px-5 py-3 border-b border-white/6 flex items-center justify-between" style={{ background: 'rgba(255,255,255,0.02)' }}>
-              <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Önizleme (A4)</span>
-              <div className="flex gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#ff5f57' }} />
-                <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#febc2e' }} />
-                <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#28c840' }} />
-              </div>
-            </div>
-            <div className="p-6 overflow-y-auto max-h-[78vh]">
-              <CVPreview data={cv.data} template={cv.template} />
-            </div>
-          </div>
+        {/* Right Side: Render CV preview */}
+        <div className="lg:col-span-7 bg-slate-950/20 p-4 sm:p-6 rounded-2xl border border-slate-900 overflow-y-auto max-h-[85vh] sticky top-24">
+          <p className="text-[10px] text-slate-500 uppercase tracking-widest font-black mb-4">Önizleme Tuvali (A4 Düzeni)</p>
+          <CVPreview data={cv.data} template={cv.template} />
         </div>
       </div>
-    </div>
-  );
-}
-
-/* ── Pro Locked State component ── */
-function ProLockedState({ title, desc }: { title: string; desc: string }) {
-  return (
-    <div className="p-8 text-center space-y-4">
-      <div className="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center"
-        style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)' }}>
-        <Sparkles className="w-5 h-5 text-amber-400" />
-      </div>
-      <div>
-        <h4 className="text-sm font-bold text-white">{title}</h4>
-        <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">{desc}</p>
-      </div>
-      <Link href="/upgrade">
-        <button className="px-5 py-2.5 rounded-xl text-xs font-bold text-slate-950 mt-2 transition-all hover:scale-[1.02]"
-          style={{ background: 'linear-gradient(135deg,#f59e0b,#f97316)', boxShadow: '0 4px 16px rgba(245,158,11,0.3)' }}>
-          Pro'ya Yükselt — ₺199/ay
-        </button>
-      </Link>
     </div>
   );
 }
