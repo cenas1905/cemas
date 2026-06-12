@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { createClientComponentClient } from '@/lib/supabase-client';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import {
@@ -46,7 +48,56 @@ const faqs = [
 ];
 
 export default function UpgradePage() {
+  const router = useRouter();
+  const supabase = createClientComponentClient();
+  const [userId, setUserId] = useState<string | null>(null);
+  const [loading, setLoading] = useState<string | null>(null);
   const [billing, setBilling] = useState<'monthly' | 'annual'>('annual');
+
+  useEffect(() => {
+    async function loadUser() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setUserId(user.id);
+      }
+    }
+    loadUser();
+  }, [supabase]);
+
+  const handleUpgrade = async (planType: 'monthly' | 'annual') => {
+    if (!userId) {
+      router.push('/register');
+      return;
+    }
+
+    setLoading(planType);
+    try {
+      const response = await fetch('/api/stripe/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          planType,
+          userId,
+          returnUrl: window.location.origin + '/upgrade'
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Abonelik başlatılamadı.');
+      }
+
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('Ödeme sayfasına yönlendirilemedi.');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Ödeme oturumu başlatılamadı, lütfen tekrar deneyin.');
+    } finally {
+      setLoading(null);
+    }
+  };
 
   const monthlyPrice = 199;
   const annualPrice = 1490;
@@ -138,10 +189,11 @@ export default function UpgradePage() {
                 ))}
               </ul>
               <Button
-                onClick={() => { }}
+                onClick={() => handleUpgrade('monthly')}
+                disabled={loading !== null}
                 className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white font-bold h-12 shadow-xl shadow-indigo-500/20 transition-all hover:scale-[1.02] text-base"
               >
-                Aylık Pro'ya Başla <ChevronRight className="w-4 h-4 ml-1" />
+                {loading === 'monthly' ? 'Başlatılıyor...' : <>Aylık Pro'ya Başla <ChevronRight className="w-4 h-4 ml-1" /></>}
               </Button>
             </div>
           </motion.div>
@@ -180,11 +232,12 @@ export default function UpgradePage() {
                   <li className="text-xs text-slate-500 italic ml-6.5">+ aylık plandaki tüm özellikler</li>
                 </ul>
                 <Button
-                  onClick={() => { }}
+                  onClick={() => handleUpgrade('annual')}
+                  disabled={loading !== null}
                   className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black h-12 shadow-xl shadow-amber-500/20 transition-all hover:scale-[1.02] text-base"
                 >
                   <Zap className="w-4 h-4 mr-2" />
-                  Yıllık Pro'ya Başla
+                  {loading === 'annual' ? 'Başlatılıyor...' : 'Yıllık Pro\'ya Başla'}
                 </Button>
               </div>
             </div>
