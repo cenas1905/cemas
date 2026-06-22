@@ -32,10 +32,10 @@ export async function POST(req: Request) {
     const randomStr = Math.random().toString(36).substring(2, 6);
     const slug = `${cleanUserName}${companySlug}-${randomStr}`;
     
-    // 4. Calculate expiration timestamp: Free = 7 days, Pro = Infinite
+    // 4. Calculate expiration timestamp: Free = 14 days, Pro = Infinite
     const linkExpiresAt = isPro
       ? null
-      : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
+      : new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString();
     
     // 5. Save sharing configuration in Supabase
     const { error } = await supabase

@@ -14,12 +14,12 @@ import CoverLetterGenerator from '@/components/cv-builder/CoverLetterGenerator';
 import JobMatcher from '@/components/cv-builder/JobMatcher';
 
 interface PreviewCVPageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export default function PreviewCVPage({ params }: PreviewCVPageProps) {
   const router = useRouter();
-  const { id } = use(params);
+  const { slug } = use(params);
   const supabase = createClientComponentClient();
 
   const [cv, setCv] = useState<any>(null);
@@ -58,7 +58,7 @@ export default function PreviewCVPage({ params }: PreviewCVPageProps) {
       const { data, error } = await supabase
         .from('cvs')
         .select('*')
-        .eq('id', id)
+        .eq('id', slug)
         .eq('user_id', user.id)
         .single();
 
@@ -76,7 +76,7 @@ export default function PreviewCVPage({ params }: PreviewCVPageProps) {
       setLoading(false);
     }
     loadData();
-  }, [id, supabase, router]);
+  }, [slug, supabase, router]);
 
   const isPro = profile?.plan === 'pro' || profile?.plan === 'annual';
 
@@ -90,7 +90,7 @@ export default function PreviewCVPage({ params }: PreviewCVPageProps) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          cvId: id,
+          cvId: slug,
           targetCompany: targetCompany.trim() || undefined
         })
       });
@@ -180,7 +180,7 @@ export default function PreviewCVPage({ params }: PreviewCVPageProps) {
       {/* Top Navigation */}
       <div className="flex items-center justify-between border-b border-slate-900 pb-4">
         <div className="flex items-center space-x-3">
-          <Link href={`/cv/${id}/edit`}>
+          <Link href={`/dashboard/cv/${slug}/edit`}>
             <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white hover:bg-slate-900 border border-slate-800">
               <ArrowLeft className="w-4 h-4" />
             </Button>
@@ -188,12 +188,12 @@ export default function PreviewCVPage({ params }: PreviewCVPageProps) {
           <h2 className="text-xl font-bold text-white">{cv.title} — Önizleme & Paylaşım</h2>
         </div>
 
-        <Link href={`/api/cv/generate-pdf?cvId=${id}`} target="_blank">
+        <a href={cv.pdf_url || `/api/cv/generate-pdf?cvId=${slug}`} target="_blank" rel="noopener noreferrer">
           <Button className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold gap-2 shadow-lg shadow-indigo-600/20">
             <Download className="w-4 h-4" />
             PDF İndir
           </Button>
-        </Link>
+        </a>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -230,7 +230,7 @@ export default function PreviewCVPage({ params }: PreviewCVPageProps) {
                       <div>
                         <p className="font-semibold text-white">Geçici Link Aktif</p>
                         <p className="mt-0.5 text-slate-400">
-                          Bu link <strong>7 gün sonra ({new Date(linkExpires).toLocaleDateString('tr-TR')})</strong> pasif hale gelerek ziyaretçileri üyelik yükseltme sayfasına yönlendirecektir. Linki kalıcı yapmak için Pro plana geçin.
+                          Bu link <strong>14 gün sonra ({new Date(linkExpires).toLocaleDateString('tr-TR')})</strong> pasif hale gelerek ziyaretçileri üyelik yükseltme sayfasına yönlendirecektir. Linki kalıcı yapmak için Pro plana geçin.
                         </p>
                       </div>
                     </div>
@@ -352,28 +352,7 @@ export default function PreviewCVPage({ params }: PreviewCVPageProps) {
 
             {/* AI Cover Letter Tab */}
             <TabsContent value="cover-letter">
-              {isPro ? (
-                <CoverLetterGenerator cvData={cv.data} isPro={isPro} />
-              ) : (
-                <Card className="border-slate-800 bg-slate-900/60 backdrop-blur-md">
-                  <CardContent className="p-6 text-center space-y-4">
-                    <div className="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/25 flex items-center justify-center text-amber-300 mx-auto">
-                      <Sparkles className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h5 className="text-sm font-semibold text-white">AI Ön Yazı Oluşturucuyu Etkinleştirin</h5>
-                      <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
-                        Şirketlere ve pozisyonlara özel ATS uyumlu kapak yazıları (cover letter) üretmek için Pro'ya yükseltin.
-                      </p>
-                    </div>
-                    <Link href="/upgrade">
-                      <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs mt-2">
-                        Aylık ₺199'a Abone Ol
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              )}
+              <CoverLetterGenerator cvId={cv.id} cvSlug={cv.slug || cv.id} cvData={cv.data} isPro={isPro} />
             </TabsContent>
 
             {/* AI Job Matching Tab */}

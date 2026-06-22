@@ -17,6 +17,15 @@ export async function POST(req: Request) {
     
     const baseUrl = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
     
+    const isMock = !process.env.STRIPE_SECRET_KEY || 
+                   process.env.STRIPE_SECRET_KEY.includes('your_secret_key') || 
+                   targetPriceId.includes('price_');
+
+    if (isMock) {
+      const upgradeUrl = `${baseUrl}/mock-checkout?userId=${userId}&planType=${planType || (targetPriceId === process.env.STRIPE_PRO_ANNUAL_PRICE_ID ? 'annual' : 'pro')}`;
+      return Response.json({ url: upgradeUrl });
+    }
+
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',

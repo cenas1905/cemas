@@ -9,13 +9,11 @@ interface CVPreviewProps {
 }
 
 export default function CVPreview({ data, template }: CVPreviewProps) {
-  const {
-    personal = {},
-    experience = [],
-    education = [],
-    skills = [],
-    certifications = [],
-  } = data;
+  const personal = data?.personal || {};
+  const experience = Array.isArray(data?.experience) ? data.experience : [];
+  const education = Array.isArray(data?.education) ? data.education : [];
+  const skills = Array.isArray(data?.skills) ? data.skills : [];
+  const certifications = Array.isArray(data?.certifications) ? data.certifications : [];
 
   // Render different styling wrapper based on templates
   const getTemplateStyles = () => {
@@ -32,29 +30,17 @@ export default function CVPreview({ data, template }: CVPreviewProps) {
           date: 'text-slate-500 font-medium text-[10px]',
           badge: 'px-2 py-0.5 border border-slate-300 rounded text-[10px] text-slate-700 font-mono bg-slate-50'
         };
-      case 'professional':
+      case 'creative':
         return {
-          container: 'font-sans text-slate-800 p-10 bg-white border border-slate-200 shadow-xl max-w-[21cm] min-h-[29.7cm] mx-auto text-sm leading-relaxed',
-          header: 'border-l-4 border-emerald-600 pl-4 mb-6',
-          name: 'text-2xl font-extrabold text-slate-900 tracking-tight',
-          headline: 'text-sm text-emerald-600 font-semibold mt-1',
-          contactInfo: 'flex flex-wrap gap-x-4 gap-y-1 mt-2 text-slate-500 text-xs',
-          sectionTitle: 'font-extrabold text-slate-900 border-b-2 border-emerald-600/20 pb-1 mb-3 text-xs uppercase tracking-wider',
-          company: 'font-semibold text-emerald-700',
-          date: 'text-slate-500 font-medium text-xs',
-          badge: 'px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 text-xs font-semibold border border-emerald-100'
-        };
-      case 'warm':
-        return {
-          container: 'font-serif text-slate-800 p-10 bg-white border border-slate-200 shadow-xl max-w-[21cm] min-h-[29.7cm] mx-auto text-sm leading-relaxed',
-          header: 'text-center border-b border-amber-300 pb-6 mb-6',
-          name: 'text-3xl font-normal text-slate-900 tracking-wide serif',
-          headline: 'text-sm text-amber-700 italic mt-1',
-          contactInfo: 'flex justify-center flex-wrap gap-x-4 gap-y-1 mt-3 text-slate-500 text-xs',
-          sectionTitle: 'font-normal text-amber-800 border-b border-amber-200 pb-1 mb-3 text-sm tracking-wider uppercase',
-          company: 'font-medium text-slate-900 italic',
-          date: 'text-amber-700 italic text-xs',
-          badge: 'px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 text-xs font-medium border border-amber-200'
+          container: 'font-sans text-slate-800 p-10 bg-fuchsia-50/30 border border-fuchsia-200 shadow-xl max-w-[21cm] min-h-[29.7cm] mx-auto text-sm leading-relaxed',
+          header: 'bg-fuchsia-100 p-6 rounded-xl mb-6',
+          name: 'text-3xl font-extrabold text-fuchsia-600 tracking-tight',
+          headline: 'text-sm text-purple-700 font-bold mt-1',
+          contactInfo: 'flex flex-wrap gap-x-4 gap-y-1 mt-3 text-purple-600 text-xs font-semibold',
+          sectionTitle: 'font-extrabold text-fuchsia-600 border-l-4 border-fuchsia-500 pl-2 mb-3 text-xs uppercase tracking-wider',
+          company: 'font-bold text-purple-700',
+          date: 'text-purple-400 font-bold text-xs',
+          badge: 'px-3 py-1 rounded-full bg-fuchsia-100 text-fuchsia-700 text-xs font-extrabold border border-fuchsia-200'
         };
       case 'modern':
       default:
@@ -74,30 +60,90 @@ export default function CVPreview({ data, template }: CVPreviewProps) {
 
   const styles = getTemplateStyles();
 
-  return (
-    <div className={styles.container}>
-      {/* Header */}
+  const renderHeader = () => {
+    if (template === 'creative') {
+      return (
+        <div className={styles.header}>
+          <div className="flex justify-between items-center gap-4">
+            <div className="flex-1">
+              <h1 className={styles.name}>{personal.fullName || 'Ad Soyad'}</h1>
+              {personal.headline && <p className={styles.headline}>{personal.headline}</p>}
+              <div className={styles.contactInfo}>
+                {personal.email && (
+                  <span className="flex items-center gap-1">
+                    <span>✉</span> {personal.email}
+                  </span>
+                )}
+                {personal.location && (
+                  <span className="flex items-center gap-1">
+                    <span>📍</span> {personal.location}
+                  </span>
+                )}
+                {personal.linkedin && (
+                  <span className="flex items-center gap-1">
+                    <span>🔗</span> {personal.linkedin}
+                  </span>
+                )}
+              </div>
+            </div>
+            {personal.photo && (
+              <div className="flex justify-center mb-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={personal.photo} alt="Profile" className="w-24 h-24 rounded-2xl object-cover border-2 border-fuchsia-400 shadow-sm" />
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // For modern, minimal:
+    let photoContainerClass = '';
+    if (template === 'minimal') {
+      photoContainerClass = 'w-20 h-20 rounded-none border border-slate-900 overflow-hidden shrink-0';
+    } else { // modern
+      photoContainerClass = 'w-20 h-20 rounded-xl border-2 border-indigo-500/20 overflow-hidden shrink-0';
+    }
+
+    return (
       <div className={styles.header}>
-        <h1 className={styles.name}>{personal.fullName || 'Ad Soyad'}</h1>
-        {personal.headline && <p className={styles.headline}>{personal.headline}</p>}
-        <div className={styles.contactInfo}>
-          {personal.email && (
-            <span className="flex items-center gap-1">
-              <span>✉</span> {personal.email}
-            </span>
-          )}
-          {personal.location && (
-            <span className="flex items-center gap-1">
-              <span>📍</span> {personal.location}
-            </span>
-          )}
-          {personal.linkedin && (
-            <span className="flex items-center gap-1">
-              <span>🔗</span> {personal.linkedin}
-            </span>
+        <div className="flex justify-between items-start gap-4">
+          <div className="flex-1">
+            <h1 className={styles.name}>{personal.fullName || 'Ad Soyad'}</h1>
+            {personal.headline && <p className={styles.headline}>{personal.headline}</p>}
+            <div className={styles.contactInfo}>
+              {personal.email && (
+                <span className="flex items-center gap-1">
+                  <span>✉</span> {personal.email}
+                </span>
+              )}
+              {personal.location && (
+                <span className="flex items-center gap-1">
+                  <span>📍</span> {personal.location}
+                </span>
+              )}
+              {personal.linkedin && (
+                <span className="flex items-center gap-1">
+                  <span>🔗</span> {personal.linkedin}
+                </span>
+              )}
+            </div>
+          </div>
+          {personal.photo && (
+            <div className={photoContainerClass}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={personal.photo} alt="Profile" className="w-full h-full object-cover" />
+            </div>
           )}
         </div>
       </div>
+    );
+  };
+
+  return (
+    <div className={styles.container}>
+      {/* Header */}
+      {renderHeader()}
 
       {/* Summary */}
       {personal.summary && (

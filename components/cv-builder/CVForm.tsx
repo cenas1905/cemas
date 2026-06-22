@@ -17,7 +17,7 @@ interface CVFormProps {
 
 export default function CVForm({ cvData, setCvData, onOptimize, optimizing }: CVFormProps) {
   const {
-    personal = { fullName: '', headline: '', location: '', email: '', linkedin: '', summary: '' },
+    personal = { fullName: '', headline: '', location: '', email: '', linkedin: '', summary: '', photo: '' },
     experience = [],
     education = [],
     skills = [],
@@ -154,6 +154,55 @@ export default function CVForm({ cvData, setCvData, onOptimize, optimizing }: CV
 
         {/* PERSONAL DETAILS */}
         <TabsContent value="personal" className="space-y-4 pt-4">
+          <div className="flex flex-col sm:flex-row gap-6 items-center border border-slate-800/40 p-4 rounded-xl bg-slate-950/20 mb-4">
+            <div className="relative group w-24 h-24 rounded-full border-2 border-dashed border-slate-700 flex items-center justify-center overflow-hidden shrink-0 bg-slate-950">
+              {personal.photo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={personal.photo}
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="text-center text-slate-500 p-2">
+                  <span className="text-[10px]">Görsel Yok</span>
+                </div>
+              )}
+            </div>
+            <div className="space-y-2 text-left w-full">
+              <Label htmlFor="photo-upload" className="text-slate-200 text-xs font-semibold">Profil Fotoğrafı Yükle</Label>
+              <Input
+                id="photo-upload"
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      handlePersonalChange('photo', reader.result as string);
+                    };
+                    reader.readAsDataURL(file);
+                  }
+                }}
+                className="bg-slate-950/40 border-slate-800 text-white focus-visible:ring-indigo-500 text-xs file:bg-slate-900 file:text-white file:border-0 file:rounded-md file:px-2 file:py-1 file:mr-2 hover:file:bg-slate-800 cursor-pointer"
+              />
+              <p className="text-[9px] text-slate-500">
+                Önerilen: Kare boyutlu (1:1), maksimum 2MB PNG veya JPG görseli. Fotoğrafınız PDF çıktısında da görünecektir.
+              </p>
+              {personal.photo && (
+                <Button
+                  type="button"
+                  variant="link"
+                  onClick={() => handlePersonalChange('photo', '')}
+                  className="text-red-400 text-[10px] p-0 h-auto hover:text-red-300"
+                >
+                  Fotoğrafı Kaldır
+                </Button>
+              )}
+            </div>
+          </div>
+
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="fullName" className="text-slate-200 text-xs">Ad Soyad</Label>

@@ -6,11 +6,11 @@ import CVPreview from '@/components/cv-builder/CVPreview';
 import { CVTemplate } from '@/components/cv-builder/TemplateSelector';
 
 interface PublicCVPageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export default async function PublicCVPage({ params }: PublicCVPageProps) {
-  const { id: slug } = await params;
+  const { slug } = await params;
   const supabase = await createClient();
 
   // 1. Fetch CV details matching the slug
@@ -22,7 +22,7 @@ export default async function PublicCVPage({ params }: PublicCVPageProps) {
     .single();
 
   if (!cv) {
-    redirect('/login'); // Fallback redirect if not found
+    redirect('/404');
   }
 
   // 2. Check if the link has expired (Free Plan limit)

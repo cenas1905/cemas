@@ -6,29 +6,31 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Copy, Download, FileText, Sparkles, Check } from 'lucide-react';
+import { Copy, Download, FileText, Sparkles, Check, Share2 } from 'lucide-react';
+import { createClientComponentClient } from '@/lib/supabase-client';
 
 interface CoverLetterGeneratorProps {
+  cvId: string;
+  cvSlug: string;
   cvData: any;
   isPro: boolean;
 }
 
-export default function CoverLetterGenerator({ cvData, isPro }: CoverLetterGeneratorProps) {
+export default function CoverLetterGenerator({ cvId, cvSlug, cvData, isPro }: CoverLetterGeneratorProps) {
   const [companyName, setCompanyName] = useState('');
   const [jobTitle, setJobTitle] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [loading, setLoading] = useState(false);
-  const [coverLetter, setCoverLetter] = useState<string | null>(null);
+  const [coverLetter, setCoverLetter] = useState<string | null>(cvData?.coverLetter || null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [copiedLink, setCopiedLink] = useState(false);
+
+  const supabase = createClientComponentClient();
+  const shareUrl = typeof window !== 'undefined' ? `${window.location.origin}/cv/${cvSlug}/cover-letter` : '';
 
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isPro) {
-      setError('Ön Yazı Oluşturucu özelliği sadece PRO üyeler içindir.');
-      return;
-    }
-
     setLoading(true);
     setError(null);
     setCoverLetter(null);
@@ -49,6 +51,20 @@ export default function CoverLetterGenerator({ cvData, isPro }: CoverLetterGener
 
       const result = await response.json();
       setCoverLetter(result.coverLetter);
+
+      // Auto-save generated cover letter details into cvData in Supabase
+      const updatedData = {
+        ...cvData,
+        coverLetter: result.coverLetter,
+        coverLetterCompany: companyName,
+        coverLetterJob: jobTitle
+      };
+
+      await supabase
+        .from('cvs')
+        .update({ data: updatedData })
+        .eq('id', cvId);
+
     } catch (err: any) {
       setError(err.message || 'Bir hata oluştu. Lütfen tekrar deneyin.');
     } finally {
@@ -61,6 +77,12 @@ export default function CoverLetterGenerator({ cvData, isPro }: CoverLetterGener
     navigator.clipboard.writeText(coverLetter);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(shareUrl);
+    setCopiedLink(true);
+    setTimeout(() => setCopiedLink(false), 2000);
   };
 
   const handleDownload = () => {
@@ -147,6 +169,34 @@ export default function CoverLetterGenerator({ cvData, isPro }: CoverLetterGener
       </Card>
 
       {coverLetter && (
+        <Card className="border-emerald-500/20 bg-emerald-500/5 backdrop-blur-md p-4 space-y-3 rounded-xl text-left">
+          <div className="flex items-center gap-2">
+            <Share2 className="w-4.5 h-4.5 text-emerald-400" />
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider">Ön Yazı Paylaşım Linki</h4>
+          </div>
+          <div className="flex gap-2">
+            <Input
+              readOnly
+              value={shareUrl}
+              className="bg-slate-950 border-slate-800 text-emerald-300 font-mono text-xs select-all"
+            />
+            <Button onClick={handleCopyLink} size="icon" className="bg-emerald-600 hover:bg-emerald-700 h-9 w-9 shrink-0">
+              {copiedLink ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+            </Button>
+          </div>
+          {!isPro ? (
+            <p className="text-[10px] text-slate-400">
+              Bu bağlantı <strong>7 gün boyunca</strong> aktif kalacaktır. Kalıcı hale getirmek için hesabınızı Pro'ya yükseltin.
+            </p>
+          ) : (
+            <p className="text-[10px] text-emerald-400/80">
+              ✨ Pro plan kapsamında bu bağlantı <strong>kalıcıdır</strong> ve süresi dolmaz.
+            </p>
+          )}
+        </Card>
+      )}
+
+      {coverLetter && (
         <Card className="border-slate-800 bg-slate-900/40 backdrop-blur-md">
           <CardHeader className="flex flex-row items-center justify-between pb-2 border-b border-slate-850">
             <CardTitle className="text-sm font-bold text-indigo-400 flex items-center gap-1.5">
@@ -162,7 +212,7 @@ export default function CoverLetterGenerator({ cvData, isPro }: CoverLetterGener
               </Button>
             </div>
           </CardHeader>
-          <CardContent className="pt-4">
+          <CardContent className="pt-4 text-left">
             <pre className="text-slate-200 font-sans text-sm whitespace-pre-wrap leading-relaxed">
               {coverLetter}
             </pre>

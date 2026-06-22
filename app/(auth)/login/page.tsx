@@ -14,6 +14,25 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // 1. Otomatik Giriş Kontrolü (Zaten oturum varsa doğrudan yönlendir)
+  React.useEffect(() => {
+    async function checkSession() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        window.location.href = '/dashboard';
+      }
+    }
+    checkSession();
+  }, [supabase]);
+
+  // 2. E-posta Hatırlama (localStorage'dan oku)
+  React.useEffect(() => {
+    const savedEmail = localStorage.getItem('remembered_email');
+    if (savedEmail) {
+      setEmail(savedEmail);
+    }
+  }, []);
+
   /* ── Email/password login ── */
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,6 +43,8 @@ export default function LoginPage() {
       setError('E-posta veya şifre hatalı. Lütfen tekrar deneyin.');
       setLoading(false);
     } else {
+      // Başarılı girişte e-postayı hatırla
+      localStorage.setItem('remembered_email', email);
       window.location.href = '/dashboard';
     }
   };

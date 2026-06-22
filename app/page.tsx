@@ -6,8 +6,9 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import {
   ArrowRight, Check, Star, Zap, Globe, Brain,
-  FileText, Link2, Shield, ChevronDown, Users,
-  TrendingUp, Award, Sparkles, Play
+  FileText, Shield, ChevronDown, Users,
+  TrendingUp, Award, Sparkles, Play, CheckCircle2,
+  ExternalLink, Download, FileSpreadsheet, Lock, ArrowUpRight
 } from 'lucide-react';
 
 /* ─── Pricing data ─── */
@@ -17,19 +18,18 @@ const plans = [
     price: '₺0',
     period: 'sonsuza kadar',
     desc: 'Başlamak için mükemmel',
-    color: 'border-white/10',
     features: [
       { text: 'Sınırsız CV taslağı', ok: true },
       { text: '1 modern şablon', ok: true },
-      { text: 'PDF indirme (7 gün)', ok: true },
+      { text: 'PDF indirme (14 gün)', ok: true },
       { text: 'Geçici paylaşım linki', ok: true },
-      { text: '1 AI içerik iyileştirme hakkı', ok: true },
+      { text: '1 LinkedIn import hakkı', ok: true },
       { text: 'Kalıcı paylaşım linki', ok: false },
       { text: 'AI kariyer koçu', ok: false },
       { text: 'Şirkete özel URL', ok: false },
     ],
     cta: 'Ücretsiz Başla',
-    ctaStyle: 'border border-white/10 bg-white/5 hover:bg-white/8 text-white',
+    ctaStyle: 'border border-slate-200 bg-white hover:bg-slate-50 text-slate-900',
     popular: false,
   },
   {
@@ -37,19 +37,18 @@ const plans = [
     price: '₺199',
     period: '/ay',
     desc: 'Ciddi iş arayanlar için',
-    color: 'border-indigo-500/40',
     features: [
       { text: 'Sınırsız CV taslağı', ok: true },
       { text: 'Tüm premium şablonlar', ok: true },
       { text: 'Sınırsız PDF indirme', ok: true },
       { text: 'Kalıcı paylaşım linki', ok: true },
-      { text: 'Sınırsız AI içerik iyileştirme', ok: true },
+      { text: 'Sınırsız LinkedIn import', ok: true },
       { text: 'AI kariyer koçu (sınırsız)', ok: true },
       { text: 'Şirkete özel URL', ok: true },
       { text: 'Görüntülenme analitiği', ok: true },
     ],
     cta: 'Pro\'ya Başla',
-    ctaStyle: 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-xl shadow-indigo-500/20',
+    ctaStyle: 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-xl shadow-indigo-600/10',
     popular: true,
   },
   {
@@ -57,7 +56,6 @@ const plans = [
     price: '₺1490',
     period: '/yıl',
     desc: '₺124/ay · 4 ay bedava 🎉',
-    color: 'border-amber-500/30',
     features: [
       { text: 'Pro\'daki her şey', ok: true },
       { text: 'Öncelikli AI işlem sırası', ok: true },
@@ -66,28 +64,28 @@ const plans = [
       { text: '1 yıllık veri güvencesi', ok: true },
     ],
     cta: 'Yıllık Tasarruf Et',
-    ctaStyle: 'bg-amber-500 hover:bg-amber-400 text-slate-950 font-black shadow-xl shadow-amber-500/20',
+    ctaStyle: 'bg-slate-900 hover:bg-slate-800 text-white font-black shadow-xl shadow-slate-950/20',
     popular: false,
   },
 ];
 
 /* ─── Testimonials ─── */
 const reviews = [
-  { name: 'Cem A.', role: 'Senior Developer', rating: 5, text: 'Sadece 1 dakikada bilgilerimi girip CV hazırladım. AI optimizasyonuyla global bir teknoloji firmasından mülakat daveti aldım. Gerçekten çalışıyor.' },
-  { name: 'Selin K.', role: 'Ürün Yöneticisi', rating: 5, text: 'Şirkete özel link özelliği muhteşem. İK yöneticileri CV\'mi açıp bakarken bildirim geliyor. Tam istediğim şey.' },
-  { name: 'Burak T.', role: 'Veri Bilimci', rating: 5, text: 'AI koç mülakat hazırlığımda inanılmaz yardımcı oldu. İlk denemede aradığım işe girdim!' },
+  { name: 'Cem A.', role: 'Frontend Dev @ Trendyol', rating: 5, text: 'LinkedIn\'den 2dk\'da CV çıkardım. AI optimizasyonuyla Google\'a mülakat daveti aldım. Gerçekten çalışıyor.' },
+  { name: 'Selin K.', role: 'PM @ Getir', rating: 5, text: 'Şirkete özel link özelliği muhteşem. HR\'lar CV\'mi açıp bakarken bildirim geliyor. Tam istediğim şey.' },
+  { name: 'Burak T.', role: 'Data Scientist @ N11', rating: 5, text: 'AI koç mülakat hazırlığımda inanılmaz yardımcı oldu. İlk denemede işe girdim!' },
 ];
 
 /* ─── Steps ─── */
 const steps = [
-  { icon: '📝', step: '01', title: 'Bilgilerinizi Girin', desc: 'İsim, ünvan ve iş geçmişinizi girin. Arayüzümüz doldurmayı son derece kolay ve hızlı hale getirir.' },
-  { icon: '🤖', step: '02', title: 'AI ile Optimize Et', desc: 'Claude AI hedeflediğiniz sektöre ve pozisyona göre CV metinlerinizi yeniden yazar ve mükemmelleştirir.' },
+  { icon: '🔗', step: '01', title: 'LinkedIn Linkini Yapıştır', desc: 'Profil URL\'nizi girin. Apify teknolojisiyle tüm verileriniz 30 saniyede çekilir.' },
+  { icon: '🤖', step: '02', title: 'AI ile Optimize Et', desc: 'Claude AI hedeflediğiniz şirkete ve pozisyona göre CV\'nizi yeniden yazar.' },
   { icon: '🚀', step: '03', title: 'Paylaş & Takip Et', desc: 'Özel linkinizi gönderin. Kim baktı, kaç kez, gerçek zamanlı görün.' },
 ];
 
 const faqs = [
-  { q: 'Yazılan bilgileri AI nasıl iyileştirir?', a: 'Yapay zeka motorumuz CV\'nizdeki iş tanımlarını, başarıları ve özet metinleri analiz eder. Başarılarınızı ölçülebilir (metrik odaklı) hale getirir, dil bilgisi hatalarını giderir ve profesyonel bir ton kazandırır.' },
-  { q: 'AI optimizasyon gerçekten fark yaratıyor mu?', a: 'Evet. Claude 3.5 Sonnet modelimiz CV\'nizi ATS (Applicant Tracking System) kriterlerine göre analiz eder, başarıları ölçülebilir hale getirir ve hedef pozisyonun değerlerine uygun dil kullanır. Kullanıcılarımızın %94\'ü mülakat daveti almaktadır.' },
+  { q: 'LinkedIn import nasıl çalışır?', a: 'Profil URL\'nizi girin; Apify scraper teknolojisiyle tüm iş deneyimi, eğitim, sertifika ve becerilerinizi otomatik çekeriz. Gizliliğiniz korunur, veriler şifrelenmiş olarak işlenir.' },
+  { q: 'AI optimizasyon gerçekten fark yaratıyor mu?', a: 'Evet. Claude modelimiz CV\'nizi ATS (Applicant Tracking System) kriterlerine göre analiz eder, başarıları ölçülebilir hale getirir ve hedef şirketin değerlerine uygun dil kullanır. Kullanıcılarımızın %94\'ü mülakat daveti almaktadır.' },
   { q: 'Fiyatlar TL mi?', a: 'Evet, tüm fiyatlar Türk Lirası cinsindendir. Kredi/banka kartı ve havale ile ödeme yapabilirsiniz.' },
   { q: 'İptal edersem ne olur?', a: 'İstediğiniz zaman iptal edebilirsiniz. İptal sonrası abonelik süreniz bitene kadar Pro özelliklerine erişim devam eder. 14 gün içinde iade garantisi sunuyoruz.' },
 ];
@@ -95,393 +93,369 @@ const faqs = [
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#05080f] text-white overflow-x-hidden">
+    <div className="min-h-screen bg-slate-950 text-white font-sans relative overflow-x-hidden selection:bg-indigo-500 selection:text-white">
+      
+      {/* ─── STICKY HEADER (Glassmorphic to match screenshot) ─── */}
+      <div className="sticky top-0 z-50 bg-black/15 backdrop-blur-md border-b border-white/10 px-4 sm:px-8">
+        <div className="max-w-[1440px] mx-auto">
+          <header className="flex justify-between items-center py-4">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2.5 cursor-pointer">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-indigo-600">
+                <span className="text-white font-black text-sm">C</span>
+              </div>
+              <span className="font-black text-xl tracking-tight text-white">
+                CV<span className="text-indigo-400">io</span>
+              </span>
+            </Link>
 
-      {/* ─── DOT GRID BG ─── */}
-      <div className="pointer-events-none fixed inset-0 z-0 dot-pattern opacity-100" />
-      {/* Top glow */}
-      <div className="pointer-events-none fixed top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] z-0 animate-glow"
-        style={{ background: 'radial-gradient(ellipse at top, rgba(99,102,241,0.18) 0%, transparent 70%)' }} />
-
-      {/* ═══════════════════════════════
-          NAVBAR
-      ═══════════════════════════════ */}
-      <header className="relative z-50 border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)' }}>
-              <span className="text-white font-black text-sm">C</span>
+            {/* Nav Menu (Matching screenshot) */}
+            <div className="hidden md:flex gap-8">
+              <a href="#ozellikler" onClick={(e) => handleScroll(e, 'ozellikler')} className="text-white/60 hover:text-white font-medium text-sm transition-colors duration-200">Features</a>
+              <a href="#yorumlar" onClick={(e) => handleScroll(e, 'yorumlar')} className="text-white/60 hover:text-white font-medium text-sm transition-colors duration-200">Testimonials</a>
+              <a href="#fiyatlar" onClick={(e) => handleScroll(e, 'fiyatlar')} className="text-white/60 hover:text-white font-medium text-sm transition-colors duration-200">Pricing</a>
+              <Link href="/login" className="text-white/60 hover:text-white font-medium text-sm transition-colors duration-200">Login</Link>
             </div>
-            <span className="font-black text-xl tracking-tight">
-              CV<span className="gradient-text">io</span>
-            </span>
-          </Link>
 
-          {/* Nav */}
-          <nav className="hidden md:flex items-center gap-1">
-            {[['#nasil-calisir', 'Nasıl Çalışır'], ['#ozellikler', 'Özellikler'], ['#fiyatlar', 'Fiyatlar'], ['#sss', 'SSS']].map(([href, label]) => (
-              <a key={href} href={href} className="px-4 py-2 text-sm text-slate-400 hover:text-white rounded-lg hover:bg-white/5 transition-all">{label}</a>
-            ))}
-          </nav>
-
-          {/* CTA */}
-          <div className="flex items-center gap-3">
-            <Link href="/login" className="hidden sm:block text-sm text-slate-400 hover:text-white transition-colors px-4 py-2">
-              Giriş Yap
+            {/* Get Started Button */}
+            <Link href="/register" className="inline-flex items-center justify-center bg-white text-slate-950 font-bold text-xs sm:text-sm py-2.5 px-6 rounded-full hover:bg-slate-100 transition-all duration-200">
+              Get Started <ArrowUpRight className="w-4 h-4 ml-1" />
             </Link>
-            <Link href="/register">
-              <button className="px-5 py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/20"
-                style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)' }}>
-                Ücretsiz Başla →
-              </button>
-            </Link>
-          </div>
+          </header>
         </div>
-      </header>
+      </div>
 
-      {/* ═══════════════════════════════
-          HERO
-      ═══════════════════════════════ */}
-      <section className="relative z-10 pt-24 pb-20 text-center px-4">
-        <div className="max-w-5xl mx-auto space-y-8">
+      {/* ─── HERO SECTION (Replicating reference screenshot) ─── */}
+      <div className="relative min-h-[92vh] flex flex-col items-center justify-center py-16 px-4 overflow-hidden">
+        {/* Full-size high-quality office windows background */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/hero_office.png"
+            alt="Office window workspace"
+            className="w-full h-full object-cover"
+          />
+          {/* Gentle dark overlay to make white text extremely legible */}
+          <div className="absolute inset-0 bg-black/45 backdrop-brightness-[0.8]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950" />
+        </div>
 
-          {/* Badge */}
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold border"
-              style={{ background: 'rgba(99,102,241,0.1)', borderColor: 'rgba(99,102,241,0.3)', color: '#a5b4fc' }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
-              Claude 3.5 Sonnet ile Güçlendirildi
+        <div className="max-w-[1440px] mx-auto relative z-10 w-full flex flex-col items-center justify-center text-center">
+          
+          {/* Top Badge (New AI Feature / Presentation Generator 2.0) */}
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 border border-white/10 mb-6 backdrop-blur-sm"
+          >
+            <span className="text-[10px] sm:text-xs font-bold text-white/90 flex items-center gap-2">
+              <span className="bg-white text-slate-950 px-2 py-0.5 rounded-full text-[9px] uppercase font-extrabold tracking-wider">New AI Feature</span>
+              Presentation Generator 2.0
             </span>
           </motion.div>
 
-          {/* H1 */}
-          <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.95]">
-            Yapay Zeka ile<br />
-            <span className="gradient-text">60 Saniyede</span><br />
-            Profesyonel CV
+          {/* Heading */}
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[1.08] max-w-4xl"
+          >
+            Optimize Your CV for <br />
+            <span className="text-white">Your Dream Job</span>
           </motion.h1>
 
-          {/* Sub */}
-          <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-slate-400 text-xl max-w-2xl mx-auto leading-relaxed">
-            ATS uyumlu şablonlar, akıllı AI içerik optimizasyonu ve kalıcı paylaşım linkleriyle
-            <br className="hidden sm:block" /> bir sonraki mülakat davetinizi garantileyin.
+          {/* Description */}
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-white/80 text-sm sm:text-base md:text-lg max-w-xl mt-6 font-normal leading-relaxed"
+          >
+            Transform your Linkedin profile into an ATS-friendly, job-specific CV in seconds.
+            Harness the power of AI to create custom motivation letters and premium presentations that stand out.
           </motion.p>
 
-          {/* CTAs */}
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/register">
-              <button className="group inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-base font-bold text-white transition-all hover:scale-[1.02] hover:shadow-2xl"
-                style={{ background: 'linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#ec4899 100%)', boxShadow: '0 8px 32px rgba(99,102,241,0.35)' }}>
-                Ücretsiz CV Oluştur
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+          {/* Buttons */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex items-center justify-center gap-6 mt-8"
+          >
+            <Link href="/register" className="text-white hover:text-white/80 font-bold text-sm sm:text-base border-b-2 border-white pb-1 transition-all">
+              Start Optimizing Free →
             </Link>
-            <a href="#nasil-calisir">
-              <button className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-base font-semibold text-slate-300 border border-white/10 bg-white/3 hover:bg-white/6 hover:text-white transition-all">
-                <Play className="w-4 h-4 fill-current" />
-                Nasıl Çalışır
-              </button>
+            <a href="#nasil-calisir" onClick={(e) => handleScroll(e, 'nasil-calisir')} className="text-white/70 hover:text-white font-semibold text-sm sm:text-base flex items-center gap-1 transition-all">
+              View Demo <Play className="w-3.5 h-3.5 fill-white text-white ml-1" />
             </a>
           </motion.div>
 
-          {/* Trust row */}
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
-            className="flex flex-wrap items-center justify-center gap-8 pt-4 text-sm text-slate-500">
-            <span className="flex items-center gap-2">
-              <div className="flex -space-x-2">
-                {['#6366f1', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b'].map((c, i) => (
-                  <div key={i} className="w-7 h-7 rounded-full border-2 border-[#05080f] flex items-center justify-center text-[10px] font-bold text-white"
-                    style={{ background: c }}>{String.fromCharCode(65 + i)}</div>
-                ))}
-              </div>
-              <span className="text-slate-400">2.400+ kullanıcı</span>
-            </span>
-            <span className="flex items-center gap-1.5">
-              {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />)}
-              <span className="text-slate-400 ml-1">4.9/5</span>
-            </span>
-            <span className="flex items-center gap-2 text-slate-400">
-              <Shield className="w-4 h-4 text-emerald-400" />
-              Kredi kartı gerekmez
-            </span>
-          </motion.div>
+          {/* Small Trust Tag */}
+          <motion.p 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-white/50 text-[11px] sm:text-xs mt-10 tracking-wider font-medium uppercase"
+          >
+            Trusted by candidates landing jobs at top companies
+          </motion.p>
+
         </div>
+      </div>
 
-        {/* ── HERO VISUAL — Floating App Preview ── */}
-        <motion.div initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mt-20 max-w-5xl mx-auto">
-
-          {/* Glow underneath */}
-          <div className="absolute -inset-8 rounded-3xl" style={{ background: 'radial-gradient(ellipse,rgba(99,102,241,0.2) 0%,transparent 70%)' }} />
-
-          {/* Main card */}
-          <div className="relative rounded-2xl overflow-hidden border border-white/8 shadow-2xl"
-            style={{ background: 'linear-gradient(180deg,#0d1220 0%,#090d1a 100%)' }}>
-
-            {/* Browser bar */}
-            <div className="flex items-center gap-3 px-5 py-3.5 border-b border-white/6" style={{ background: 'rgba(255,255,255,0.02)' }}>
-              <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full" style={{ background: '#ff5f57' }} />
-                <div className="w-3 h-3 rounded-full" style={{ background: '#febc2e' }} />
-                <div className="w-3 h-3 rounded-full" style={{ background: '#28c840' }} />
-              </div>
-              <div className="flex-1 mx-6 h-7 rounded-lg flex items-center px-3 gap-2 border border-white/6" style={{ background: 'rgba(255,255,255,0.04)' }}>
-                <div className="w-2 h-2 rounded-full bg-emerald-400" />
-                <span className="text-xs text-slate-500 font-mono">cvio.app/dashboard</span>
-              </div>
-            </div>
-
-            {/* Dashboard mock */}
-            <div className="p-8">
-              <div className="flex items-center justify-between mb-8">
-                <div>
-                  <p className="text-slate-500 text-sm">İyi öğleden sonralar,</p>
-                  <h3 className="text-2xl font-black text-white">Cem 👋</h3>
+      {/* ─── APP PREVIEW CANVAS ─── */}
+      <section className="relative z-10 px-4 -mt-10 sm:-mt-20">
+        <div className="max-w-[1100px] mx-auto">
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-2.5 shadow-2xl">
+            <div className="bg-slate-900 rounded-xl overflow-hidden border border-white/5">
+              {/* Mockup browser window header */}
+              <div className="flex items-center justify-between px-4 py-3 bg-black/40 border-b border-white/5">
+                <div className="flex gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
                 </div>
-                <button className="px-5 py-2.5 rounded-xl text-sm font-bold text-white"
-                  style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)' }}>
-                  + Yeni CV
-                </button>
-              </div>
-
-              {/* Stats row */}
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                {[
-                  { label: 'Toplam Görüntülenme', value: '1,847', color: '#6366f1', icon: '👁' },
-                  { label: 'Aktif Link', value: '3', color: '#10b981', icon: '🔗' },
-                  { label: 'Mülakat Daveti', value: '7', color: '#f59e0b', icon: '🎯' },
-                ].map(s => (
-                  <div key={s.label} className="p-4 rounded-xl border border-white/6" style={{ background: `rgba(${s.color === '#6366f1' ? '99,102,241' : s.color === '#10b981' ? '16,185,129' : '245,158,11'},0.08)` }}>
-                    <div className="text-2xl mb-1">{s.icon}</div>
-                    <div className="text-2xl font-black text-white">{s.value}</div>
-                    <div className="text-xs text-slate-500 mt-0.5">{s.label}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* CV cards */}
-              <div className="space-y-3">
-                {[
-                  { title: 'Teknoloji Firması — Senior Frontend Engineer', tag: 'AI Optimize', views: 523, active: true },
-                  { title: 'Yazılım Evi — Lead Developer', tag: 'Pro Link', views: 412, active: true },
-                  { title: 'Genel Başvuru', tag: '7g kaldı', views: 312, active: false },
-                ].map((cv, i) => (
-                  <div key={i} className="flex items-center justify-between p-4 rounded-xl border border-white/6 hover:border-white/10 transition-all" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg,rgba(99,102,241,0.2),rgba(139,92,246,0.2))' }}>
-                        <FileText className="w-5 h-5 text-indigo-400" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-bold text-white">{cv.title}</p>
-                        <p className="text-xs text-slate-500">{cv.views} görüntülenme</p>
-                      </div>
-                    </div>
-                    <span className={`text-[11px] font-bold px-3 py-1 rounded-full ${cv.active ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/15 text-amber-400 border border-amber-500/20'}`}>{cv.tag}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* AI suggestion */}
-              <div className="mt-5 flex items-center gap-3 p-4 rounded-xl border border-indigo-500/20" style={{ background: 'rgba(99,102,241,0.06)' }}>
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg,rgba(99,102,241,0.3),rgba(139,92,246,0.3))' }}>
-                  <Brain className="w-4 h-4 text-indigo-400" />
+                <div className="bg-white/5 border border-white/10 rounded px-10 py-0.5 text-[10px] text-white/40 font-mono">
+                  cvio.app/cv/ali-yildiz
                 </div>
-                <p className="text-sm text-indigo-300"><span className="font-bold">AI Koç:</span> Yaklaşan mülakatın için sistem tasarımı sorularına hazır olalım mı? Konuları çalışmaya başlayabiliriz.</p>
+                <div className="w-10" />
               </div>
+              <img
+                src="/cv_editor.png"
+                alt="CVio CV Builder Interface"
+                className="w-full h-auto object-cover"
+              />
             </div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
-      {/* ─── STATS BAR ─── */}
-      <section className="relative z-10 border-y border-white/5 py-10" style={{ background: 'rgba(255,255,255,0.015)' }}>
-        <div className="max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      {/* ─── STATS ─── */}
+      <section className="bg-slate-950 border-y border-white/5 py-16 mt-20">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
-            { v: '2.400+', l: 'Aktif Kullanıcı' },
-            { v: '%94', l: 'Mülakat Başarısı' },
-            { v: '60sn', l: 'Ortalama Oluşturma' },
-            { v: '4.9★', l: 'Kullanıcı Puanı' },
-          ].map(s => (
-            <div key={s.l}>
-              <div className="text-3xl font-black gradient-text">{s.v}</div>
-              <div className="text-sm text-slate-500 mt-1">{s.l}</div>
+            { value: '2.400+', label: 'Aktif Kullanıcı' },
+            { value: '%94', label: 'Mülakat Başarısı' },
+            { value: '60sn', label: 'Ortalama Oluşturma' },
+            { value: '4.9★', label: 'Kullanıcı Puanı' },
+          ].map((stat, i) => (
+            <div key={i} className="space-y-1">
+              <div className="text-3xl sm:text-4xl font-extrabold text-indigo-400">{stat.value}</div>
+              <div className="text-xs text-white/50 font-medium uppercase tracking-wider">{stat.label}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ─── HOW IT WORKS ─── */}
-      <section id="nasil-calisir" className="relative z-10 py-28 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-indigo-400 text-sm font-bold uppercase tracking-widest mb-3">Nasıl Çalışır</p>
-            <h2 className="text-5xl font-black tracking-tight">3 adımda profesyonel CV hazırlayın</h2>
+      {/* ─── FEATURES SECTION ─── */}
+      <section id="ozellikler" className="py-24 px-4 bg-slate-950 relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-xs font-bold text-indigo-400 tracking-wider uppercase bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20">Advanced Creation</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-4 tracking-tight leading-tight">
+              Advanced, design-true CV creation
+            </h2>
+            <p className="text-white/60 mt-4 text-sm sm:text-base">
+              Create reusable, perfectly formatted designs with high performance. Edit templates or segments in real-time.
+            </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Feature 1 */}
+            <div className="flex flex-col bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden hover:border-white/10 transition-all duration-300">
+              <div className="aspect-[4/3] bg-white/[0.01] border-b border-white/5 flex items-center justify-center overflow-hidden">
+                <img src="/linkedin_import.png" alt="LinkedIn Scraper API" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-6 space-y-3">
+                <h3 className="text-lg font-bold text-white">LinkedIn Profil Import</h3>
+                <p className="text-sm text-white/60 leading-relaxed">
+                  LinkedIn profil linkinizi yapıştırın; Apify scraper teknolojimiz tüm deneyim, eğitim ve yeteneklerinizi 30 saniyede otomatik çeksin.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="flex flex-col bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden hover:border-white/10 transition-all duration-300">
+              <div className="aspect-[4/3] bg-white/[0.01] border-b border-white/5 flex items-center justify-center overflow-hidden">
+                <img src="/ai_analysis.png" alt="AI CV Improver System" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-6 space-y-3">
+                <h3 className="text-lg font-bold text-white">Yapay Zeka ile Optimizasyon</h3>
+                <p className="text-sm text-white/60 leading-relaxed">
+                  Claude AI, CV'nizi hedef pozisyona ve şirkete göre analiz eder. Sektöre özel anahtar kelimeleri ve başarıları vurgulayarak ATS engellerini aşar.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="flex flex-col bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden hover:border-white/10 transition-all duration-300">
+              <div className="aspect-[4/3] bg-white/[0.01] border-b border-white/5 flex items-center justify-center overflow-hidden">
+                <img src="/cv_editor.png" alt="Interactive Resume Canvas" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-6 space-y-3">
+                <h3 className="text-lg font-bold text-white">Özel Şablonlar & Tasarım Gücü</h3>
+                <p className="text-sm text-white/60 leading-relaxed">
+                  Modern, profesyonel, minimal veya yaratıcı şablonlardan dilediğinizi seçin. Renkleri, yazı tiplerini ve boşlukları tek tıkla özelleştirin.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── HOW IT WORKS SECTION ─── */}
+      <section id="nasil-calisir" className="py-24 px-4 bg-black/20 border-t border-white/5">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="text-xs font-bold text-indigo-400 tracking-wider uppercase bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20">Nasıl Çalışır?</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mt-4 tracking-tight">3 Adımda Mülakatınızı Garantileyin</h2>
+            <p className="text-white/60 mt-2 text-sm sm:text-base">Mükemmel bir CV oluşturmak hiç bu kadar zahmetsiz olmamıştı.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {steps.map((s, i) => (
-              <motion.div key={s.step} initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.12, duration: 0.6 }}>
-                <div className="h-full p-8 rounded-2xl border border-white/7 transition-all hover:border-white/12 hover:-translate-y-1 duration-300"
-                  style={{ background: 'linear-gradient(180deg,rgba(13,18,32,0.9) 0%,rgba(9,13,26,0.9) 100%)' }}>
-                  <div className="text-4xl mb-4">{s.icon}</div>
-                  <div className="text-xs font-black text-indigo-400 tracking-widest uppercase mb-3">Adım {s.step}</div>
-                  <h3 className="text-xl font-black text-white mb-3">{s.title}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">{s.desc}</p>
+              <div key={i} className="bg-white/[0.02] border border-white/5 rounded-2xl p-8 space-y-4 hover:border-white/10 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-2xl">
+                  {s.icon}
                 </div>
-              </motion.div>
+                <div className="text-[11px] font-black text-indigo-400 tracking-widest uppercase">Adım {s.step}</div>
+                <h3 className="text-lg font-bold text-white">{s.title}</h3>
+                <p className="text-white/60 text-sm leading-relaxed">{s.desc}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ─── FEATURES ─── */}
-      <section id="ozellikler" className="relative z-10 py-24 px-4 border-t border-white/5">
+      {/* ─── PRICING SECTION ─── */}
+      <section id="fiyatlar" className="py-24 px-4 bg-slate-950 border-t border-white/5">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-violet-400 text-sm font-bold uppercase tracking-widest mb-3">Özellikler</p>
-            <h2 className="text-5xl font-black tracking-tight">Rakiplerinizin <span className="gradient-text">önüne</span> geçin</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              { emoji: '📝', title: 'Hızlı ve Pratik Form', desc: 'Sadeleştirilmiş arayüzümüz sayesinde temel iş ve eğitim bilgilerinizi dakikalar içinde girin.', tag: 'Kullanıcı Dostu' },
-              { emoji: '🤖', title: 'Claude AI Optimizasyon', desc: 'Şirketlerin beklentilerine ve ATS sistemlerine göre CV dilinizi mükemmelleştirin.', tag: 'AI Destekli' },
-              { emoji: '🔒', title: 'Kalıcı Paylaşım Linki', desc: 'cvio.app/cv/adiniz-ozel — asla sona ermeyen, takip edilebilir dijital bağlantı.', tag: 'Pro' },
-              { emoji: '🧠', title: 'AI Kariyer Koçu', desc: 'Girdiğiniz bilgilere göre CV\'nizi tanıyan yapay zeka mülakat ve sektör koçu.', tag: 'Pro' },
-              { emoji: '📊', title: 'Görüntülenme Analitiği', desc: 'Kim baktı, ne zaman, kaç kez? Bağlantınızın istatistiklerini takip edin.', tag: 'Pro' },
-              { emoji: '📄', title: 'Anında PDF İndirme', desc: 'Profesyonel ATS uyumlu şablonlardan dilediğinizi seçin ve hemen indirin.', tag: 'Tüm Planlar' },
-            ].map((f, i) => (
-              <motion.div key={f.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.5 }}>
-                <div className="group h-full p-7 rounded-2xl border border-white/6 hover:border-indigo-500/25 transition-all hover:-translate-y-1 duration-300 cursor-default"
-                  style={{ background: 'linear-gradient(180deg,rgba(13,18,32,0.8) 0%,rgba(9,13,26,0.8) 100%)' }}>
-                  <div className="text-3xl mb-4">{f.emoji}</div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <h3 className="text-base font-bold text-white">{f.title}</h3>
-                  </div>
-                  <p className="text-slate-400 text-sm leading-relaxed mb-4">{f.desc}</p>
-                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-full border"
-                    style={{ background: 'rgba(99,102,241,0.08)', borderColor: 'rgba(99,102,241,0.2)', color: '#a5b4fc' }}>
-                    {f.tag}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── SOCIAL PROOF ─── */}
-      <section className="relative z-10 py-24 px-4 border-t border-white/5">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-amber-400 text-sm font-bold uppercase tracking-widest mb-3">Kullanıcı Yorumları</p>
-            <h2 className="text-5xl font-black tracking-tight">Gerçek başarı hikayeleri</h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {reviews.map((r, i) => (
-              <motion.div key={r.name} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                <div className="h-full p-7 rounded-2xl border border-white/7"
-                  style={{ background: 'linear-gradient(180deg,rgba(13,18,32,0.9) 0%,rgba(9,13,26,0.9) 100%)' }}>
-                  <div className="flex mb-4">
-                    {[1, 2, 3, 4, 5].map(s => <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />)}
-                  </div>
-                  <p className="text-slate-300 text-sm leading-relaxed mb-6">"{r.text}"</p>
-                  <div className="flex items-center gap-3 pt-4 border-t border-white/5">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-base font-black"
-                      style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)' }}>
-                      {r.name[0]}
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-white">{r.name}</p>
-                      <p className="text-xs text-slate-500">{r.role}</p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── PRICING ─── */}
-      <section id="fiyatlar" className="relative z-10 py-24 px-4 border-t border-white/5">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-emerald-400 text-sm font-bold uppercase tracking-widest mb-3">Fiyatlandırma</p>
-            <h2 className="text-5xl font-black tracking-tight">Kariyerinize yatırım yapın,<br /><span className="gradient-text">mülakat davetlerini kapın</span></h2>
-            <p className="text-slate-400 mt-4 text-lg">Gizli ücret yok. İstediğiniz zaman iptal edebilirsiniz.</p>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-xs font-bold text-indigo-400 tracking-wider uppercase bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20">Fiyatlandırma</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-4 tracking-tight leading-tight">
+              Mülakat Davetiniz Her Şeye Değer
+            </h2>
+            <p className="text-white/60 mt-4 text-base">Gizli ücretler yok. Dilediğiniz zaman tek tıkla iptal edebilirsiniz.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             {plans.map((plan, i) => (
-              <motion.div key={plan.name} initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                <div className={`relative rounded-2xl border p-8 flex flex-col h-full ${plan.popular ? 'border-indigo-500/40' : plan.color}`}
-                  style={{ background: plan.popular ? 'linear-gradient(180deg,#0f1428 0%,#0a0e1a 100%)' : 'linear-gradient(180deg,rgba(13,18,32,0.9) 0%,rgba(9,13,26,0.9) 100%)' }}>
-                  {plan.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                      <span className="px-4 py-1.5 rounded-full text-[11px] font-black text-white shadow-lg"
-                        style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)', boxShadow: '0 4px 20px rgba(99,102,241,0.4)' }}>
-                        ⚡ EN POPÜLER
-                      </span>
-                    </div>
-                  )}
-
-                  <div className="mb-6">
-                    <h3 className="text-xl font-black text-white mb-1">{plan.name}</h3>
-                    <p className="text-slate-500 text-sm mb-4">{plan.desc}</p>
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="text-5xl font-black text-white">{plan.price}</span>
-                      <span className="text-slate-400 text-sm">{plan.period}</span>
-                    </div>
+              <div 
+                key={i} 
+                className={`relative rounded-2xl border bg-white/[0.01] p-8 flex flex-col h-full hover:border-white/20 transition-all duration-300 ${
+                  plan.popular ? 'border-indigo-500' : 'border-white/5'
+                }`}
+              >
+                {plan.popular && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                    <span className="px-3 py-1 rounded-full text-[10px] font-black text-white bg-indigo-600 tracking-wider">
+                      EN POPÜLER ⚡
+                    </span>
                   </div>
+                )}
 
-                  <ul className="space-y-3 mb-8 flex-1">
-                    {plan.features.map(f => (
-                      <li key={f.text} className={`flex items-center gap-2.5 text-sm ${f.ok ? 'text-slate-300' : 'text-slate-600 line-through'}`}>
-                        <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${f.ok ? 'bg-indigo-500/15 border border-indigo-500/25' : 'bg-white/3 border border-white/5'}`}>
-                          <Check className={`w-3 h-3 ${f.ok ? 'text-indigo-400' : 'text-slate-700'}`} />
-                        </div>
-                        {f.text}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link href="/register">
-                    <button className={`w-full py-3.5 rounded-xl font-bold text-sm transition-all hover:scale-[1.02] ${plan.ctaStyle}`}>
-                      {plan.cta}
-                    </button>
-                  </Link>
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-white">{plan.name}</h3>
+                  <p className="text-white/50 text-xs mt-1.5 min-h-[32px]">{plan.desc}</p>
+                  <div className="flex items-baseline gap-1 mt-4">
+                    <span className="text-4xl font-extrabold text-white">{plan.price}</span>
+                    <span className="text-white/50 text-xs font-medium">{plan.period}</span>
+                  </div>
                 </div>
-              </motion.div>
+
+                <ul className="space-y-3 mb-8 flex-1">
+                  {plan.features.map((f, idx) => (
+                    <li key={idx} className={`flex items-center gap-2.5 text-xs ${f.ok ? 'text-white/80' : 'text-white/20 line-through'}`}>
+                      <div className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 ${
+                        f.ok ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20' : 'bg-white/5 text-white/20'
+                      }`}>
+                        <Check className="w-2.5 h-2.5" />
+                      </div>
+                      {f.text}
+                    </li>
+                  ))}
+                </ul>
+
+                <Link href="/register" className="w-full">
+                  <button className={`w-full py-3 rounded-xl font-bold text-xs transition-all ${
+                    plan.popular 
+                      ? 'bg-indigo-600 hover:bg-indigo-700 text-white' 
+                      : 'border border-white/10 bg-white/5 hover:bg-white/10 text-white'
+                  }`}>
+                    {plan.cta}
+                  </button>
+                </Link>
+              </div>
             ))}
           </div>
 
-          <p className="text-center text-slate-500 text-sm mt-8 flex items-center justify-center gap-2">
+          <p className="text-center text-white/40 text-xs mt-8 flex items-center justify-center gap-2">
             <Shield className="w-4 h-4 text-emerald-400" />
-            14 gün para iade garantisi · SSL güvenli ödeme · Her zaman iptal
+            14 gün koşulsuz para iade garantisi · SSL Güvenli Altyapı
           </p>
         </div>
       </section>
 
-      {/* ─── FAQ ─── */}
-      <section id="sss" className="relative z-10 py-24 px-4 border-t border-white/5">
+      {/* ─── SOCIAL PROOF SECTION ─── */}
+      <section id="yorumlar" className="py-24 px-4 bg-slate-950 border-t border-white/5">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="text-xs font-bold text-indigo-400 tracking-wider uppercase bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20">Yorumlar</span>
+            <h2 className="text-3xl font-bold text-white mt-4 tracking-tight">Kullanıcılarımız Neler Diyor?</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {reviews.map((r, i) => (
+              <div key={i} className="bg-white/[0.01] border border-white/5 rounded-2xl p-8 space-y-4">
+                <div className="flex">
+                  {[1, 2, 3, 4, 5].map(star => (
+                    <Star key={star} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <p className="text-white/70 text-sm leading-relaxed italic">"{r.text}"</p>
+                <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+                  <div className="w-9 h-9 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold text-sm border border-indigo-500/30">
+                    {r.name[0]}
+                  </div>
+                  <div>
+                    <h5 className="font-bold text-white text-xs">{r.name}</h5>
+                    <p className="text-[10px] text-white/40">{r.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── FAQ SECTION ─── */}
+      <section id="sss" className="py-24 px-4 bg-black/10 border-t border-white/5">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl font-black text-center mb-12">Sık Sorulan Sorular</h2>
+          <h2 className="text-3xl font-bold text-white text-center mb-12">Sık Sorulan Sorular</h2>
           <div className="space-y-3">
             {faqs.map((faq, i) => (
-              <div key={i} className="rounded-xl border border-white/7 overflow-hidden"
-                style={{ background: 'rgba(13,18,32,0.7)' }}>
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between px-6 py-5 text-left text-base font-semibold text-white hover:bg-white/2 transition-colors">
+              <div key={i} className="bg-white/[0.01] border border-white/5 rounded-xl overflow-hidden">
+                <button 
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full flex items-center justify-between px-6 py-5 text-left text-sm sm:text-base font-bold text-white hover:bg-white/[0.02] transition-colors"
+                >
                   {faq.q}
-                  <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform shrink-0 ml-4 ${openFaq === i ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 text-white/50 transition-transform duration-200 shrink-0 ml-4 ${
+                    openFaq === i ? 'rotate-180' : ''
+                  }`} />
                 </button>
                 {openFaq === i && (
-                  <div className="px-6 pb-5 pt-2 text-sm text-slate-400 leading-relaxed border-t border-white/5">
+                  <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-white/60 leading-relaxed border-t border-white/5">
                     {faq.a}
                   </div>
                 )}
@@ -491,48 +465,52 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── FINAL CTA ─── */}
-      <section className="relative z-10 py-24 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="relative rounded-3xl overflow-hidden px-8 py-16 space-y-6 border border-indigo-500/20"
-            style={{ background: 'linear-gradient(135deg,rgba(99,102,241,0.12) 0%,rgba(139,92,246,0.08) 50%,rgba(236,72,153,0.06) 100%)' }}>
-            <div className="absolute inset-0 dot-pattern opacity-30" />
-            <div className="relative">
-              <h2 className="text-5xl font-black leading-tight mb-4">
-                Bir sonraki mülakat<br />davetinize hazır mısınız?
+      {/* ─── FINAL CTA SECTION ─── */}
+      <section className="py-24 px-4 bg-slate-950 border-t border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <div className="relative rounded-3xl bg-white/[0.01] border border-white/5 text-white overflow-hidden px-8 py-16 text-center space-y-6 shadow-2xl">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(99,102,241,0.15)_0%,transparent_60%)]" />
+            
+            <div className="relative z-10 space-y-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+                Hayalinizdeki Mülakat <br /> Davetine Hazır Mısınız?
               </h2>
-              <p className="text-slate-400 text-lg mb-8 max-w-lg mx-auto">
-                60 saniyede oluşturun, dijital linkinizi paylaşın, mülakat hazırlığınıza AI koç ile başlayın.
+              <p className="text-white/60 text-sm sm:text-base max-w-lg mx-auto">
+                60 saniyede profesyonel CV'nizi oluşturun, şirketlere özel paylaşım linkinizi gönderin ve mülakatlarınızı takip edin.
               </p>
-              <Link href="/register">
-                <button className="inline-flex items-center gap-3 px-10 py-4 rounded-2xl text-base font-black text-white transition-all hover:scale-105 hover:shadow-2xl"
-                  style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)', boxShadow: '0 8px 32px rgba(99,102,241,0.35)' }}>
-                  Ücretsiz CV Oluştur
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-              </Link>
-              <p className="text-slate-600 text-sm mt-4">Kredi kartı gerekmez · 2 dakikada kurulum</p>
+              
+              <div className="pt-4">
+                <Link href="/register" className="inline-flex items-center justify-center bg-white text-slate-950 font-black text-sm py-4 px-8 rounded-full hover:bg-slate-100 transition-all duration-200">
+                  Ücretsiz Başla <ArrowRight className="w-4 h-4 ml-1.5" />
+                </Link>
+              </div>
+              <p className="text-[11px] text-white/40">Kredi kartı gerekmez · Kolay kurulum</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ─── FOOTER ─── */}
-      <footer className="relative z-10 border-t border-white/5 py-12 px-4">
+      <footer className="border-t border-white/5 py-12 px-6 bg-slate-950">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center"
-              style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)' }}>
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-md bg-indigo-600 flex items-center justify-center">
               <span className="text-white font-black text-xs">C</span>
             </div>
-            <span className="font-black text-lg">CV<span className="gradient-text">io</span></span>
+            <span className="font-black text-base text-white">
+              CV<span className="text-indigo-400">io</span>
+            </span>
           </div>
-          <div className="flex gap-6 text-xs text-slate-500">
-            {[['Gizlilik', '#'], ['Kullanım Koşulları', '#'], ['İletişim', 'mailto:hi@cvio.app']].map(([l, h]) => (
-              <a key={l} href={h} className="hover:text-slate-300 transition-colors">{l}</a>
-            ))}
+
+          <div className="flex gap-6 text-xs text-white/40">
+            <Link href="/gizlilik" className="hover:text-white transition-colors">Gizlilik Politikası</Link>
+            <Link href="/kullanim-kosullari" className="hover:text-white transition-colors">Kullanım Koşulları</Link>
+            <a href="mailto:support@cvio.app" className="hover:text-white transition-colors">İletişim</a>
           </div>
-          <p className="text-xs text-slate-600">© {new Date().getFullYear()} CVio. Tüm Hakları Saklıdır.</p>
+
+          <p className="text-[11px] text-white/30">
+            © {new Date().getFullYear()} CVio. Tüm Hakları Saklıdır.
+          </p>
         </div>
       </footer>
     </div>

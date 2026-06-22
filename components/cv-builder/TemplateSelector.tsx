@@ -4,7 +4,7 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
-export type CVTemplate = 'modern' | 'minimal' | 'professional' | 'warm';
+export type CVTemplate = 'modern' | 'minimal' | 'creative';
 
 interface TemplateSelectorProps {
   selected: CVTemplate;
@@ -16,30 +16,23 @@ export default function TemplateSelector({ selected, onChange, isPro }: Template
   const templates = [
     {
       id: 'modern' as CVTemplate,
-      name: 'Modern (Indigo)',
-      desc: 'Indigo renk temalı, temiz ve dinamik düzen.',
+      name: 'Modern (Standart)',
+      desc: 'Temiz, okunaklı ve güven veren standart mavi tema.',
       color: 'bg-indigo-600',
       isFree: true
     },
     {
       id: 'minimal' as CVTemplate,
-      name: 'Minimal (Klasik)',
-      desc: 'Sade ve son derece okunabilir, gereksiz süslerden uzak.',
-      color: 'bg-slate-500',
+      name: 'Minimalist (Big Tech)',
+      desc: 'Dev şirketler için tamamen siyah-beyaz, yüksek kontrastlı ve elit tasarım.',
+      color: 'bg-slate-900',
       isFree: false
     },
     {
-      id: 'professional' as CVTemplate,
-      name: 'Profesyonel (Kurumsal)',
-      desc: 'Sol kenar vurgulu ve geleneksel kurumsal düzen.',
-      color: 'bg-emerald-600',
-      isFree: false
-    },
-    {
-      id: 'warm' as CVTemplate,
-      name: 'Warm (Gold)',
-      desc: 'Gold/Amber vurgularıyla şık ve prestijli tasarım.',
-      color: 'bg-amber-600',
+      id: 'creative' as CVTemplate,
+      name: 'Kreatif (Modern)',
+      desc: 'Canlı mor ve eflatun vurgularıyla enerjisi yüksek, yaratıcı ve dikkat çekici.',
+      color: 'bg-fuchsia-600',
       isFree: false
     }
   ];

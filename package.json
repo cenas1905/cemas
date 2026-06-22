@@ -11,6 +11,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.104.1",
     "@base-ui/react": "^1.5.0",
+    "@google/generative-ai": "^0.21.0",
     "@radix-ui/react-dialog": "^1.1.16",
     "@radix-ui/react-tabs": "^1.1.14",
     "@react-pdf/renderer": "^4.5.1",
@@ -26,6 +27,8 @@
     "ogl": "^1.0.11",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "react-markdown": "^10.1.0",
+    "recharts": "^3.8.1",
     "shadcn": "^4.11.0",
     "slugify": "^1.6.9",
     "stripe": "^22.2.0",

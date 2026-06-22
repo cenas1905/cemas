@@ -9,7 +9,7 @@ import CVPreview from '@/components/cv-builder/CVPreview';
 import TemplateSelector, { CVTemplate } from '@/components/cv-builder/TemplateSelector';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowLeft, Save, Eye, ChevronRight, Wand2 } from 'lucide-react';
+import { ArrowLeft, Save, Eye, ChevronRight, Wand2, Globe, Target, MessageSquare } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -20,12 +20,12 @@ import {
 } from "@/components/ui/dialog";
 
 interface EditCVPageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export default function EditCVPage({ params }: EditCVPageProps) {
   const router = useRouter();
-  const { id } = use(params);
+  const { slug } = use(params);
   const supabase = createClientComponentClient();
 
   const [title, setTitle] = useState('Yükleniyor...');
@@ -42,6 +42,7 @@ export default function EditCVPage({ params }: EditCVPageProps) {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [optimizing, setOptimizing] = useState(false);
+  const [translating, setTranslating] = useState(false);
 
   // AI Modal State
   const [optimizeModalOpen, setOptimizeModalOpen] = useState(false);
@@ -65,7 +66,7 @@ export default function EditCVPage({ params }: EditCVPageProps) {
       const { data, error } = await supabase
         .from('cvs')
         .select('*')
-        .eq('id', id)
+        .eq('id', slug)
         .eq('user_id', user.id)
         .single();
 
@@ -83,28 +84,34 @@ export default function EditCVPage({ params }: EditCVPageProps) {
       setLoading(false);
     }
     loadData();
-  }, [id, supabase, router]);
+  }, [slug, supabase, router]);
 
   const isPro = profile?.plan === 'pro' || profile?.plan === 'annual';
 
-  // 2. Save CV Data to Database
+  // 2. Save CV Data to Database and generate PDF
   const handleSave = async (silent = false) => {
     setSaving(true);
-    const { error } = await supabase
-      .from('cvs')
-      .update({
-        title,
-        data: cvData,
-        template,
-        updated_at: new Date().toISOString()
-      })
-      .eq('id', id);
+    try {
+      const response = await fetch('/api/cv/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cvId: slug,
+          title,
+          data: cvData,
+          template,
+          is_public: false // keep edit mode draft status
+        })
+      });
 
-    setSaving(false);
-    if (error) {
-      alert(`Kaydedilirken hata oluştu: ${error.message}`);
-    } else if (!silent) {
-      // Show saved alert or toast
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || 'Kaydedilirken bir hata oluştu.');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Kaydedilirken bir hata oluştu.');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -142,9 +149,33 @@ export default function EditCVPage({ params }: EditCVPageProps) {
     }
   };
 
+  const handleTranslate = async () => {
+    setTranslating(true);
+    try {
+      const response = await fetch('/api/ai/translate-cv', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cvData })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Çeviri işlemi başarısız oldu.');
+      }
+
+      const result = await response.json();
+      setCvData(result.data);
+      setTimeout(() => handleSave(true), 500);
+    } catch (err: any) {
+      alert(err.message || 'İngilizceye çevrilirken bir hata oluştu.');
+    } finally {
+      setTranslating(false);
+    }
+  };
+
   const saveAndProceed = async () => {
     await handleSave(true);
-    router.push(`/cv/${id}/preview`);
+    router.push(`/dashboard/cv/${slug}/preview`);
   };
 
   if (loading) {
@@ -176,6 +207,15 @@ export default function EditCVPage({ params }: EditCVPageProps) {
 
         <div className="flex items-center gap-3 w-full md:w-auto justify-end">
           <Button
+            onClick={handleTranslate}
+            variant="outline"
+            disabled={translating}
+            className="border-emerald-600/30 text-emerald-400 hover:bg-emerald-950/20 font-semibold gap-1.5 hidden lg:flex"
+          >
+            <Globe className="w-4 h-4" />
+            {translating ? 'Çevriliyor...' : 'İngilizceye Çevir'}
+          </Button>
+          <Button
             onClick={() => setOptimizeModalOpen(true)}
             variant="outline"
             disabled={optimizing}
@@ -194,6 +234,26 @@ export default function EditCVPage({ params }: EditCVPageProps) {
             <Save className="w-4 h-4" />
             {saving ? 'Kaydediliyor...' : 'Kaydet'}
           </Button>
+
+          <Link href={`/dashboard/cv/${slug}/interview`}>
+            <Button
+              variant="outline"
+              className="border-fuchsia-600/30 text-fuchsia-400 hover:bg-fuchsia-950/20 font-semibold gap-1.5 hidden xl:flex"
+            >
+              <MessageSquare className="w-4 h-4" />
+              Mülakat Hazırlığı
+            </Button>
+          </Link>
+
+          <Link href={`/dashboard/cv/${slug}/ats-match`}>
+            <Button
+              variant="outline"
+              className="border-blue-600/30 text-blue-400 hover:bg-blue-950/20 font-semibold gap-1.5 hidden md:flex"
+            >
+              <Target className="w-4 h-4" />
+              ATS İlan Analizi
+            </Button>
+          </Link>
 
           <Button
             onClick={saveAndProceed}

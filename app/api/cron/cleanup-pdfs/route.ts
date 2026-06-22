@@ -11,10 +11,14 @@ export async function GET() {
     
     if (expiredCVs && expiredCVs.length > 0) {
       for (const cv of expiredCVs) {
-        // 2. Clear PDF url from database row (Storage cleanup would happen here if we used file storage)
+        // 2. Delete the PDF file from Supabase Storage
+        const fileName = `${cv.user_id}/${cv.id}.pdf`;
+        await supabaseAdmin.storage.from('pdfs').remove([fileName]);
+
+        // 3. Clear PDF url and expiration in database row
         await supabaseAdmin
           .from('cvs')
-          .update({ pdf_url: null })
+          .update({ pdf_url: null, pdf_expires_at: null })
           .eq('id', cv.id);
       }
     }
