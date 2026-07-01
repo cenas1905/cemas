@@ -6,7 +6,59 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Trash2, PlusCircle, Wand2 } from 'lucide-react';
+import { Trash2, PlusCircle, Wand2, Sparkles } from 'lucide-react';
+
+const demoCVData = {
+  personal: {
+    fullName: 'Cem Yıldırım',
+    headline: 'Senior Full-Stack Engineer | AI & Cloud Solutions Architect',
+    location: 'İstanbul, Türkiye',
+    email: 'cem.yildirim@outlook.com',
+    linkedin: 'github.com/cemyildirim',
+    summary: `7+ yıl deneyimli Full-Stack Mühendisi; React/Next.js ve Node.js ile ölçeklenebilir bulut çözümleri geliştirme, LLM/RAG tabanlı AI modellerini production API'lere entegre etme ve mikro servis mimarilerini tasarlama konusunda kanıtlanmış uzmanlık.\n\nTrendyol'da günlük 5M+ aktif kullanıcıya hizmet veren e-ticaret platformunun frontend mimarisini yeniden tasarlayarak sayfa yükleme süresini %45 iyileştirdim. AWS ve Docker/Kubernetes altyapılarında CI/CD pipeline'ları kurarak deployment süresini 4 saatten 12 dakikaya indirdim.\n\nProblem çözme odaklı mühendislik disiplini, cross-functional ekip liderliği ve sürekli öğrenme tutkusu ile karmaşık iş problemlerini teknik çözümlere dönüştürüyorum.`,
+    photo: ''
+  },
+  experience: [
+    {
+      title: 'Senior Full-Stack Engineer',
+      company: 'Trendyol',
+      startDate: 'Ocak 2023',
+      endDate: '',
+      current: true,
+      description: `• Next.js 14 App Router ve React Server Components kullanarak e-ticaret platformunun ana sayfasını yeniden mimarize ettim; LCP süresini 3.2s → 1.4s'e düşürerek Core Web Vitals skorunu %45 artırdım.\n\n• Claude AI ve RAG pipeline entegrasyonu ile akıllı ürün arama ve öneri sistemi geliştirdim; kullanıcı sepet dönüşüm oranını %28 iyileştirdim.\n\n• 12 kişilik cross-functional ekibe teknik liderlik yaparak, mikroservis mimarisine geçiş projesini 6 ayda tamamladım; sistem downtime'ını %99.97 uptime'a yükselttim.\n\n• Docker, Kubernetes (EKS) ve Terraform ile IaC tabanlı deployment altyapısı kurarak release süresini 4 saatten 12 dakikaya indirdim.`,
+      location: 'İstanbul'
+    },
+    {
+      title: 'Full-Stack Developer',
+      company: 'Getir',
+      startDate: 'Haziran 2020',
+      endDate: 'Aralık 2022',
+      current: false,
+      description: `• React Native ile teslimat takip uygulamasını sıfırdan geliştirdim; 2M+ indirme ve 4.7★ App Store puanı elde ettim.\n\n• Node.js/Express ile real-time sipariş takip API'si geliştirdim; WebSocket altyapısıyla 50K+ eşzamanlı bağlantıyı sorunsuz yönettim.\n\n• PostgreSQL sorgu optimizasyonu ve Redis cache katmanı ekleyerek API yanıt süresini ortalama 800ms → 120ms'e düşürdüm.\n\n• Agile/Scrum metodolojisi ile sprint planlama ve retrospektif süreçlerini yönettim; takım velocity'sini %35 artırdım.`,
+      location: 'İstanbul'
+    },
+    {
+      title: 'Junior Frontend Developer',
+      company: 'Insider',
+      startDate: 'Eylül 2018',
+      endDate: 'Mayıs 2020',
+      current: false,
+      description: `• Vue.js ve TypeScript ile pazarlama otomasyon dashboard'unu geliştirdim.\n\n• Webpack yapılandırmasını optimize ederek build süresini %60 kısalttım.\n\n• Jest ve Cypress ile %85 test coverage sağlayan kapsamlı test altyapısı kurdum.`,
+      location: 'İstanbul'
+    }
+  ],
+  education: [
+    { school: 'İstanbul Teknik Üniversitesi', degree: 'Lisans', field: 'Bilgisayar Mühendisliği', startYear: '2014', endYear: '2018' }
+  ],
+  skills: [
+    'React.js', 'Next.js', 'TypeScript', 'Node.js', 'Python',
+    'AWS', 'Docker', 'Kubernetes', 'CI/CD', 'LLM/RAG Integration', 'System Design'
+  ],
+  certifications: [
+    { name: 'AWS Solutions Architect – Associate', issuer: 'Amazon Web Services', date: 'Mart 2024' },
+    { name: 'Certified Kubernetes Application Developer', issuer: 'The Linux Foundation', date: 'Ağustos 2024' }
+  ]
+};
 
 interface CVFormProps {
   cvData: any;
@@ -123,6 +175,18 @@ export default function CVForm({ cvData, setCvData, onOptimize, optimizing }: CV
 
   return (
     <div className="space-y-6">
+      <div className="flex gap-4">
+        {/* Load Demo CV Button */}
+        <Button
+          onClick={() => setCvData(demoCVData)}
+          type="button"
+          className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-600/30 font-medium flex items-center justify-center gap-2"
+        >
+          <Sparkles className="w-4 h-4" />
+          Demo CV Yükle (2026 Trendleri)
+        </Button>
+      </div>
+
       {/* AI CV Improver Banner */}
       <div className="p-4 rounded-xl bg-gradient-to-r from-violet-900/40 via-indigo-900/40 to-indigo-950/50 border border-indigo-800/40 flex flex-col md:flex-row items-center justify-between gap-4">
         <div>

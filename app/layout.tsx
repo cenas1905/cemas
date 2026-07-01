@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -8,15 +8,21 @@ const inter = Inter({
   display: "swap",
 });
 
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "CVio — AI Destekli CV Oluşturucu & Kariyer Koçu",
+  title: "CEMAS Minimalist Glass Systems — Mimari Şıklık, Güçlü Çözümler",
   description:
-    "Yapay zeka ile 60 saniyede profesyonel CV oluşturun. ATS uyumlu şablonlar, AI kariyer koçu ve paylaşılabilir link özelliği.",
-  keywords: ["cv oluşturucu", "özgeçmiş", "ai cv", "akıllı cv", "kariyer"],
-  authors: [{ name: "CVio" }],
+    "Yüksek mühendislik standartlarıyla üretilmiş alüminyum korkuluk, cam balkon ve duşakabin çözümleri. Estetik ve güvenliği mükemmel bir dengede sunan mimari cam sistemleri.",
+  keywords: ["cam balkon", "alüminyum korkuluk", "duşakabin", "cemas", "cam sistemleri", "minimalist cam"],
+  authors: [{ name: "CEMAS" }],
   openGraph: {
-    title: "CVio — AI Destekli CV Oluşturucu",
-    description: "60 saniyede yapay zeka destekli profesyonel CV oluşturun.",
+    title: "CEMAS Minimalist Glass Systems — Mimari Şıklık, Güçlü Çözümler",
+    description: "Yüksek mühendislik standartlarıyla üretilmiş alüminyum korkuluk, cam balkon ve duşakabin çözümleri.",
     type: "website",
   },
 };
@@ -27,8 +33,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr" className={`${inter.variable} dark h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-[#03060b] text-white">{children}</body>
+    <html lang="tr" className={`${inter.variable} ${outfit.variable} h-full antialiased`}>
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+      </head>
+      <body className="min-h-full flex flex-col bg-[#fafafa] text-[#0b0f19]">{children}</body>
     </html>
   );
 }
