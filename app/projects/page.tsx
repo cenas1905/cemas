@@ -9,10 +9,13 @@ export default function ProjectsPage() {
   const [filter, setFilter] = useState('all');
 
   const categories = [
-    { id: 'all', name: 'Tüm Projeler' },
-    { id: 'railings', name: 'Korkuluk Sistemleri' },
+    { id: 'all', name: 'Tüm Hizmetler' },
+    { id: 'railings', name: 'Korkuluk' },
     { id: 'balconies', name: 'Cam Balkon' },
     { id: 'showers', name: 'Duşakabin' },
+    { id: 'doors', name: 'Fotoselli Kapı' },
+    { id: 'shutters', name: 'Otomatik Kepenk' },
+    { id: 'showcase', name: 'Camekan & Doğrama' },
   ];
 
   const projects = [
@@ -53,23 +56,30 @@ export default function ProjectsPage() {
     },
     {
       id: 6,
-      category: 'balconies',
-      tag: 'PROJE AŞAMASINDA / MOCK',
-      title: 'Giyotin Motorlu Cam Kapatma',
-      img: null, // Placeholder
+      category: 'doors',
+      tag: 'MAĞAZA GİRİŞİ / ANTAKYA',
+      title: 'Fotoselli Cam Kapı Uygulaması',
+      img: 'https://cemasaluminyum.com/img/fotosel.jpg',
     },
     {
       id: 7,
-      category: 'showers',
-      tag: 'PROJE AŞAMASINDA / MOCK',
-      title: ' Loft Serisi Mat Siyah Kabin',
-      img: null, // Placeholder
+      category: 'shutters',
+      tag: 'DÜKKAN KAPISI / DEFNE',
+      title: 'Otomatik Sarmal Çelik Kepenk',
+      img: 'https://cemasaluminyum.com/img/kepenk.jpg',
     },
     {
       id: 8,
-      category: 'railings',
-      tag: 'PROJE AŞAMASINDA / MOCK',
-      title: 'Frameless Baza Cam Korkuluk',
+      category: 'showcase',
+      tag: 'SHOWROOM CAMEKANI / HATAY',
+      title: 'Alüminyum Vitrin Camekanı',
+      img: 'https://cemasaluminyum.com/img/camekan.jpg',
+    },
+    {
+      id: 9,
+      category: 'balconies',
+      tag: 'REFERANS / MOCK',
+      title: 'Isıcamlı Premium Cam Balkon',
       img: null, // Placeholder
     },
   ];
@@ -79,19 +89,19 @@ export default function ProjectsPage() {
     : projects.filter(p => p.category === filter);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#fafafa] text-[#0b0f19] antialiased">
+    <div className="min-h-screen flex flex-col bg-[#fafafa] text-[#1a1a1a] antialiased">
       <Navbar />
 
       <main className="max-w-[1280px] mx-auto px-6 md:px-12 py-12 md:py-24 pt-24 md:pt-32 w-full flex-grow flex flex-col">
         {/* Header */}
         <div className="mb-12">
           <span className="text-[10px] font-bold uppercase tracking-widest text-[#565f69] mb-2 block">
-            CEMAS PORTFÖYÜ
+            CEM-AS REFERANSLARI
           </span>
-          <h1 className="font-display font-semibold text-3xl md:text-4xl text-[#0b0f19]">
+          <h1 className="font-display font-semibold text-3xl md:text-4xl text-[#1a1a1a]">
             Tamamlanan Projelerimiz
           </h1>
-          <div className="w-12 h-0.5 bg-[#8a9ca7] mt-4"></div>
+          <div className="w-12 h-0.5 bg-[#d21920] mt-4"></div>
         </div>
 
         {/* Category Filters */}
@@ -102,8 +112,8 @@ export default function ProjectsPage() {
               onClick={() => setFilter(cat.id)}
               className={`px-5 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 rounded ${
                 filter === cat.id
-                  ? 'bg-[#0b0f19] text-white'
-                  : 'text-[#565f69] hover:text-[#0b0f19] hover:bg-[#f0f1f4]'
+                  ? 'bg-[#d21920] text-white'
+                  : 'text-[#565f69] hover:text-[#1a1a1a] hover:bg-[#f0f1f4]'
               }`}
             >
               {cat.name}
@@ -125,7 +135,7 @@ export default function ProjectsPage() {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.4 }}
                 key={project.id}
-                className="group bg-white border border-[#dcdde2]/60 hover:border-[#0b0f19] hover:shadow-md transition-all duration-300 rounded overflow-hidden flex flex-col justify-between"
+                className="group bg-white border border-[#dcdde2]/60 hover:border-[#d21920] hover:shadow-md transition-all duration-300 rounded overflow-hidden flex flex-col justify-between"
               >
                 <div>
                   {project.img ? (
@@ -148,7 +158,7 @@ export default function ProjectsPage() {
                     <span className="text-[9px] font-bold text-[#565f69] tracking-widest uppercase mb-2 block">
                       {project.tag}
                     </span>
-                    <h4 className="text-base font-semibold text-[#0b0f19] group-hover:text-[#8a9ca7] transition-colors">
+                    <h4 className="text-base font-semibold text-[#1a1a1a] group-hover:text-[#d21920] transition-colors">
                       {project.title}
                     </h4>
                   </div>

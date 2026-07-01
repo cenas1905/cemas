@@ -31,92 +31,78 @@
 }
 
 /* ─────────────────────────────────────────────
-   CEMAS Minimalist Glass Systems Design System
-   "Architectural Precision 2.0" (Premium Ivory & Slate)
+   CEM-AS Alüminyum & Cam Sistemleri Design System
+   "Classic Corporate Red & Black" (cemasaluminyum.com)
    ───────────────────────────────────────────── */
 :root {
-  --background: #fafafa;
-  --foreground: #0b0f19;
+  --background: #ffffff;
+  --foreground: #1a1a1a;
   
-  --primary: #0b0f19;
+  --primary: #d21920; /* Vibrant Corporate Red */
   --primary-foreground: #ffffff;
   
-  --secondary: #565f69;
+  --secondary: #1a1a1a; /* Charcoal Black */
   --secondary-foreground: #ffffff;
   
-  --muted: #ebeef0;
-  --muted-foreground: #45474c;
+  --muted: #f7f7f7;
+  --muted-foreground: #555555;
   
-  --accent: #8a9ca7;
-  --accent-foreground: #0b0f19;
+  --accent: #d21920;
+  --accent-foreground: #ffffff;
   
-  --border: #dcdde2;
-  --input: #f0f1f4;
-  --ring: #0b0f19;
+  --border: #e5e7eb;
+  --input: #f9fafb;
+  --ring: #d21920;
   
-  --radius: 0.375rem;
+  --radius: 0.25rem;
 }
 
 @layer base {
   * { @apply border-border; }
   body { 
     @apply bg-background text-foreground; 
-    font-feature-settings: "rlig" 1, "calt" 1; 
-    background-image: 
-      radial-gradient(circle at 50% 0%, rgba(138, 156, 167, 0.05) 0%, transparent 60%),
-      radial-gradient(rgba(11, 15, 25, 0.012) 1.2px, transparent 1.2px);
-    background-size: 100% 100%, 28px 28px;
-    background-attachment: fixed;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    background-image: none; /* Clean solid background like the old site */
   }
   html { @apply font-sans; scroll-behavior: smooth; }
 
   ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: #fafafa; }
-  ::-webkit-scrollbar-thumb { background: #dcdde2; border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: #8a9ca7; }
+  ::-webkit-scrollbar-track { background: #ffffff; }
+  ::-webkit-scrollbar-thumb { background: #d21920; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #1a1a1a; }
 
-  ::selection { background: rgba(138, 156, 167, 0.2); color: #0b0f19; }
+  ::selection { background: #d21920; color: #ffffff; }
 }
 
 /* ─── Premium Glassmorphic Elements ─── */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(138, 156, 167, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(11, 15, 25, 0.03);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(210, 25, 32, 0.15);
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(138, 156, 167, 0.15);
-  box-shadow: 0 4px 20px 0 rgba(11, 15, 25, 0.02);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(11, 15, 25, 0.4);
-  box-shadow: 0 12px 30px 0 rgba(11, 15, 25, 0.06);
-  transform: translateY(-4px);
-}
-
-/* ─── Dot pattern card backing ─── */
-.dot-pattern {
-  background-image: radial-gradient(circle, rgba(138,156,167,0.15) 1px, transparent 1px);
-  background-size: 20px 20px;
+  background: #ffffff;
+  border-color: #d21920;
+  box-shadow: 0 8px 24px 0 rgba(210, 25, 32, 0.08);
+  transform: translateY(-2px);
 }
 
 /* ─── Technical specs layout ─── */
 .spec-row {
-  border-bottom: 1px solid #e0e3e5;
+  border-bottom: 1px solid #f3f4f6;
   transition: all 0.2s ease;
 }
 .spec-row:hover {
-  background-color: rgba(138, 156, 167, 0.04);
-  padding-left: 8px;
+  background-color: rgba(210, 25, 32, 0.03);
+  padding-left: 6px;
 }
 .spec-row:last-child {
   border-bottom: none;
@@ -124,7 +110,7 @@
 
 /* ─── Image Placeholders ─── */
 .photo-placeholder {
-  background: linear-gradient(135deg, #ebeef0 0%, #dcdde2 100%);
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
   position: relative;
   overflow: hidden;
 }
@@ -133,7 +119,7 @@
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
   transform: translateX(-100%);
   animation: shimmer 2s infinite;
 }

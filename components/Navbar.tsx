@@ -8,11 +8,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const navLinks = [
-    { name: 'Korkuluk', href: '/railings' },
-    { name: 'Cam Balkon', href: '/balconies' },
-    { name: 'Duşakabin', href: '/showers' },
+  const services = [
+    { name: 'Korkuluk Sistemleri', href: '/railings', icon: 'reorder' },
+    { name: 'Cam Balkon', href: '/balconies', icon: 'window' },
+    { name: 'Duşakabin', href: '/showers', icon: 'shower' },
+    { name: 'Fotoselli Kapı', href: '/automatic-doors', icon: 'door_sliding' },
+    { name: 'Otomatik Kepenk', href: '/shutters', icon: 'roller_shutter' },
+    { name: 'Camekan & Doğrama', href: '/showcase-glass', icon: 'grid_view' },
+  ];
+
+  const mainLinks = [
     { name: 'Portföy', href: '/projects' },
     { name: 'Fiyat Hesapla', href: '/quote' },
     { name: 'Hakkımızda', href: '/about' },
@@ -20,61 +27,162 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-[#fafafa]/90 backdrop-blur-md border-b border-[#dcdde2]/40 transition-all duration-300">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex items-center justify-between h-20">
-        
-        {/* Brand Logo */}
-        <Link href="/" className="font-display font-semibold text-2xl tracking-tighter text-[#0b0f19] hover:opacity-85 transition-opacity">
-          CEMAS
-        </Link>
+    <header className="fixed top-0 w-full z-50 transition-all duration-300">
+      
+      {/* ─── TOP BAR (from cemasaluminyum.com) ─── */}
+      <div className="bg-[#f7f7f7] border-b border-[#e5e7eb] text-xs py-2 w-full">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex justify-between items-center text-[#555555]">
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-sm text-[#d21920]">call</span>
+            <a href="tel:+905337747684" className="hover:text-[#d21920] font-semibold transition-colors">
+              +90 533 774 7684
+            </a>
+          </div>
+          <div className="flex items-center gap-4">
+            <a
+              href="https://tr-tr.facebook.com/cemasaluminyumkorkuluksistemleri/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#d21920] transition-colors flex items-center gap-1.5"
+            >
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                <path d="M9 8H7v3h2v9h4v-9h3.6l.4-3h-4V6c0-.5.2-.8.8-.8H17V1H14c-2.8 0-5 1.8-5 4.5V8z"/>
+              </svg>
+              <span className="hidden sm:inline">Facebook</span>
+            </a>
+            <a
+              href="https://www.instagram.com/cemas.aluminyum/?hl=tr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#d21920] transition-colors flex items-center gap-1.5"
+            >
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+              </svg>
+              <span className="hidden sm:inline">Instagram</span>
+            </a>
+          </div>
+        </div>
+      </div>
 
-        {/* Navigation Links (Desktop) */}
-        <nav className="hidden lg:flex items-center space-x-1">
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`relative px-3 py-2 text-[11px] font-semibold uppercase tracking-widest transition-colors duration-300 rounded ${
-                  isActive
-                    ? 'text-[#0b0f19] font-bold'
-                    : 'text-[#565f69] hover:text-[#0b0f19] hover:bg-[#f0f1f4]/60'
+      {/* ─── MAIN HEADER ─── */}
+      <div className="bg-white/95 backdrop-blur-md border-b border-[#e5e7eb] w-full">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex items-center justify-between h-20">
+          
+          <Link href="/" className="flex items-center hover:opacity-85 transition-opacity">
+            <img src="/logo.png" alt="CEM-AS Alüminyum" className="h-12 w-auto object-contain" />
+          </Link>
+
+          {/* Navigation Links (Desktop) */}
+          <nav className="hidden lg:flex items-center space-x-1">
+            {/* Home Link */}
+            <Link
+              href="/"
+              className={`px-3 py-2 text-[11px] font-bold uppercase tracking-widest transition-colors duration-300 rounded ${
+                pathname === '/'
+                  ? 'text-[#d21920]'
+                  : 'text-[#1a1a1a] hover:text-[#d21920] hover:bg-gray-50'
+              }`}
+            >
+              Anasayfa
+            </Link>
+
+            {/* Products Dropdown Trigger */}
+            <div
+              className="relative"
+              onMouseEnter={() => setDropdownOpen(true)}
+              onMouseLeave={() => setDropdownOpen(false)}
+            >
+              <button
+                className={`px-3 py-2 text-[11px] font-bold uppercase tracking-widest transition-colors duration-300 rounded flex items-center gap-1.5 ${
+                  services.some(s => pathname === s.href)
+                    ? 'text-[#d21920]'
+                    : 'text-[#1a1a1a] hover:text-[#d21920] hover:bg-gray-50'
                 }`}
               >
-                {link.name}
-                {isActive && (
+                Hizmetlerimiz
+                <span className="material-symbols-outlined text-[14px]">keyboard_arrow_down</span>
+              </button>
+
+              {/* Dropdown Menu */}
+              <AnimatePresence>
+                {dropdownOpen && (
                   <motion.div
-                    layoutId="activeNavBorder"
-                    className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#0b0f19]"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute left-0 top-full mt-1 w-64 bg-white border border-[#e5e7eb] shadow-xl p-4 flex flex-col gap-1 rounded z-50 animate-fade-in"
+                  >
+                    {services.map((item) => {
+                      const isSubActive = pathname === item.href;
+                      return (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className={`flex items-center gap-3 px-3 py-2.5 rounded text-xs font-semibold transition-all duration-200 ${
+                            isSubActive
+                              ? 'bg-[#d21920] text-white'
+                              : 'text-[#1a1a1a] hover:text-[#d21920] hover:bg-gray-50'
+                          }`}
+                        >
+                          <span className="material-symbols-outlined text-base">{item.icon}</span>
+                          {item.name}
+                        </Link>
+                      );
+                    })}
+                  </motion.div>
                 )}
-              </Link>
-            );
-          })}
-        </nav>
+              </AnimatePresence>
+            </div>
 
-        {/* Trailing Action */}
-        <div className="hidden lg:flex items-center">
-          <Link
-            href="/quote"
-            className="bg-[#0b0f19] text-white text-[10px] font-bold uppercase tracking-widest px-5 py-3 rounded hover:bg-[#8a9ca7] hover:text-[#0b0f19] transition-all duration-300 shadow-sm"
+            {/* Other Main Links */}
+            {mainLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`relative px-3 py-2 text-[11px] font-bold uppercase tracking-widest transition-colors duration-300 rounded ${
+                    isActive
+                      ? 'text-[#d21920]'
+                      : 'text-[#1a1a1a] hover:text-[#d21920] hover:bg-gray-50'
+                  }`}
+                >
+                  {link.name}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeNavBorder"
+                      className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#d21920]"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Trailing Action */}
+          <div className="hidden lg:flex items-center">
+            <Link
+              href="/quote"
+              className="bg-[#d21920] text-white text-[10px] font-bold uppercase tracking-widest px-6 py-3.5 rounded hover:bg-[#1a1a1a] transition-all duration-300 shadow-sm"
+            >
+              Fiyat Teklifi Al
+            </Link>
+          </div>
+
+          {/* Mobile Menu Toggle Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden text-[#1a1a1a] p-2 focus:outline-none"
+            aria-label="Menüyü Aç/Kapat"
           >
-            Hızlı Teklif
-          </Link>
+            <span className="material-symbols-outlined text-[28px]">
+              {mobileMenuOpen ? 'close' : 'menu'}
+            </span>
+          </button>
         </div>
-
-        {/* Mobile Menu Toggle Button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden text-[#0b0f19] p-2 focus:outline-none"
-          aria-label="Menüyü Aç/Kapat"
-        >
-          <span className="material-symbols-outlined text-[28px]">
-            {mobileMenuOpen ? 'close' : 'menu'}
-          </span>
-        </button>
       </div>
 
       {/* Mobile Drawer */}
@@ -85,30 +193,59 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="lg:hidden bg-[#fafafa] border-b border-[#dcdde2]/40 overflow-hidden"
+            className="lg:hidden bg-white border-b border-[#e5e7eb] overflow-hidden w-full shadow-lg"
           >
             <div className="px-6 py-6 flex flex-col gap-4">
-              {navLinks.map((link) => {
+              <Link
+                href="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`text-xs font-bold uppercase tracking-widest py-2 border-b border-gray-100 ${
+                  pathname === '/' ? 'text-[#d21920]' : 'text-[#1a1a1a]'
+                }`}
+              >
+                Anasayfa
+              </Link>
+
+              {/* Mobile Services Sub-list */}
+              <div className="flex flex-col gap-2 pl-2">
+                <span className="text-[9px] font-bold text-[#d21920] uppercase tracking-wider">Hizmetlerimiz</span>
+                {services.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`text-xs font-semibold py-1 flex items-center gap-2 ${
+                      pathname === item.href ? 'text-[#d21920]' : 'text-[#1a1a1a]'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-sm">{item.icon}</span>
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+
+              {mainLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`text-xs font-semibold uppercase tracking-widest py-2.5 border-b border-[#dcdde2]/20 ${
-                      isActive ? 'text-[#0b0f19] font-bold' : 'text-[#565f69]'
+                    className={`text-xs font-bold uppercase tracking-widest py-2.5 border-b border-gray-100 ${
+                      isActive ? 'text-[#d21920]' : 'text-[#1a1a1a]'
                     }`}
                   >
                     {link.name}
                   </Link>
                 );
               })}
+              
               <Link
                 href="/quote"
                 onClick={() => setMobileMenuOpen(false)}
-                className="bg-[#0b0f19] text-white text-center text-[10px] font-bold uppercase tracking-widest py-3.5 rounded hover:bg-[#8a9ca7] transition-colors mt-2"
+                className="bg-[#d21920] text-white text-center text-[10px] font-bold uppercase tracking-widest py-3.5 rounded hover:bg-[#1a1a1a] transition-colors mt-2"
               >
-                Hızlı Teklif Al
+                Fiyat Hesapla
               </Link>
             </div>
           </motion.div>

@@ -80,7 +80,7 @@ export default function RailingsPage() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#fafafa] text-[#0b0f19] antialiased">
+    <div className="min-h-screen flex flex-col bg-[#fafafa] text-[#1a1a1a] antialiased">
       <Navbar />
 
       <main className="pt-20">
@@ -105,7 +105,7 @@ export default function RailingsPage() {
               <span className="inline-block px-3 py-1 bg-[#f0f1f4] text-[#565f69] font-bold text-[10px] uppercase tracking-widest mb-4 rounded-full">
                 YAPISAL EMNİYET
               </span>
-              <h1 className="font-display font-semibold text-3xl sm:text-4xl text-[#0b0f19] tracking-tight mb-6">
+              <h1 className="font-display font-semibold text-3xl sm:text-4xl text-[#1a1a1a] tracking-tight mb-6">
                 Alüminyum Korkuluk Sistemleri
               </h1>
               <p className="text-sm md:text-base text-[#565f69] leading-relaxed mb-8">
@@ -114,11 +114,11 @@ export default function RailingsPage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="/quote"
-                  className="bg-[#0b0f19] text-white text-center text-xs font-semibold uppercase tracking-widest px-8 py-4 rounded hover:bg-[#8a9ca7] hover:text-[#0b0f19] transition-colors"
+                  className="bg-[#d21920] text-white text-center text-xs font-semibold uppercase tracking-widest px-8 py-4 rounded hover:bg-[#d21920] hover:text-[#1a1a1a] transition-colors"
                 >
                   Teklif Hesapla
                 </Link>
-                <button className="border border-[#dcdde2] text-[#0b0f19] text-xs font-semibold uppercase tracking-widest px-8 py-4 rounded hover:bg-[#f0f1f4] transition-colors flex items-center justify-center gap-2">
+                <button className="border border-[#dcdde2] text-[#1a1a1a] text-xs font-semibold uppercase tracking-widest px-8 py-4 rounded hover:bg-[#f0f1f4] transition-colors flex items-center justify-center gap-2">
                   Kataloğu İncele <span className="material-symbols-outlined text-[16px]">download</span>
                 </button>
               </div>
@@ -130,11 +130,11 @@ export default function RailingsPage() {
         <section className="py-24 px-6 md:px-12 max-w-[1280px] mx-auto w-full">
           <div className="mb-16">
             <span className="text-[10px] font-bold uppercase tracking-widest text-[#565f69] mb-2 block">KATEGORİLER</span>
-            <h2 className="font-display text-3xl font-semibold text-[#0b0f19]">Korkuluk Modellerimiz</h2>
+            <h2 className="font-display text-3xl font-semibold text-[#1a1a1a]">Korkuluk Modellerimiz</h2>
             <p className="text-xs text-[#565f69] mt-2">
               (Görsel bulunmayan alanlar, ileride kendi fotoğraflarınızı yerleştirebilmeniz için şablon olarak tasarlanmıştır.)
             </p>
-            <div className="w-12 h-0.5 bg-[#8a9ca7] mt-4"></div>
+            <div className="w-12 h-0.5 bg-[#d21920] mt-4"></div>
           </div>
 
           <motion.div
@@ -148,7 +148,7 @@ export default function RailingsPage() {
               <motion.div
                 key={idx}
                 variants={itemVariants}
-                className="bg-white border border-[#dcdde2]/60 p-6 flex flex-col justify-between hover:border-[#0b0f19] hover:shadow-md transition-all duration-300 rounded"
+                className="bg-white border border-[#dcdde2]/60 p-6 flex flex-col justify-between hover:border-[#d21920] hover:shadow-md transition-all duration-300 rounded"
               >
                 <div>
                   {cat.img ? (
@@ -167,7 +167,7 @@ export default function RailingsPage() {
                     </div>
                   )}
                   
-                  <h3 className="font-display text-xl font-semibold text-[#0b0f19] mb-3">
+                  <h3 className="font-display text-xl font-semibold text-[#1a1a1a] mb-3">
                     {cat.title}
                   </h3>
                   <p className="text-xs text-[#565f69] leading-relaxed mb-6">
@@ -176,8 +176,8 @@ export default function RailingsPage() {
                 </div>
 
                 <div className="flex justify-between items-center border-t border-[#dcdde2]/30 pt-4">
-                  <span className="text-[9px] font-bold text-[#8a9ca7] uppercase tracking-wider">CEMAS GÜVENCESİ</span>
-                  <Link href="/quote" className="text-[10px] font-bold uppercase tracking-widest text-[#0b0f19] hover:opacity-80 flex items-center gap-1.5">
+                  <span className="text-[9px] font-bold text-[#d21920] uppercase tracking-wider">CEMAS GÜVENCESİ</span>
+                  <Link href="/quote" className="text-[10px] font-bold uppercase tracking-widest text-[#1a1a1a] hover:opacity-80 flex items-center gap-1.5">
                     Fiyat Al <span className="material-symbols-outlined text-xs">arrow_forward</span>
                   </Link>
                 </div>
@@ -191,7 +191,7 @@ export default function RailingsPage() {
           <div className="w-full max-w-[1280px] mx-auto px-6 md:px-12">
             <div className="mb-16">
               <span className="text-[10px] font-bold uppercase tracking-widest text-[#565f69] mb-2 block">MÜHENDİSLİK VERİLERİ</span>
-              <h2 className="font-display text-3xl font-semibold text-[#0b0f19] mb-4">Hassas Tasarım Standartları</h2>
+              <h2 className="font-display text-3xl font-semibold text-[#1a1a1a] mb-4">Hassas Tasarım Standartları</h2>
               <p className="text-sm text-[#565f69] max-w-xl leading-relaxed">
                 Her detay, dayanıklılık ve estetik vizyonuyla tasarlandı. Sınıfının en iyisi malzemeler ve hassas üretim süreçleri.
               </p>
@@ -200,8 +200,8 @@ export default function RailingsPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
               {/* Column 1 */}
               <div className="bg-[#fafafa] p-8 border border-[#dcdde2]/50 h-full flex flex-col rounded">
-                <span className="material-symbols-outlined text-4xl text-[#0b0f19] mb-6 block">shield</span>
-                <h3 className="text-lg font-semibold text-[#0b0f19] mb-3">Maksimum Emniyet</h3>
+                <span className="material-symbols-outlined text-4xl text-[#1a1a1a] mb-6 block">shield</span>
+                <h3 className="text-lg font-semibold text-[#1a1a1a] mb-3">Maksimum Emniyet</h3>
                 <p className="text-sm text-[#565f69] leading-relaxed">
                   T6 ısıl işlemli yapısal alüminyum alaşımı sayesinde yüksek korozyon direnci ve yüksek rüzgar yükü kapasitesi.
                 </p>
@@ -211,8 +211,8 @@ export default function RailingsPage() {
               <div className="bg-[#fafafa] p-8 border border-[#dcdde2]/50 md:col-span-2 flex flex-col md:flex-row gap-8 rounded">
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="material-symbols-outlined text-4xl text-[#0b0f19] mb-6 block">palette</span>
-                    <h3 className="text-lg font-semibold text-[#0b0f19] mb-3">Kusursuz Yüzey İşlemleri</h3>
+                    <span className="material-symbols-outlined text-4xl text-[#1a1a1a] mb-6 block">palette</span>
+                    <h3 className="text-lg font-semibold text-[#1a1a1a] mb-3">Kusursuz Yüzey İşlemleri</h3>
                     <p className="text-sm text-[#565f69] leading-relaxed mb-6">
                       Eloksal ve elektrostatik toz boya seçenekleriyle yıllarca solmayan, çizilmeye dirençli premium dokular.
                     </p>
@@ -234,12 +234,12 @@ export default function RailingsPage() {
 
               {/* Column 3 */}
               <div className="bg-[#fafafa] p-8 border border-[#dcdde2]/50 md:col-span-3 rounded">
-                <h3 className="text-lg font-semibold text-[#0b0f19] mb-6">Teknik Özellikler Tablosu</h3>
+                <h3 className="text-lg font-semibold text-[#1a1a1a] mb-6">Teknik Özellikler Tablosu</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12">
                   {technicalSpecs.map((spec) => (
                     <div key={spec.label} className="flex justify-between items-center py-4 border-b border-[#dcdde2]/20 spec-row">
                       <span className="text-[10px] font-bold text-[#565f69] uppercase tracking-wider">{spec.label}</span>
-                      <span className="text-sm font-semibold text-[#0b0f19]">{spec.value}</span>
+                      <span className="text-sm font-semibold text-[#1a1a1a]">{spec.value}</span>
                     </div>
                   ))}
                 </div>
@@ -254,7 +254,7 @@ export default function RailingsPage() {
             <div className="flex justify-between items-end mb-12">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-widest text-[#565f69] mb-2 block">REFERANSLARIMIZ</span>
-                <h2 className="font-display text-3xl font-semibold text-[#0b0f19]">Tamamlanan Projeler</h2>
+                <h2 className="font-display text-3xl font-semibold text-[#1a1a1a]">Tamamlanan Projeler</h2>
               </div>
             </div>
 
@@ -269,7 +269,7 @@ export default function RailingsPage() {
                 <motion.div
                   key={index}
                   variants={itemVariants}
-                  className="group bg-white border border-[#dcdde2]/40 hover:border-[#0b0f19] hover:shadow-md transition-all duration-300 rounded overflow-hidden"
+                  className="group bg-white border border-[#dcdde2]/40 hover:border-[#d21920] hover:shadow-md transition-all duration-300 rounded overflow-hidden"
                 >
                   <div className="h-64 overflow-hidden bg-[#ebeef0]">
                     <img
@@ -282,7 +282,7 @@ export default function RailingsPage() {
                     <span className="text-[9px] font-bold text-[#565f69] tracking-widest uppercase mb-2 block">
                       {item.category}
                     </span>
-                    <h4 className="text-base font-semibold text-[#0b0f19]">
+                    <h4 className="text-base font-semibold text-[#1a1a1a]">
                       {item.title}
                     </h4>
                   </div>

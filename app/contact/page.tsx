@@ -21,7 +21,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#fafafa] text-[#0b0f19] antialiased">
+    <div className="min-h-screen flex flex-col bg-[#fafafa] text-[#1a1a1a] antialiased">
       <Navbar />
 
       <main className="max-w-[1280px] mx-auto px-6 md:px-12 py-12 md:py-24 pt-24 md:pt-32 w-full flex-grow flex flex-col justify-center">
@@ -31,10 +31,10 @@ export default function ContactPage() {
           <span className="text-[10px] font-bold uppercase tracking-widest text-[#565f69] mb-2 block">
             İLETİŞİM BİLGİLERİ
           </span>
-          <h1 className="font-display font-semibold text-3xl md:text-4xl text-[#0b0f19]">
+          <h1 className="font-display font-semibold text-3xl md:text-4xl text-[#1a1a1a]">
             Bizimle İletişime Geçin
           </h1>
-          <div className="w-12 h-0.5 bg-[#8a9ca7] mt-4"></div>
+          <div className="w-12 h-0.5 bg-[#d21920] mt-4"></div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
@@ -45,38 +45,58 @@ export default function ContactPage() {
             {/* Details Card */}
             <div className="bg-white border border-[#dcdde2]/60 p-8 rounded shadow-sm flex flex-col gap-8">
               <div>
-                <h3 className="font-display text-lg font-semibold text-[#0b0f19] mb-4">
-                  Merkez Showroom
+                <h3 className="font-display text-lg font-semibold text-[#1a1a1a] mb-4">
+                  CEM-AS Alüminyum Merkez Ofis
                 </h3>
                 <p className="text-xs text-[#565f69] leading-relaxed max-w-sm">
-                  Atatürk Bulvarı, No: 124, Minimalist Mimarlık Plaza, Kat: 3, Şişli / İstanbul, Türkiye
+                  Atatürk Bulvarı No: 124, Antakya / Hatay, Türkiye
                 </p>
               </div>
 
               <div className="flex flex-col gap-4 text-xs text-[#565f69]">
                 <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-[#8a9ca7] text-[18px]">call</span>
-                  <a href="tel:+905550000000" className="hover:text-[#0b0f19] transition-colors font-semibold">
-                    +90 555 000 0000
+                  <span className="material-symbols-outlined text-[#d21920] text-[18px]">call</span>
+                  <a href="tel:+905337747684" className="hover:text-[#1a1a1a] transition-colors font-semibold">
+                    +90 533 774 7684
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-[#8a9ca7] text-[18px]">mail</span>
-                  <a href="mailto:info@cemasglass.com" className="hover:text-[#0b0f19] transition-colors font-semibold">
-                    info@cemasglass.com
+                  <span className="material-symbols-outlined text-[#d21920] text-[18px]">mail</span>
+                  <a href="mailto:info@cemasaluminyum.com" className="hover:text-[#1a1a1a] transition-colors font-semibold">
+                    info@cemasaluminyum.com
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-[#8a9ca7] text-[18px]">schedule</span>
-                  <span>Hafta İçi: 09:00 - 18:00 | Cmt: 09:00 - 14:00</span>
+                  <span className="material-symbols-outlined text-[#d21920] text-[18px]">schedule</span>
+                  <span>Hafta İçi: 09:00 - 18:00 | Cumartesi: 09:00 - 14:00</span>
                 </div>
+              </div>
+
+              {/* Social media connections */}
+              <div className="flex gap-4 border-t border-[#dcdde2]/20 pt-6">
+                <a
+                  href="https://tr-tr.facebook.com/cemasaluminyumkorkuluksistemleri/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#f0f1f4] text-[#565f69] hover:bg-[#d21920] hover:text-white transition-colors text-xs font-semibold px-4 py-2 rounded flex items-center gap-2"
+                >
+                  Facebook
+                </a>
+                <a
+                  href="https://www.instagram.com/cemas.aluminyum/?hl=tr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#f0f1f4] text-[#565f69] hover:bg-[#d21920] hover:text-white transition-colors text-xs font-semibold px-4 py-2 rounded flex items-center gap-2"
+                >
+                  Instagram
+                </a>
               </div>
             </div>
 
             {/* Interactive Form */}
             <div className="bg-white border border-[#dcdde2]/60 p-8 rounded shadow-sm flex-grow flex flex-col justify-center">
-              <h3 className="font-display text-lg font-semibold text-[#0b0f19] mb-4">
-                Mesaj Gönderin
+              <h3 className="font-display text-lg font-semibold text-[#1a1a1a] mb-4">
+                Bize Ulaşın
               </h3>
               
               <AnimatePresence mode="wait">
@@ -94,7 +114,7 @@ export default function ContactPage() {
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full border border-[#dcdde2] p-3 rounded text-sm focus:outline-none focus:border-[#0b0f19]"
+                      className="w-full border border-[#dcdde2] p-3 rounded text-sm focus:outline-none focus:border-[#d21920]"
                     />
                     <input
                       type="email"
@@ -102,7 +122,7 @@ export default function ContactPage() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full border border-[#dcdde2] p-3 rounded text-sm focus:outline-none focus:border-[#0b0f19]"
+                      className="w-full border border-[#dcdde2] p-3 rounded text-sm focus:outline-none focus:border-[#d21920]"
                     />
                     <textarea
                       placeholder="Mesajınız..."
@@ -110,11 +130,11 @@ export default function ContactPage() {
                       required
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      className="w-full border border-[#dcdde2] p-3 rounded text-sm focus:outline-none focus:border-[#0b0f19]"
+                      className="w-full border border-[#dcdde2] p-3 rounded text-sm focus:outline-none focus:border-[#d21920]"
                     />
                     <button
                       type="submit"
-                      className="w-full bg-[#0b0f19] text-white hover:bg-[#8a9ca7] hover:text-[#0b0f19] transition-all duration-300 py-3.5 rounded text-xs font-semibold uppercase tracking-widest mt-1"
+                      className="w-full bg-[#d21920] text-white hover:bg-[#d21920] hover:text-[#1a1a1a] transition-all duration-300 py-3.5 rounded text-xs font-semibold uppercase tracking-widest mt-1"
                     >
                       Mesajı İletin
                     </button>
@@ -126,9 +146,9 @@ export default function ContactPage() {
                     className="text-center py-8 flex flex-col items-center"
                   >
                     <span className="material-symbols-outlined text-4xl text-green-500 mb-3">done_all</span>
-                    <h4 className="font-display text-base font-semibold text-[#0b0f19] mb-2">Mesajınız Alındı!</h4>
+                    <h4 className="font-display text-base font-semibold text-[#1a1a1a] mb-2">Mesajınız Alındı!</h4>
                     <p className="text-xs text-[#565f69] leading-relaxed mb-6 max-w-xs">
-                      Sayın {name}, mesajınız başarıyla kaydedilmiştir. Müşteri ilişkileri ekibimiz verdiğiniz e-posta üzerinden en kısa sürede dönüş sağlayacaktır.
+                      Sayın {name}, mesajınız başarıyla kaydedilmiştir. Müşteri ekibimiz en kısa sürede dönüş sağlayacaktır.
                     </p>
                     <button
                       onClick={() => {
@@ -137,7 +157,7 @@ export default function ContactPage() {
                         setEmail('');
                         setMessage('');
                       }}
-                      className="border border-[#0b0f19] text-[#0b0f19] text-[10px] font-bold uppercase tracking-widest px-6 py-2.5 rounded hover:bg-[#f0f1f4]"
+                      className="border border-[#d21920] text-[#1a1a1a] text-[10px] font-bold uppercase tracking-widest px-6 py-2.5 rounded hover:bg-[#f0f1f4]"
                     >
                       Yeni Mesaj Gönder
                     </button>
@@ -161,14 +181,14 @@ export default function ContactPage() {
                 transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                 className="relative z-10 flex flex-col items-center"
               >
-                <span className="material-symbols-outlined text-5xl text-[#0b0f19]">location_on</span>
-                <div className="w-8 h-2 bg-[#0b0f19]/10 rounded-full blur-[2px] mt-1" />
+                <span className="material-symbols-outlined text-5xl text-[#1a1a1a]">location_on</span>
+                <div className="w-8 h-2 bg-[#d21920]/10 rounded-full blur-[2px] mt-1" />
               </motion.div>
 
               <div className="relative z-10 mt-6 text-center">
-                <span className="text-[10px] font-bold text-[#0b0f19] uppercase tracking-wider block">Harita Yer Tutucu</span>
-                <span className="text-[9px] text-[#565f69] max-w-[200px] block mt-1 leading-relaxed">
-                  İstanbul Şişli merkez ofisimiz. Canlı harita API entegrasyonu için hazır konum kartı.
+                <span className="text-[10px] font-bold text-[#1a1a1a] uppercase tracking-wider block">Harita Konum Detayı</span>
+                <span className="text-[9px] text-[#565f69] max-w-[220px] block mt-1 leading-relaxed">
+                  Atatürk Bulvarı, Antakya / Hatay merkez konumumuz. Yol tarifi ve fiziki showroom ziyareti için yol tarifi alabilirsiniz.
                 </span>
               </div>
             </div>

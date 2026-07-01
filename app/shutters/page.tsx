@@ -6,7 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 
-export default function ShowersPage() {
+export default function ShuttersPage() {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -31,33 +31,33 @@ export default function ShowersPage() {
 
   const categories = [
     {
-      title: 'Pivot / Menteşeli Duşakabinler',
-      desc: 'Dışa veya içe doğru geniş açıyla açılan menteşeli lüks cam kapılar. Minimalist pirinç veya paslanmaz çelik mafsallı tasarımlar.',
-      img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCPNY1SJCI9YMvrfFEbUmzacAy5QpisMhOZZfr6cTTK-x16dQ1mqk8reb6OrQGUaFQLmHn_hQs0rqn0pENm0r4EaVlAgONFV_E3PX6pc0y5NCR3RHZw0kTLCWFuZvfeGatZ79NXK6mhfh-CfqFuEM2PLdzX7027sWLszyKoGZJwTLbHz9Ei7S-6ToeBNW7C4ywgAXVGLrgfz-vNiSLFaZRKUouBxL9tXoeh4UOEUD0_Mvd2PfYqqJRTTQ',
+      title: 'Poliüretan Dolgulu Alüminyum Kepenk',
+      desc: 'Isı ve ses yalıtımı sağlayan, hafifliği sayesinde motoru yormayan ve sessiz çalışan dükkan/garaj kapıları.',
+      img: 'https://cemasaluminyum.com/img/kepenk.jpg',
     },
     {
-      title: 'Sürgülü Lüks Duşakabin Sistemleri',
-      desc: 'Banyolarda alan tasarrufu sağlayan, üst ray üzerinde sessizce kayan rulman mekanizmalı, sızdırmaz cam paneller.',
-      img: null, // Placeholder for user's photo
+      title: 'Poliüretan Dolgulu Çelik Kepenk',
+      desc: 'Dış darbelere karşı yüksek mukavemet sağlayan, çelik sac profillerle güçlendirilmiş güvenli kepenk serisi.',
+      img: null, // Placeholder
     },
     {
-      title: 'Siyah Loft Seri (Mat Siyah Profil)',
-      desc: 'Endüstriyel ve modern loft havası katan, mat siyah alüminyum profilli ve siyah karolajlı şık banyo tasarımları.',
-      img: null, // Placeholder for user's photo
+      title: 'Galvanizli Çelik Kepenk Sistemleri',
+      desc: 'Maksimum güvenlik gerektiren banka, kuyumcu ve endüstriyel depolar için tasarlanmış ağır hizmet kapıları.',
+      img: null, // Placeholder
     },
     {
-      title: 'Altın & Bronz Klasik Seri',
-      desc: 'Altın sarısı veya antik bronz paslanmaz profil kaplamalarıyla banyonuzda klasik, lüks ve zengin bir görünüm.',
-      img: null, // Placeholder for user's photo
+      title: 'Pencereli / Mikro Delikli Kepenkler',
+      desc: 'Kapalıyken dahi içerideki vitrinin sergilenmesini sağlayan, estetik delikli veya pencereli transparan modeller.',
+      img: null, // Placeholder
     },
   ];
 
-  const showerSpecs = [
-    { label: 'Cam Tipi', value: '6mm - 8mm - 10mm Temperli Güvenlik Camı' },
-    { label: 'Profil Kaplama Alternatifleri', value: 'Mat Siyah, Parlak Krom, Parlak Altın, Antik Bronz' },
-    { label: 'Mekanizma Tipleri', value: 'Sürgülü Üst Askılı, Menteşeli, Pivot kapı sistemleri' },
-    { label: 'Sızdırmazlık Elemanları', value: 'Özel UV filtreli magnetik fitiller' },
-    { label: 'Donanım & Aksesuar', value: '304 Kalite Paslanmaz Çelik kulp ve menteşeler' },
+  const shutterSpecs = [
+    { label: 'Kullanılan Motorlar', value: 'Somfy / Mosel Kepenk ve Garaj Motorları' },
+    { label: 'Kumanda Tipi', value: 'Uzaktan Kumandalı ve Anahtarlı Şalterli Seçim' },
+    { label: 'Emniyet Donanımı', value: 'Engel Algılayıcı Emniyet Fotoseli ve Manuel Kol' },
+    { label: 'Profil Et Kalınlığı', value: '0.8mm - 1.2mm Çelik / Alüminyum' },
+    { label: 'Yüzey Boyası', value: 'Elektrostatik Fırın Toz Boya (RAL Kartelası Seçenekleri)' },
   ];
 
   return (
@@ -68,19 +68,18 @@ export default function ShowersPage() {
         
         {/* Hero Section */}
         <section className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center min-h-[500px]">
-          
           {/* Text Area */}
           <div className="col-span-1 md:col-span-5 flex flex-col gap-6 z-10">
             <span className="bg-white/80 border border-[#dcdde2] px-3.5 py-1.5 font-bold text-[10px] uppercase tracking-widest text-[#565f69] rounded-full self-start">
-              LÜKS BANYO SERİSİ
+              ENDÜSTRİYEL & GÜVENLİK
             </span>
             
             <h1 className="font-display font-semibold text-4xl md:text-5xl text-[#1a1a1a] tracking-tight leading-tight">
-              Şeffaflığın Zarafeti.
+              Otomatik Kepenk Sistemleri
             </h1>
             
             <p className="text-sm md:text-base text-[#565f69] font-normal leading-relaxed">
-              Modern banyolar için tasarlanmış, özel ölçü cam duşakabin sistemleri. Temperli camın güvenliği, paslanmaz donanımın şıklığı ile buluşuyor.
+              Güvenli kapılar olmasının yanı sıra hem estetik hem de son derece kullanışlı kepenk sistemleri. Dükkanınız, mağazanız veya garajınız için maksimum koruma çözümleri.
             </p>
             
             <div className="flex gap-4 mt-2">
@@ -88,7 +87,7 @@ export default function ShowersPage() {
                 href="/quote"
                 className="bg-[#d21920] text-white text-center text-xs font-semibold uppercase tracking-widest px-8 py-4 rounded hover:bg-[#d21920] hover:text-[#1a1a1a] transition-colors"
               >
-                Kabin Fiyatı Hesapla
+                Kepenk Fiyatı Al
               </Link>
             </div>
           </div>
@@ -102,8 +101,8 @@ export default function ShowersPage() {
           >
             <div className="w-full h-full relative overflow-hidden rounded">
               <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPNY1SJCI9YMvrfFEbUmzacAy5QpisMhOZZfr6cTTK-x16dQ1mqk8reb6OrQGUaFQLmHn_hQs0rqn0pENm0r4EaVlAgONFV_E3PX6pc0y5NCR3RHZw0kTLCWFuZvfeGatZ79NXK6mhfh-CfqFuEM2PLdzX7027sWLszyKoGZJwTLbHz9Ei7S-6ToeBNW7C4ywgAXVGLrgfz-vNiSLFaZRKUouBxL9tXoeh4UOEUD0_Mvd2PfYqqJRTTQ"
-                alt="Modern temperli cam duşakabin"
+                src="https://cemasaluminyum.com/img/kepenk.jpg"
+                alt="Otomatik kepenk garaj kapısı"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -113,8 +112,8 @@ export default function ShowersPage() {
         {/* Categories Section */}
         <section className="py-16 border-t border-[#dcdde2]/40">
           <div className="mb-16">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#565f69] mb-2 block">KOLEKSİYONLARIMIZ</span>
-            <h2 className="font-display text-3xl font-semibold text-[#1a1a1a]">Duşakabin Kabin Serilerimiz</h2>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#565f69] mb-2 block">KATEGORİLERİMİZ</span>
+            <h2 className="font-display text-3xl font-semibold text-[#1a1a1a]">Kepenk Çözümlerimiz</h2>
             <p className="text-xs text-[#565f69] mt-2">
               (Görsel bulunmayan alanlar, ileride kendi fotoğraflarınızı yerleştirebilmeniz için şablon olarak tasarlanmıştır.)
             </p>
@@ -160,7 +159,7 @@ export default function ShowersPage() {
                 </div>
 
                 <div className="flex justify-between items-center border-t border-[#dcdde2]/30 pt-4">
-                  <span className="text-[9px] font-bold text-[#d21920] uppercase tracking-wider">CEMAS GÜVENCESİ</span>
+                  <span className="text-[9px] font-bold text-[#d21920] uppercase tracking-wider">CEM-AS GÜVENCESİ</span>
                   <Link href="/quote" className="text-[10px] font-bold uppercase tracking-widest text-[#1a1a1a] hover:opacity-80 flex items-center gap-1.5">
                     Fiyat Al <span className="material-symbols-outlined text-xs">arrow_forward</span>
                   </Link>
@@ -173,19 +172,18 @@ export default function ShowersPage() {
         {/* Specs Table Section */}
         <section className="py-16 border-t border-[#dcdde2]/40">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
-            
             <div className="md:col-span-5">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#565f69] mb-2 block">ÖZELLİKLERİMİZ</span>
-              <h2 className="font-display text-3xl font-semibold text-[#1a1a1a] mb-6">Tasarım & Emniyet Standartları</h2>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#565f69] mb-2 block">DONANIM GÜCÜ</span>
+              <h2 className="font-display text-3xl font-semibold text-[#1a1a1a] mb-6">Motor & Güvenlik Standartları</h2>
               <p className="text-sm text-[#565f69] leading-relaxed">
-                Her banyo yerleşimine ve kişisel estetik tercihlere uyacak şekilde tamamen özelleştirilebilen modüllerle lüks duş alanları yaratıyoruz.
+                Yüksek taşıma kapasiteli boru motorlar ve elektrik kesintisinde kepengi açabilmeniz için entegre manuel sarmal kollar standart olarak sunulmaktadır.
               </p>
             </div>
 
             <div className="md:col-span-7 bg-[#fafafa] border border-[#dcdde2]/60 p-8 rounded">
-              <h3 className="text-lg font-semibold text-[#1a1a1a] mb-6">Detaylı Donanım Verileri</h3>
+              <h3 className="text-lg font-semibold text-[#1a1a1a] mb-6">Detaylı Teknik Bilgiler</h3>
               <div className="flex flex-col">
-                {showerSpecs.map((spec) => (
+                {shutterSpecs.map((spec) => (
                   <div key={spec.label} className="flex justify-between items-center py-4 border-b border-[#dcdde2]/20 spec-row">
                     <span className="text-[10px] font-bold text-[#565f69] uppercase tracking-wider pr-4">{spec.label}</span>
                     <span className="text-sm font-semibold text-[#1a1a1a] text-right">{spec.value}</span>

@@ -53,7 +53,7 @@ export default function BalconiesPage() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#fafafa] text-[#0b0f19] antialiased">
+    <div className="min-h-screen flex flex-col bg-[#fafafa] text-[#1a1a1a] antialiased">
       <Navbar />
 
       <main className="pt-20">
@@ -77,7 +77,7 @@ export default function BalconiesPage() {
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="font-display font-semibold text-4xl md:text-5xl text-[#0b0f19] tracking-tight leading-tight mb-6"
+              className="font-display font-semibold text-4xl md:text-5xl text-[#1a1a1a] tracking-tight leading-tight mb-6"
             >
               Cam Balkon Sistemleri
             </motion.h1>
@@ -96,11 +96,11 @@ export default function BalconiesPage() {
         <section className="py-24 px-6 md:px-12 max-w-[1280px] mx-auto w-full">
           <div className="mb-16">
             <span className="text-[10px] font-bold uppercase tracking-widest text-[#565f69] mb-2 block">KATEGORİLER</span>
-            <h2 className="font-display text-3xl font-semibold text-[#0b0f19]">Cam Balkon Modellerimiz</h2>
+            <h2 className="font-display text-3xl font-semibold text-[#1a1a1a]">Cam Balkon Modellerimiz</h2>
             <p className="text-xs text-[#565f69] mt-2">
               (Görsel bulunmayan alanlar, ileride kendi fotoğraflarınızı yerleştirebilmeniz için şablon olarak tasarlanmıştır.)
             </p>
-            <div className="w-12 h-0.5 bg-[#8a9ca7] mt-4"></div>
+            <div className="w-12 h-0.5 bg-[#d21920] mt-4"></div>
           </div>
 
           <motion.div
@@ -114,7 +114,7 @@ export default function BalconiesPage() {
               <motion.div
                 key={idx}
                 variants={itemVariants}
-                className="bg-white border border-[#dcdde2]/60 p-6 flex flex-col justify-between hover:border-[#0b0f19] hover:shadow-md transition-all duration-300 rounded"
+                className="bg-white border border-[#dcdde2]/60 p-6 flex flex-col justify-between hover:border-[#d21920] hover:shadow-md transition-all duration-300 rounded"
               >
                 <div>
                   {/* Photo area */}
@@ -134,7 +134,7 @@ export default function BalconiesPage() {
                     </div>
                   )}
                   
-                  <h3 className="font-display text-xl font-semibold text-[#0b0f19] mb-3">
+                  <h3 className="font-display text-xl font-semibold text-[#1a1a1a] mb-3">
                     {cat.title}
                   </h3>
                   <p className="text-xs text-[#565f69] leading-relaxed mb-6">
@@ -143,8 +143,8 @@ export default function BalconiesPage() {
                 </div>
 
                 <div className="flex justify-between items-center border-t border-[#dcdde2]/30 pt-4">
-                  <span className="text-[9px] font-bold text-[#8a9ca7] uppercase tracking-wider">CEMAS GÜVENCESİ</span>
-                  <Link href="/quote" className="text-[10px] font-bold uppercase tracking-widest text-[#0b0f19] hover:opacity-80 flex items-center gap-1.5">
+                  <span className="text-[9px] font-bold text-[#d21920] uppercase tracking-wider">CEMAS GÜVENCESİ</span>
+                  <Link href="/quote" className="text-[10px] font-bold uppercase tracking-widest text-[#1a1a1a] hover:opacity-80 flex items-center gap-1.5">
                     Fiyat Al <span className="material-symbols-outlined text-xs">arrow_forward</span>
                   </Link>
                 </div>
