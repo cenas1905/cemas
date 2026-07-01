@@ -116,23 +116,24 @@ export default function HomePage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
-            className="absolute inset-0 z-0"
+            className="absolute inset-0 z-0 overflow-hidden"
           >
-            <img
+            <motion.img
+              initial={{ scale: 1.1 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 6, ease: "easeOut" }}
               src={slides[activeSlide].img}
               alt={slides[activeSlide].title}
               className="w-full h-full object-cover"
             />
-            {/* Ambient gradients */}
-            <div className="absolute inset-0 bg-black/20" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
+            {/* Subtle gradient only on the left for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a]/80 via-[#1a1a1a]/30 to-transparent" />
           </motion.div>
         </AnimatePresence>
 
         {/* Slide Content */}
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 md:px-12 h-full flex items-center">
-          <div className="max-w-2xl text-left bg-black/60 backdrop-blur-md p-8 md:p-12 border border-white/10 rounded shadow-2xl">
+          <div className="max-w-2xl text-left bg-[#1a1a1a]/40 backdrop-blur-md p-8 md:p-12 border border-white/5 rounded-2xl shadow-2xl">
             <motion.span
               key={`span-${activeSlide}`}
               initial={{ opacity: 0, y: -10 }}
