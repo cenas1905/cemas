@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- Background squircle -->
+  <rect width="512" height="512" rx="110" fill="#0b0f19"/>
+  
+  <!-- Stylized Minimalist Glass Panels (CEMAS Geometric Logo) -->
+  <g transform="translate(10, 10)">
+    <!-- Base glass plate (silver/gray tone) -->
+    <rect x="130" y="110" width="210" height="270" rx="16" fill="#8a9ca7" opacity="0.3" transform="skewX(-6)"/>
+    
+    <!-- Top glass plate (bright white/glass reflection) -->
+    <rect x="170" y="140" width="210" height="270" rx="16" fill="#ffffff" fill-opacity="0.9" stroke="#0b0f19" stroke-width="12" transform="skewX(-6)"/>
+    
+    <!-- Aluminum corner line accent -->
+    <path d="M 130 110 L 380 110 L 380 410" fill="none" stroke="#ffffff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+  </g>
+</svg>
