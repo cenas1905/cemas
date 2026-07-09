@@ -1,33 +1,56 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
+import { supabaseAdmin as supabase } from '@/lib/supabase';
 
-const dataFilePath = path.join(process.cwd(), 'data', 'products.json');
-
-async function getProductsData() {
-  try {
-    const fileContents = await fs.readFile(dataFilePath, 'utf8');
-    return JSON.parse(fileContents);
-  } catch (error) {
-    return { korkuluk: [], pleksi: [], winsa: [], royalglass: [] };
-  }
-}
-
-async function saveProductsData(data: any) {
-  await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2), 'utf8');
-}
+// Revalidate on every request since this is an API
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const category = searchParams.get('category');
-  
-  const data = await getProductsData();
-  
-  if (category) {
-    return NextResponse.json(data[category] || []);
+  try {
+    const { searchParams } = new URL(request.url);
+    const category = searchParams.get('category');
+    
+
+    
+    if (category) {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('category', category)
+        .order('created_at', { ascending: false });
+        
+      if (error) throw error;
+      return NextResponse.json(data || []);
+    }
+    
+    // If no category, fetch all and group by category
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .order('created_at', { ascending: false });
+      
+    if (error) throw error;
+    
+    const groupedData: any = {
+      korkuluk: [],
+      pleksi: [],
+      winsa: [],
+      royalglass: []
+    };
+    
+    if (data) {
+      data.forEach((product: any) => {
+        if (!groupedData[product.category]) {
+          groupedData[product.category] = [];
+        }
+        groupedData[product.category].push(product);
+      });
+    }
+    
+    return NextResponse.json(groupedData);
+  } catch (error: any) {
+    console.error('Error fetching products:', error);
+    return NextResponse.json({ error: 'Failed to fetch products' }, { status: 500 });
   }
-  
-  return NextResponse.json(data);
 }
 
 export async function POST(request: Request) {
@@ -39,18 +62,29 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Category and product are required' }, { status: 400 });
     }
     
-    const data = await getProductsData();
-    if (!data[category]) {
-      data[category] = [];
-    }
+
     
-    const newProduct = { ...product, id: Date.now().toString() };
-    data[category].push(newProduct);
+    const newProduct = {
+      id: Date.now().toString(), // Keep using timestamp as ID for compatibility, or UUID
+      category,
+      name: product.name,
+      description: product.description,
+      features: product.features || [],
+      image: product.image,
+      created_at: new Date().toISOString()
+    };
     
-    await saveProductsData(data);
+    const { data, error } = await supabase
+      .from('products')
+      .insert([newProduct])
+      .select()
+      .single();
+      
+    if (error) throw error;
     
-    return NextResponse.json({ success: true, product: newProduct });
-  } catch (error) {
+    return NextResponse.json({ success: true, product: data });
+  } catch (error: any) {
+    console.error('Error adding product:', error);
     return NextResponse.json({ error: 'Failed to add product' }, { status: 500 });
   }
 }
@@ -60,26 +94,32 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const { category, product } = body;
     
-    if (!category || !product || !product.id) {
-      return NextResponse.json({ error: 'Category, product, and product.id are required' }, { status: 400 });
+    if (!product || !product.id) {
+      return NextResponse.json({ error: 'Product and product.id are required' }, { status: 400 });
     }
     
-    const data = await getProductsData();
-    if (!data[category]) {
-      return NextResponse.json({ error: 'Category not found' }, { status: 404 });
-    }
+
     
-    const index = data[category].findIndex((p: any) => p.id === product.id);
-    if (index === -1) {
-      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
-    }
+    const updateData = {
+      category: category || product.category,
+      name: product.name,
+      description: product.description,
+      features: product.features || [],
+      image: product.image
+    };
     
-    data[category][index] = product;
+    const { data, error } = await supabase
+      .from('products')
+      .update(updateData)
+      .eq('id', product.id)
+      .select()
+      .single();
+      
+    if (error) throw error;
     
-    await saveProductsData(data);
-    
-    return NextResponse.json({ success: true, product });
-  } catch (error) {
+    return NextResponse.json({ success: true, product: data });
+  } catch (error: any) {
+    console.error('Error updating product:', error);
     return NextResponse.json({ error: 'Failed to update product' }, { status: 500 });
   }
 }
@@ -87,24 +127,24 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const category = searchParams.get('category');
     const id = searchParams.get('id');
     
-    if (!category || !id) {
-      return NextResponse.json({ error: 'Category and id are required' }, { status: 400 });
+    if (!id) {
+      return NextResponse.json({ error: 'id is required' }, { status: 400 });
     }
     
-    const data = await getProductsData();
-    if (!data[category]) {
-      return NextResponse.json({ error: 'Category not found' }, { status: 404 });
-    }
+
     
-    data[category] = data[category].filter((p: any) => p.id !== id);
-    
-    await saveProductsData(data);
+    const { error } = await supabase
+      .from('products')
+      .delete()
+      .eq('id', id);
+      
+    if (error) throw error;
     
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
+    console.error('Error deleting product:', error);
     return NextResponse.json({ error: 'Failed to delete product' }, { status: 500 });
   }
 }
