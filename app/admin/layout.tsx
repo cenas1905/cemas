@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Yönetim Paneli | 3B Yapı',
+  title: 'Yönetim Paneli | CEMAS',
   description: 'İçerik Yönetim Sistemi',
 };
 
@@ -13,7 +13,7 @@ export default function AdminLayout({
       <nav className="bg-[#1a1a1a] text-white p-4 shadow-md">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-[#d21920] flex items-center justify-center font-bold">3B</div>
+            <div className="w-10 h-10 rounded-full bg-[#d21920] flex items-center justify-center font-bold text-xs">CEMAS</div>
             <span className="font-bold tracking-wider">YÖNETİM PANELİ</span>
           </div>
           <a href="/" target="_blank" className="text-sm text-gray-300 hover:text-white flex items-center gap-2">
