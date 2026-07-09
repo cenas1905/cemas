@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Navbar from '@/components/Navbar';
@@ -10,6 +10,20 @@ export default function HomePage() {
   const { scrollYProgress } = useScroll();
   const yBg = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
   const opacityText = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+
+  const [settings, setSettings] = useState<any>({});
+
+  const fetchSettings = async () => {
+    try {
+      const res = await fetch('/api/settings');
+      const data = await res.json();
+      if (data && !data.error && Object.keys(data).length > 0) {
+        setSettings(data);
+      }
+    } catch (err) {
+      console.error('Failed to load settings', err);
+    }
+  };
 
   const references = [
     'Botaş A.Ş.',
@@ -28,6 +42,7 @@ export default function HomePage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    fetchSettings();
   }, []);
 
   return (
@@ -67,12 +82,8 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
             className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-[1.1] mb-6 max-w-5xl"
-          >
-            Sınırları Kaldırın, <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/40">
-              Manzaraya Yer Açın.
-            </span>
-          </motion.h1>
+            dangerouslySetInnerHTML={{ __html: settings.hero_title || 'Sınırları Kaldırın, <br /> <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/40">Manzaraya Yer Açın.</span>' }}
+          />
 
           <motion.p 
             initial={{ opacity: 0 }}
@@ -80,7 +91,7 @@ export default function HomePage() {
             transition={{ duration: 1, delay: 1 }}
             className="text-white/60 text-lg md:text-xl max-w-2xl font-light"
           >
-            Alüminyum sistemlerinden lüks cam balkonlara kadar, yaşam alanlarınızı yeniden tanımlıyoruz.
+            {settings.hero_subtitle || 'Alüminyum sistemlerinden lüks cam balkonlara kadar, yaşam alanlarınızı yeniden tanımlıyoruz.'}
           </motion.p>
         </motion.div>
 
@@ -122,7 +133,7 @@ export default function HomePage() {
             transition={{ duration: 1, delay: 0.3 }}
             className="mt-10 text-[#555555] text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed"
           >
-            Antakya'nın köklü tecrübesiyle, her detayı ustalıkla işliyor; estetiği mühendislikle, güveni tasarımla buluşturuyoruz.
+            {settings.about_text || "Antakya'nın köklü tecrübesiyle, her detayı ustalıkla işliyor; estetiği mühendislikle, güveni tasarımla buluşturuyoruz."}
           </motion.p>
         </div>
       </section>

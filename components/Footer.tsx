@@ -1,10 +1,28 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+
+  const [settings, setSettings] = useState<any>({});
+
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  const fetchSettings = async () => {
+    try {
+      const res = await fetch('/api/settings');
+      const data = await res.json();
+      if (data && !data.error && Object.keys(data).length > 0) {
+        setSettings(data);
+      }
+    } catch (err) {
+      console.error('Failed to load settings', err);
+    }
+  };
 
   const services = [
     { name: 'Korkuluk Sistemleri', href: '/railings' },
@@ -106,20 +124,20 @@ export default function Footer() {
           <ul className="flex flex-col gap-4 text-xs">
             <li className="flex gap-2">
               <span className="material-symbols-outlined text-[#8a9ca7] text-base">location_on</span>
-              <span className="text-white/50">
-                Atatürk Bulvarı No: 124, Antakya / Hatay, Türkiye
+              <span className="text-white/50 whitespace-pre-line">
+                {settings.contact_address || 'Atatürk Bulvarı No: 124, Antakya / Hatay, Türkiye'}
               </span>
             </li>
             <li className="flex gap-2 items-center">
               <span className="material-symbols-outlined text-[#8a9ca7] text-base">call</span>
-              <a href="tel:+905337747684" className="text-white hover:text-[#8a9ca7] font-semibold transition-colors">
-                +90 533 774 7684
+              <a href={`tel:${settings.contact_phone?.replace(/\D/g, '') || '+905337747684'}`} className="text-white hover:text-[#8a9ca7] font-semibold transition-colors">
+                {settings.contact_phone || '+90 533 774 7684'}
               </a>
             </li>
             <li className="flex gap-2 items-center">
               <span className="material-symbols-outlined text-[#8a9ca7] text-base">mail</span>
-              <a href="mailto:info@cemasaluminyum.com" className="hover:text-white transition-colors">
-                info@cemasaluminyum.com
+              <a href={`mailto:${settings.contact_email || 'info@cemasaluminyum.com'}`} className="hover:text-white transition-colors">
+                {settings.contact_email || 'info@cemasaluminyum.com'}
               </a>
             </li>
           </ul>
