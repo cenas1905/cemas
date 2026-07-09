@@ -69,16 +69,23 @@ export default function Navbar() {
       <div className="bg-white/95 backdrop-blur-md border-b border-[#e5e7eb] w-full">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex items-center justify-between h-20">
           
-          <Link href="/" className="flex items-center hover:opacity-85 transition-opacity">
-            <img src="/logo.png" alt="CEM-AS Alüminyum" className="h-12 w-auto object-contain" />
+          <Link href="/" className="flex items-center gap-3 hover:opacity-85 transition-opacity mr-4 shrink-0">
+            <div className="flex items-center">
+              <span className="font-display font-black text-lg md:text-xl tracking-tight text-[#E30613]">WİNSA</span>
+            </div>
+            
+            <img src="/logo.png" alt="CEM-AS Alüminyum" className="h-8 md:h-10 w-auto object-contain" />
+            
+            <div className="flex items-center">
+              <span className="font-display font-black text-lg md:text-xl tracking-tight text-[#00417A]">ROYALGLASS</span>
+            </div>
           </Link>
 
           {/* Navigation Links (Desktop) */}
-          <nav className="hidden lg:flex items-center space-x-1">
-            {/* Home Link */}
+          <nav className="hidden lg:flex items-center space-x-2 xl:space-x-4">
             <Link
               href="/"
-              className={`px-3 py-2 text-[11px] font-bold uppercase tracking-widest transition-colors duration-300 rounded ${
+              className={`px-3 py-2 text-[13px] md:text-sm font-bold uppercase tracking-wider transition-colors duration-300 rounded ${
                 pathname === '/'
                   ? 'text-[#d21920]'
                   : 'text-[#1a1a1a] hover:text-[#d21920] hover:bg-gray-50'
@@ -87,63 +94,18 @@ export default function Navbar() {
               Anasayfa
             </Link>
 
-            {/* Products Dropdown Trigger */}
-            <div
-              className="relative"
-              onMouseEnter={() => setDropdownOpen(true)}
-              onMouseLeave={() => setDropdownOpen(false)}
-            >
-              <button
-                className={`px-3 py-2 text-[11px] font-bold uppercase tracking-widest transition-colors duration-300 rounded flex items-center gap-1.5 ${
-                  services.some(s => pathname === s.href)
-                    ? 'text-[#d21920]'
-                    : 'text-[#1a1a1a] hover:text-[#d21920] hover:bg-gray-50'
-                }`}
-              >
-                Hizmetlerimiz
-                <span className="material-symbols-outlined text-[14px]">keyboard_arrow_down</span>
-              </button>
-
-              {/* Dropdown Menu */}
-              <AnimatePresence>
-                {dropdownOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute left-0 top-full mt-1 w-64 bg-white border border-[#e5e7eb] shadow-xl p-4 flex flex-col gap-1 rounded z-50 animate-fade-in"
-                  >
-                    {services.map((item) => {
-                      const isSubActive = pathname === item.href;
-                      return (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className={`flex items-center gap-3 px-3 py-2.5 rounded text-xs font-semibold transition-all duration-200 ${
-                            isSubActive
-                              ? 'bg-[#d21920] text-white'
-                              : 'text-[#1a1a1a] hover:text-[#d21920] hover:bg-gray-50'
-                          }`}
-                        >
-                          <span className="material-symbols-outlined text-base">{item.icon}</span>
-                          {item.name}
-                        </Link>
-                      );
-                    })}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Other Main Links */}
-            {mainLinks.map((link) => {
+            {[
+              { name: 'Alüminyum Korkuluk', href: '/korkuluk' },
+              { name: 'Pleksi', href: '/pleksi' },
+              { name: 'Winsa', href: '/winsa' },
+              { name: 'Royalglass', href: '/royalglass' },
+            ].map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3 py-2 text-[11px] font-bold uppercase tracking-widest transition-colors duration-300 rounded ${
+                  className={`relative px-4 py-2 text-[13px] md:text-sm font-bold uppercase tracking-wider transition-colors duration-300 rounded ${
                     isActive
                       ? 'text-[#d21920]'
                       : 'text-[#1a1a1a] hover:text-[#d21920] hover:bg-gray-50'
@@ -206,39 +168,29 @@ export default function Navbar() {
                 Anasayfa
               </Link>
 
-              {/* Mobile Services Sub-list */}
-              <div className="flex flex-col gap-2 pl-2">
-                <span className="text-[9px] font-bold text-[#d21920] uppercase tracking-wider">Hizmetlerimiz</span>
-                {services.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`text-xs font-semibold py-1 flex items-center gap-2 ${
-                      pathname === item.href ? 'text-[#d21920]' : 'text-[#1a1a1a]'
-                    }`}
-                  >
-                    <span className="material-symbols-outlined text-sm">{item.icon}</span>
-                    {item.name}
-                  </Link>
-                ))}
+              {/* Mobile Services List */}
+              <div className="flex flex-col gap-2">
+                {[
+                  { name: 'Alüminyum Korkuluk', href: '/korkuluk' },
+                  { name: 'Pleksi', href: '/pleksi' },
+                  { name: 'Winsa', href: '/winsa' },
+                  { name: 'Royalglass', href: '/royalglass' },
+                ].map((link) => {
+                  const isActive = pathname === link.href;
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`text-xs font-bold uppercase tracking-widest py-2.5 border-b border-gray-100 ${
+                        isActive ? 'text-[#d21920]' : 'text-[#1a1a1a]'
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  );
+                })}
               </div>
-
-              {mainLinks.map((link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`text-xs font-bold uppercase tracking-widest py-2.5 border-b border-gray-100 ${
-                      isActive ? 'text-[#d21920]' : 'text-[#1a1a1a]'
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                );
-              })}
               
               <Link
                 href="/quote"

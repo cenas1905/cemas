@@ -1,0 +1,38 @@
+{
+  "korkuluk": [
+    {
+      "id": "1",
+      "name": "Kare Küpeşte",
+      "description": "Modern mimarinin vazgeçilmezi köşeli hatlar. Balkon ve teraslar için sağlam ve şık bir çözüm.",
+      "image": "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?q=80&w=800&auto=format&fit=crop",
+      "features": ["Köşeli Tasarım", "Paslanmaz", "Kolay Montaj"]
+    }
+  ],
+  "pleksi": [
+    {
+      "id": "2",
+      "name": "Şeffaf Pleksi Dikme",
+      "description": "Işığı kusursuz yansıtan şeffaf dokusuyla mekanlarınıza derinlik katan zarif pleksi korkuluk dikmeleri.",
+      "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop",
+      "features": ["Şeffaf Zarafet", "Yüksek Işık Geçirgenliği", "Lüks Tasarım"]
+    }
+  ],
+  "winsa": [
+    {
+      "id": "3",
+      "name": "Winsa Dorado 76",
+      "description": "Üstün ısı ve ses yalıtımı sağlayan 76mm profil sistemi. Şık ve zarif hatlarıyla yaşam alanlarınıza değer katar.",
+      "image": "https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=800&auto=format&fit=crop",
+      "features": ["76mm Profil", "Üstün Yalıtım", "Estetik Tasarım"]
+    }
+  ],
+  "royalglass": [
+    {
+      "id": "4",
+      "name": "Katlanır Cam Balkon",
+      "description": "Klasikleşen ve en çok tercih edilen, kullanımı kolay, mekanlarınıza tam yalıtım sağlayan katlanabilir cam balkon.",
+      "image": "https://images.unsplash.com/photo-1600607688969-a5bfcd64bd40?q=80&w=800&auto=format&fit=crop",
+      "features": ["Kolay Katlanma", "Tam Yalıtım", "Estetik Görünüm"]
+    }
+  ]
+}
