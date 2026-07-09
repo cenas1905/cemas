@@ -92,7 +92,7 @@ export default function WinsaPage() {
                   
                   {/* Features List */}
                   <ul className="space-y-3 mb-8">
-                    {product.features.map((feature, fIdx) => (
+                    {product.features?.map((feature: string, fIdx: number) => (
                       <li key={fIdx} className="flex items-center text-xs font-medium text-[#333333]">
                         <span className="material-symbols-outlined text-[#d21920] text-sm mr-3">check_circle</span>
                         {feature}
