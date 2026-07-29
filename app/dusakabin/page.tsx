@@ -5,18 +5,19 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
 
-export default function KorkulukPage() {
+export default function DusakabinPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const images = [
-    "/images/korkuluk/korkuluk-1.jpg",
-    "/images/korkuluk/korkuluk-2.jpeg",
-    "/images/korkuluk/korkuluk-3.jpeg",
-    "/images/korkuluk/korkuluk-4.jpeg",
-    "/images/korkuluk/korkuluk-5.jpeg",
-    "/images/korkuluk/korkuluk-6.jpeg"
+    "/images/dusakabin/dusakabin-1.jpeg",
+    "/images/dusakabin/dusakabin-2.jpeg",
+    "/images/dusakabin/dusakabin-3.jpeg",
+    "/images/dusakabin/dusakabin-4.jpeg",
+    "/images/dusakabin/dusakabin-5.jpeg",
+    "/images/dusakabin/dusakabin-6.jpeg",
+    "/images/dusakabin/dusakabin-7.jpeg"
   ];
 
   return (
@@ -28,17 +29,17 @@ export default function KorkulukPage() {
         <div className="absolute inset-0 w-full h-full">
           <img 
             src={images[0]} 
-            alt="Alüminyum Korkuluk" 
+            alt="Duşakabin Sistemleri" 
             className="w-full h-full object-cover opacity-50"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-[#1d4ed8]/20 to-transparent"></div>
         <div className="relative z-10 text-center px-6">
           <h1 className="font-display text-5xl md:text-7xl font-bold text-white mb-4">
-            Alüminyum Korkuluk
+            Duşakabin Sistemleri
           </h1>
           <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto font-light">
-            Güvenliği estetikle buluşturan, uzun ömürlü ve modern tasarımlar.
+            Banyonuza ferahlık katacak, sızdırmaz ve kişiselleştirilebilir lüks çözümler.
           </p>
         </div>
       </section>
@@ -47,32 +48,32 @@ export default function KorkulukPage() {
       <section className="py-24 bg-white">
         <div className="max-w-[1200px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-6">Mekanlarınıza Değer Katan Detaylar</h2>
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-6">Ferah ve Modern Banyolar</h2>
             <p className="text-[#555] leading-relaxed mb-6">
-              Alüminyum korkuluk sistemlerimiz, merdivenler, balkonlar, teraslar ve havuz kenarları için mükemmel bir güvenlik ve şıklık çözümüdür. Paslanmaz yapısı sayesinde iç ve dış mekanlarda yıllarca ilk günkü parlaklığını korur. Modern mimarinin vazgeçilmez bir unsuru olan alüminyum, hafifliği ve sağlamlığı ile projenize özel çözümler sunar.
+              Banyonuzun ölçülerine ve tasarım tarzınıza uygun, şık profillere ve temperli camlara sahip duşakabinlerimiz ile ıslak zemin problemlerini geride bırakın. Menteşeli, sürgülü veya kompakt sistem seçenekleriyle her banyoya en uygun ve en kullanışlı çözümü üretiyoruz. Su sızdırmazlık garantisi ve kolay temizlenebilen nano cam teknolojisiyle konforu hissedin.
             </p>
             <ul className="flex flex-col gap-4 text-[#444]">
               <li className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-[#d21920]">check_circle</span>
-                Paslanmaz ve korozyona dayanıklı malzeme
+                <span className="material-symbols-outlined text-[#1d4ed8]">check_circle</span>
+                Darbeye dayanıklı, kırılmaz temperli güvenli camlar
               </li>
               <li className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-[#d21920]">check_circle</span>
-                Kolay temizlenebilir ve bakım gerektirmez
+                <span className="material-symbols-outlined text-[#1d4ed8]">check_circle</span>
+                Paslanmaz ve kireç tutmayan lüks alüminyum profiller
               </li>
               <li className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-[#d21920]">check_circle</span>
-                Her projeye özel ölçü ve tasarım imkanı
+                <span className="material-symbols-outlined text-[#1d4ed8]">check_circle</span>
+                Mükemmel su sızdırmazlık için gelişmiş fitil sistemleri
               </li>
               <li className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-[#d21920]">check_circle</span>
-                Hafif yapısına rağmen yüksek mukavemet
+                <span className="material-symbols-outlined text-[#1d4ed8]">check_circle</span>
+                Dar alanlar için özel sürgülü veya katlanır çözümler
               </li>
             </ul>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <img src={images[1]} alt="Korkuluk Detay" className="rounded-2xl w-full h-64 object-cover shadow-lg" />
-            <img src={images[2]} alt="Korkuluk Detay" className="rounded-2xl w-full h-64 object-cover shadow-lg mt-8" />
+            <img src={images[1]} alt="Duşakabin Detay" className="rounded-2xl w-full h-64 object-cover shadow-lg" />
+            <img src={images[2]} alt="Duşakabin Detay" className="rounded-2xl w-full h-64 object-cover shadow-lg mt-8" />
           </div>
         </div>
       </section>
@@ -81,8 +82,8 @@ export default function KorkulukPage() {
       <section className="py-24 bg-[#f8f8f8]">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
-            <h2 className="font-display text-4xl font-bold text-[#1a1a1a]">Proje Galerisi</h2>
-            <p className="text-[#555] mt-4">Uygulamasını tamamladığımız korkuluk projelerinden kareler.</p>
+            <h2 className="font-display text-4xl font-bold text-[#1a1a1a]">Uygulama Örnekleri</h2>
+            <p className="text-[#555] mt-4">Kusursuz montaj ve estetiği bir araya getiren duşakabin projelerimiz.</p>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -97,7 +98,7 @@ export default function KorkulukPage() {
               >
                 <img 
                   src={img} 
-                  alt={`Korkuluk Projesi ${idx + 1}`} 
+                  alt={`Duşakabin Projesi ${idx + 1}`} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
                 />
               </motion.div>

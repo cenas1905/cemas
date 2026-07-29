@@ -154,10 +154,10 @@ export default function HomePage() {
           {/* Equal Importance 2x2 Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             
-            {/* ALÜMİNYUM KORKULUK (Huge Importance) */}
+            {/* ALÜMİNYUM KORKULUK */}
             <Link href="/korkuluk" className="group relative rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3] md:aspect-square lg:aspect-[4/3]">
               <img 
-                src="https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?q=80&w=1200&auto=format&fit=crop" 
+                src="/images/korkuluk/korkuluk-1.jpg" 
                 alt="Alüminyum Korkuluk" 
                 className="w-full h-full object-cover opacity-80 transition-transform duration-1000 group-hover:scale-105"
               />
@@ -174,19 +174,19 @@ export default function HomePage() {
               </div>
             </Link>
 
-            {/* PLEKSİ (Huge Importance) */}
-            <Link href="/pleksi" className="group relative rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3] md:aspect-square lg:aspect-[4/3]">
+            {/* MERDİVEN SİSTEMLERİ */}
+            <Link href="/merdivenler" className="group relative rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3] md:aspect-square lg:aspect-[4/3]">
               <img 
-                src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop" 
-                alt="Pleksi Sistemleri" 
+                src="/images/merdivenler/merdivenler-1.jpeg" 
+                alt="Merdiven Sistemleri" 
                 className="w-full h-full object-cover opacity-80 transition-transform duration-1000 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent transition-opacity duration-500 group-hover:opacity-70"></div>
               <div className="absolute inset-0 p-10 md:p-14 flex flex-col justify-end">
-                <span className="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em] mb-3">Şeffaf Zarafet</span>
-                <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">PLEKSİ<br/>SİSTEMLER</h3>
+                <span className="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em] mb-3">Mimari Zarafet</span>
+                <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">MERDİVEN<br/>SİSTEMLERİ</h3>
                 <p className="text-white/70 max-w-md text-sm md:text-base font-light opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                  Işığı yansıtan zarif yüzeyleriyle mekanlarınızı ferahlatın. Kırılmaya karşı yüksek direnç ve lüks görünüm.
+                  Evinizin mimarisiyle bütünleşen, güvenli ve şık merdiven tasarımlarıyla katlar arası estetik bir bağ kurun.
                 </p>
                 <div className="mt-8 w-12 h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white transition-colors duration-500">
                   <span className="material-symbols-outlined text-white group-hover:text-black transition-colors">arrow_forward</span>
@@ -194,39 +194,39 @@ export default function HomePage() {
               </div>
             </Link>
 
-            {/* WİNSA */}
-            <Link href="/winsa" className="group relative rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3] md:aspect-square lg:aspect-[4/3]">
+            {/* DUŞAKABİN */}
+            <Link href="/dusakabin" className="group relative rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3] md:aspect-square lg:aspect-[4/3]">
               <img 
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop" 
-                alt="Winsa" 
+                src="/images/dusakabin/dusakabin-1.jpeg" 
+                alt="Duşakabin Sistemleri" 
                 className="w-full h-full object-cover opacity-80 transition-transform duration-1000 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#E30613]/80 via-black/40 to-transparent transition-opacity duration-500 group-hover:opacity-90"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1d4ed8]/80 via-black/40 to-transparent transition-opacity duration-500 group-hover:opacity-90"></div>
               <div className="absolute inset-0 p-10 md:p-14 flex flex-col justify-end">
-                <span className="text-white/80 text-[10px] font-bold uppercase tracking-[0.2em] mb-3">PVC Sistemleri</span>
-                <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">WİNSA</h3>
+                <span className="text-white/80 text-[10px] font-bold uppercase tracking-[0.2em] mb-3">Banyo Çözümleri</span>
+                <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">DUŞAKABİN</h3>
                 <p className="text-white/80 max-w-md text-sm md:text-base font-light opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                  Mükemmel yalıtım ve kusursuz estetik ile evinizi geleceğe taşıyın.
+                  Banyonuza ferahlık katacak, sızdırmaz, dayanıklı ve kişiselleştirilebilir lüks duşakabin çözümleri.
                 </p>
                 <div className="mt-8 w-12 h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white transition-colors duration-500">
-                  <span className="material-symbols-outlined text-white group-hover:text-[#E30613] transition-colors">arrow_forward</span>
+                  <span className="material-symbols-outlined text-white group-hover:text-[#1d4ed8] transition-colors">arrow_forward</span>
                 </div>
               </div>
             </Link>
 
-            {/* ROYALGLASS */}
-            <Link href="/royalglass" className="group relative rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3] md:aspect-square lg:aspect-[4/3]">
+            {/* CAM BALKON */}
+            <Link href="/cambalkon" className="group relative rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3] md:aspect-square lg:aspect-[4/3]">
               <img 
-                src="https://images.unsplash.com/photo-1600607688969-a5bfcd64bd40?q=80&w=800&auto=format&fit=crop" 
-                alt="Royalglass" 
+                src="/images/cambalkon/cambalkon-1.jpeg" 
+                alt="Cam Balkon" 
                 className="w-full h-full object-cover opacity-80 transition-transform duration-1000 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#00417A]/90 via-black/40 to-transparent transition-opacity duration-500 group-hover:opacity-90"></div>
               <div className="absolute inset-0 p-10 md:p-14 flex flex-col justify-end">
-                <span className="text-white/80 text-[10px] font-bold uppercase tracking-[0.2em] mb-3">Cam Balkon</span>
-                <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">ROYALGLASS</h3>
+                <span className="text-white/80 text-[10px] font-bold uppercase tracking-[0.2em] mb-3">Cam Balkon Sistemleri</span>
+                <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">CAM<br/>BALKON</h3>
                 <p className="text-white/80 max-w-md text-sm md:text-base font-light opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                  Dört mevsim kesintisiz manzara keyfi. Şık ve güvenli cam balkon çözümleri.
+                  Dört mevsim kesintisiz manzara keyfi. Isı yalıtımlı, şık ve güvenli modern cam balkon tasarımları.
                 </p>
                 <div className="mt-8 w-12 h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white transition-colors duration-500">
                   <span className="material-symbols-outlined text-white group-hover:text-[#00417A] transition-colors">arrow_forward</span>

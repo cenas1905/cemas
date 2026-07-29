@@ -25,12 +25,10 @@ export default function Footer() {
   };
 
   const services = [
-    { name: 'Korkuluk Sistemleri', href: '/railings' },
-    { name: 'Cam Balkon', href: '/balconies' },
-    { name: 'Duşakabin', href: '/showers' },
-    { name: 'Fotoselli Kapı', href: '/automatic-doors' },
-    { name: 'Otomatik Kepenk', href: '/shutters' },
-    { name: 'Camekan & Doğrama', href: '/showcase-glass' },
+    { name: 'Korkuluk Sistemleri', href: '/korkuluk' },
+    { name: 'Merdiven Sistemleri', href: '/merdivenler' },
+    { name: 'Duşakabin', href: '/dusakabin' },
+    { name: 'Cam Balkon', href: '/cambalkon' },
   ];
 
   const quickLinks = [

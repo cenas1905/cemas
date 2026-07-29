@@ -95,10 +95,10 @@ export default function Navbar() {
             </Link>
 
             {[
-              { name: 'Alüminyum Korkuluk', href: '/korkuluk' },
-              { name: 'Pleksi', href: '/pleksi' },
-              { name: 'Winsa', href: '/winsa' },
-              { name: 'Royalglass', href: '/royalglass' },
+              { name: 'Korkuluk', href: '/korkuluk' },
+              { name: 'Merdiven Sistemleri', href: '/merdivenler' },
+              { name: 'Duşakabin', href: '/dusakabin' },
+              { name: 'Cam Balkon', href: '/cambalkon' },
             ].map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -171,10 +171,10 @@ export default function Navbar() {
               {/* Mobile Services List */}
               <div className="flex flex-col gap-2">
                 {[
-                  { name: 'Alüminyum Korkuluk', href: '/korkuluk' },
-                  { name: 'Pleksi', href: '/pleksi' },
-                  { name: 'Winsa', href: '/winsa' },
-                  { name: 'Royalglass', href: '/royalglass' },
+                  { name: 'Korkuluk', href: '/korkuluk' },
+                  { name: 'Merdiven Sistemleri', href: '/merdivenler' },
+                  { name: 'Duşakabin', href: '/dusakabin' },
+                  { name: 'Cam Balkon', href: '/cambalkon' },
                 ].map((link) => {
                   const isActive = pathname === link.href;
                   return (
