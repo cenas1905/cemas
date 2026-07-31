@@ -48,7 +48,7 @@ export default function Footer() {
         {/* Column 1: Brand Info */}
         <div className="col-span-1 md:col-span-4 flex flex-col gap-6">
           <Link href="/" className="flex items-center bg-white p-2 rounded max-w-[180px] hover:opacity-85 transition-opacity">
-            <img src="/logo.png" alt="CEM-AS Alüminyum" className="h-10 w-auto object-contain" />
+            <img src="/logo.jpg" alt="CEM-AS Alüminyum" className="h-10 w-auto object-contain" />
           </Link>
           
           <p className="text-xs text-white/50 leading-relaxed max-w-sm">
