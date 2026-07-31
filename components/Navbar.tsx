@@ -85,7 +85,7 @@ export default function Navbar() {
               <span className="font-display font-black text-lg md:text-xl tracking-tight text-[#E30613]">WİNSA</span>
             </div>
             
-            <img src="/cemas-logo.png" alt="CEM-AS Alüminyum" className="h-8 md:h-10 w-auto object-contain" />
+            <img src="/cemas-logo-round.png" alt="CEM-AS Alüminyum" className="h-8 md:h-10 w-auto object-contain rounded-full" />
             
             <div className="flex items-center">
               <span className="font-display font-black text-lg md:text-xl tracking-tight text-[#00417A]">ROYALGLASS</span>
