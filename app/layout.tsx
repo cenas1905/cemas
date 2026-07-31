@@ -15,14 +15,14 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "CEMAS Minimalist Glass Systems — Mimari Şıklık, Güçlü Çözümler",
+  title: "CEM-AS Alüminyum | Hatay'daki Lider Alüminyum Firması",
   description:
-    "Yüksek mühendislik standartlarıyla üretilmiş alüminyum korkuluk, cam balkon ve duşakabin çözümleri. Estetik ve güvenliği mükemmel bir dengede sunan mimari cam sistemleri.",
-  keywords: ["cam balkon", "alüminyum korkuluk", "duşakabin", "cemas", "cam sistemleri", "minimalist cam"],
-  authors: [{ name: "CEMAS" }],
+    "Hatay Antakya ve Defne bölgesinde profesyonel alüminyum doğrama, cam balkon, korkuluk ve duşakabin çözümleri. CEM-AS Alüminyum ile estetik ve güvenliği keşfedin.",
+  keywords: ["cemas", "cemas alüminyum", "cem-as alüminyum", "hatay alüminyum", "cam balkon hatay", "alüminyum korkuluk", "duşakabin"],
+  authors: [{ name: "CEM-AS Alüminyum" }],
   openGraph: {
-    title: "CEMAS Minimalist Glass Systems — Mimari Şıklık, Güçlü Çözümler",
-    description: "Yüksek mühendislik standartlarıyla üretilmiş alüminyum korkuluk, cam balkon ve duşakabin çözümleri.",
+    title: "CEM-AS Alüminyum & Cam Sistemleri",
+    description: "Hatay'ın lider alüminyum ve cam sistemleri firması. Profesyonel çözümler için bize ulaşın.",
     type: "website",
   },
 };
