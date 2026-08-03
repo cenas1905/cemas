@@ -26,6 +26,9 @@ const images: Record<Category, { src: string; alt: string }[]> = {
   ],
   camli: [
     { src: '/images/merdivenler/merdivenler-14.jpeg', alt: 'Camlı Merdiven - Cam Panel Korkuluk' },
+    { src: '/images/merdivenler/merdivenler-camli-1.png', alt: 'Camlı Merdiven - Ahşap Basamak Cam Panel' },
+    { src: '/images/merdivenler/merdivenler-camli-2.png', alt: 'Camlı Merdiven - Siyah Çelik & Cam' },
+    { src: '/images/merdivenler/merdivenler-camli-3.png', alt: 'Camlı Merdiven - Spiral Cam Korkuluk' },
   ],
   normal: [
     { src: '/images/merdivenler/merdivenler-2.jpeg', alt: 'Normal Merdiven - Paslanmaz Çelik' },
