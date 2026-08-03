@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CEM_AS | Alüminyum & Cam Sistemleri</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --ana: #0f0f0f; --vurgu: #e67e22; --gri: #1e1e1e; --beyaz: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        body { background: var(--ana); color: var(--beyaz); line-height: 1.6; overflow-x: hidden; }
+
+        /* HEADER DÜZENİ */
+        nav {
+            padding: 0 5%; background: rgba(0,0,0,0.95);
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #333; height: 80px;
+        }
+        .nano-tetikleyici { font-size: 35px; color: var(--vurgu); cursor: pointer; transition: 0.3s; flex: 1; }
+        .logo { font-weight: 900; font-size: 32px; letter-spacing: 5px; flex: 2; text-align: center; }
+        .logo span { color: var(--vurgu); }
+        .iletisim-sag { flex: 1; text-align: right; font-size: 11px; font-weight: 600; }
+        .iletisim-sag a { color: var(--beyaz); text-decoration: none; }
+
+        /* NANO BANANA ÇALIŞMA ALANI (FULL SCREEN) */
+        #nano-ekran {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999; flex-direction: column;
+        }
+        .nano-ust { padding: 15px; background: var(--gri); display: flex; justify-content: space-between; align-items: center; }
+        #montaj-alani { flex: 1; position: relative; overflow: hidden; background: #111; display: flex; justify-content: center; align-items: center; }
+        #musteri-resmi { max-width: 100%; max-height: 100%; object-fit: contain; }
+        #tasinan-model { position: absolute; width: 200px; cursor: move; touch-action: none; z-index: 100; top: 50px; left: 50px; }
+        .nano-alt { padding: 15px; background: var(--gri); border-top: 1px solid #333; }
+        
+        /* STANDART SİTE TASARIMI */
+        .vitrin { position: relative; width: 95%; max-width: 1100px; height: 350px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 2px solid #333; }
+        .v-img { width: 100%; height: 100%; object-fit: contain; display: none; }
+        .v-img.aktif { display: block; }
+
+        .menu { display: flex; justify-content: center; gap: 10px; padding: 20px; background: var(--gri); position: sticky; top: 80px; z-index: 900; }
+        .m-btn { padding: 10px 20px; border: 2px solid var(--vurgu); background: transparent; color: #fff; border-radius: 50px; cursor: pointer; font-size: 11px; font-weight: bold; }
+        .m-btn.active { background: var(--vurgu); }
+
+        .bolum { display: none; padding: 30px 5%; animation: fadeIn 0.5s; }
+        .bolum.aktif { display: block; }
+        .izgara { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .kart { background: #1a1a1a; border-radius: 10px; overflow: hidden; border: 1px solid #333; }
+        .kart img { width: 100%; height: 220px; object-fit: cover; }
+        .kart h3 { padding: 15px; color: var(--vurgu); font-size: 14px; text-align: center; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        footer { text-align: center; padding: 30px; color: #555; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <input type="file" id="dosya-sec" style="display:none;" accept="image/*" onchange="nanoBaslat(event)">
+        <div class="nano-tetikleyici" onclick="document.getElementById('dosya-sec').click()">
+            <i class="fas fa-plus-circle"></i>
+        </div>
+        <div class="logo">CEM_<span>AS</span></div>
+        <div class="iletisim-sag">
+            <a href="https://instagram.com/cemashatay" target="_blank">@cemashatay</a><br>
+            <a href="tel:05337747684">0533 774 76 84</a>
+        </div>
+    </nav>
+
+    <div id="nano-ekran">
+        <div class="nano-ust">
+            <span style="color:var(--vurgu); font-weight:900;">NANO BANANA</span>
+            <button onclick="nanoKapat()" style="background:var(--vurgu); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">KAPAT</button>
+        </div>
+        <div id="montaj-alani">
+            <img id="musteri-resmi" src="">
+            <img id="tasinan-model" src="korkuluk1.jpg">
+        </div>
+        <div class="nano-alt">
+            <div style="margin-bottom:15px; display:flex; align-items:center; gap:10px;">
+                <span style="font-size:12px;">Boyut:</span>
+                <input type="range" min="50" max="1000" value="200" style="flex:1;" oninput="modelBoyut(this.value)">
+            </div>
+            <div style="display:flex; gap:10px; overflow-x:auto;">
+                <img src="korkuluk1.jpg" width="60" height="60" onclick="modelDegis(this.src)" style="border:1px solid #fff; cursor:pointer;">
+                <img src="korkuluk2.jpg" width="60" height="60" onclick="modelDegis(this.src)" style="border:1px solid #fff; cursor:pointer;">
+                <img src="dusakabin1.jpg" width="60" height="60" onclick="modelDegis(this.src)" style="border:1px solid #fff; cursor:pointer;">
+                <img src="pvc1.jpg" width="60" height="60" onclick="modelDegis(this.src)" style="border:1px solid #fff; cursor:pointer;">
+            </div>
+        </div>
+    </div>
+
+    <div class="vitrin">
+        <img src="vitrin1.jpg" class="v-img aktif">
+        <img src="vitrin2.jpg" class="v-img">
+    </div>
+
+    <div class="menu">
+        <button class="m-btn active" onclick="sekmeAc('korkuluk', this)">Korkuluk</button>
+        <button class="m-btn" onclick="sekmeAc('dusakabin', this)">Duşakabin</button>
+        <button class="m-btn" onclick="sekmeAc('pvc', this)">PVC & Cam</button>
+    </div>
+
+    <div id="korkuluk" class="bolum aktif">
+        <div class="izgara">
+            <div class="kart"><img src="korkuluk1.jpg"><h3>MODEL 01</h3></div>
+            <div class="kart"><img src="korkuluk2.jpg"><h3>MODEL 02</h3></div>
+            <div class="kart"><img src="korkuluk3.jpg"><h3>MODEL 03</h3></div>
+            <div class="kart"><img src="korkuluk4.jpg"><h3>MODEL 04</h3></div>
+            <div class="kart"><img src="korkuluk5.jpg"><h3>MODEL 05</h3></div>
+            <div class="kart"><img src="korkuluk6.jpg"><h3>MODEL 06</h3></div>
+            <div class="kart"><img src="korkuluk7.jpg"><h3>MODEL 07</h3></div>
+            <div class="kart"><img src="korkuluk8.jpg"><h3>MODEL 08</h3></div>
+            <div class="kart"><img src="korkuluk9.jpg"><h3>MODEL 09</h3></div>
+        </div>
+    </div>
+
+    <div id="dusakabin" class="bolum">
+        <div class="izgara">
+            <div class="kart"><img src="dusakabin1.jpg"><h3>MODEL 01</h3></div>
+            <div class="kart"><img src="dusakabin2.jpg"><h3>MODEL 02</h3></div>
+            <div class="kart"><img src="dusakabin3.jpg"><h3>MODEL 03</h3></div>
+            <div class="kart"><img src="dusakabin4.jpg"><h3>MODEL 04</h3></div>
+            <div class="kart"><img src="dusakabin5.jpg"><h3>MODEL 05</h3></div>
+            <div class="kart"><img src="dusakabin6.jpg"><h3>MODEL 06</h3></div>
+        </div>
+    </div>
+
+    <div id="pvc" class="bolum">
+        <div class="izgara">
+            <div class="kart"><img src="pvc1.jpg"><h3>MODEL 01</h3></div>
+            <div class="kart"><img src="pvc2.jpg"><h3>MODEL 02</h3></div>
+            <div class="kart"><img src="pvc3.jpg"><h3>MODEL 03</h3></div>
+            <div class="kart"><img src="pvc4.jpg"><h3>MODEL 04</h3></div>
+            <div class="kart"><img src="pvc5.jpg"><h3>MODEL 05</h3></div>
+            <div class="kart"><img src="pvc6.jpg"><h3>MODEL 06</h3></div>
+            <div class="kart"><img src="pvc7.jpg"><h3>MODEL 07</h3></div>
+        </div>
+    </div>
+
+    <footer>CEM_AS MİMARİ SİSTEMLER - 2026</footer>
+
+    <script>
+        // SEKME GEÇİŞLERİ
+        function sekmeAc(id, el) {
+            document.querySelectorAll('.bolum').forEach(b => b.classList.remove('aktif'));
+            document.querySelectorAll('.m-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('aktif');
+            el.classList.add('active');
+        }
+
+        // NANO BANANA MOTORU
+        const ekran = document.getElementById('nano-ekran');
+        const model = document.getElementById('tasinan-model');
+        
+        function nanoBaslat(e) {
+            const okuyucu = new FileReader();
+            okuyucu.onload = function(ev) {
+                document.getElementById('musteri-resmi').src = ev.target.result;
+                ekran.style.display = 'flex';
+            }
+            okuyucu.readAsDataURL(e.target.files[0]);
+        }
+
+        function nanoKapat() { ekran.style.display = 'none'; }
+        function modelDegis(src) { model.src = src; }
+        function modelBoyut(v) { model.style.width = v + 'px'; }
+
+        // SÜRÜKLE BIRAK SİSTEMİ
+        let hareket = false, sX, sY, bL, bT;
+        const basla = (e) => {
+            hareket = true;
+            const ev = e.type.includes('touch') ? e.touches[0] : e;
+            sX = ev.clientX; sY = ev.clientY;
+            bL = model.offsetLeft; bT = model.offsetTop;
+        };
+        const surukle = (e) => {
+            if(!hareket) return;
+            const ev = e.type.includes('touch') ? e.touches[0] : e;
+            model.style.left = (bL + (ev.clientX - sX)) + 'px';
+            model.style.top = (bT + (ev.clientY - sY)) + 'px';
+        };
+        model.addEventListener('mousedown', basla);
+        model.addEventListener('touchstart', basla);
+        window.addEventListener('mousemove', surukle);
+        window.addEventListener('touchmove', surukle, {passive:false});
+        window.addEventListener('mouseup', () => hareket = false);
+        window.addEventListener('touchend', () => hareket = false);
+    </script>
+</body>
+</html>

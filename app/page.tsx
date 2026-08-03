@@ -263,6 +263,81 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 4b. STATS BAR */}
+      <section className="py-20 bg-white border-y border-gray-100">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { number: '20+', label: 'Yıl Deneyim' },
+              { number: '500+', label: 'Tamamlanan Proje' },
+              { number: '1000+', label: 'Mutlu Müşteri' },
+              { number: '%100', label: 'Garanti & Kalite' },
+            ].map((stat, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="flex flex-col items-center"
+              >
+                <span className="font-display text-4xl md:text-5xl font-black text-[#d21920]">{stat.number}</span>
+                <span className="text-[#555] text-sm mt-2 font-medium">{stat.label}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4c. MÜŞTERİ YORUMLARI */}
+      <section className="py-24 bg-[#f8f8f8]">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+          <div className="text-center mb-16">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#1a1a1a]/40 block mb-2">MÜŞTERİ GÖRÜŞLERİ</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-[#1a1a1a]">Müşterilerimiz Ne Diyor?</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                name: 'Ahmet Yılmaz',
+                role: 'Villa Sahibi, Antakya',
+                text: 'Pleksi merdiven sistemimizi CEM-AS yaptı. Hem kalitesi hem de işçiliği mükemmeldi. Kesinlikle tavsiye ederim.',
+              },
+              {
+                name: 'Fatma Özdemir',
+                role: 'Daire Sahibi, Defne',
+                text: 'Cam balkonumuzu yürüttüler, çok memnun kaldık. Montaj çok hızlı ve temizdi. Fiyatlar da piyasaya göre çok uygundu.',
+              },
+              {
+                name: 'Mehmet Kaya',
+                role: 'Ofis Sahibi, Antakya',
+                text: 'Duşakabin ve korkuluk sistemlerinde çok profesyonel yaklaşım gösterdiler. Projeyi tam süresi bitmeden teslim ettiler.',
+              },
+            ].map((t, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.15 }}
+                className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 flex flex-col gap-4"
+              >
+                <div className="flex gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="text-yellow-400 text-lg">★</span>
+                  ))}
+                </div>
+                <p className="text-[#444] text-sm leading-relaxed italic">&ldquo;{t.text}&rdquo;</p>
+                <div className="border-t border-gray-100 pt-4 mt-auto">
+                  <p className="font-bold text-[#1a1a1a] text-sm">{t.name}</p>
+                  <p className="text-[#888] text-xs">{t.role}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 5. DARK MODE GLOW CTA (Simulator) */}
       <section className="py-32 bg-[#050505] w-full relative overflow-hidden">
         {/* Glow Effects */}

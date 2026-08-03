@@ -1,0 +1,42 @@
+ yml
+    backend:
+      name: github
+      repo: cenas1905/CEM_AS-AL-M-NYUM
+      branch: main
+      base_url: https://SENIN-PROXY-ADRESIN
+      auth_endpoint: auth
+
+    site_url: https://cenas1905.github.io/CEM_AS-AL-M-NYUM/
+    display_url: https://cenas1905.github.io/CEM_AS-AL-M-NYUM/
+
+    media_folder: "uploads"
+    public_folder: "/uploads"
+
+    collections:
+      - name: "site"
+        label: "Site İçeriği"
+        files:
+          - label: "Site Verileri"
+            name: "content"
+            file: "data/content.json"
+            fields:
+              - label: "Korkuluklar"
+                name: "korkuluk"
+                widget: "list"
+                fields:
+                  - { label: "Resim", name: "image", widget: "image" }
+                  - { label: "Başlık", name: "title", widget: "string" }
+
+              - label: "Duşakabinler"
+                name: "dusakabin"
+                widget: "list"
+                fields:
+                  - { label: "Resim", name: "image", widget: "image" }
+                  - { label: "Başlık", name: "title", widget: "string" }
+
+              - label: "PVC & Cam"
+                name: "pvc"
+                widget: "list"
+                fields:
+                  - { label: "Resim", name: "image", widget: "image" }
+                  - { label: "Başlık", name: "title", widget: "string" }

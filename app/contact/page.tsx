@@ -13,10 +13,14 @@ export default function ContactPage() {
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email || !message) {
-      alert('Lütfen tüm alanları doldurun.');
+    if (!name || !message) {
+      alert('Lütfen adınızı ve mesajınızı doldurun.');
       return;
     }
+    const text = encodeURIComponent(
+      `Merhaba, ben ${name}.\n${email ? `E-posta: ${email}\n` : ''}Mesaj: ${message}`
+    );
+    window.open(`https://wa.me/905337747684?text=${text}`, '_blank');
     setShowSuccess(true);
   };
 
@@ -167,31 +171,22 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Premium Map Placeholder */}
-          <div className="lg:col-span-6 bg-white border border-[#dcdde2]/60 rounded p-6 shadow-sm flex flex-col justify-between relative min-h-[450px]">
-            <div className="w-full h-full relative overflow-hidden rounded dot-pattern flex flex-col items-center justify-center bg-[#fafafa]">
-              {/* Abstract premium grid overlay mimicking a vector map */}
-              <div className="absolute top-1/3 left-1/4 w-3/4 h-0.5 bg-[#dcdde2]/60 transform rotate-12" />
-              <div className="absolute top-1/2 left-0 w-full h-0.5 bg-[#dcdde2]/60 transform -rotate-6" />
-              <div className="absolute top-0 left-2/3 w-0.5 h-full bg-[#dcdde2]/60 transform rotate-4" />
-              
-              {/* Map pin */}
-              <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                className="relative z-10 flex flex-col items-center"
-              >
-                <span className="material-symbols-outlined text-5xl text-[#1a1a1a]">location_on</span>
-                <div className="w-8 h-2 bg-[#d21920]/10 rounded-full blur-[2px] mt-1" />
-              </motion.div>
-
-              <div className="relative z-10 mt-6 text-center">
-                <span className="text-[10px] font-bold text-[#1a1a1a] uppercase tracking-wider block">Harita Konum Detayı</span>
-                <span className="text-[9px] text-[#565f69] max-w-[220px] block mt-1 leading-relaxed">
-                  Atatürk Bulvarı, Antakya / Hatay merkez konumumuz. Yol tarifi ve fiziki showroom ziyareti için yol tarifi alabilirsiniz.
-                </span>
-              </div>
+          {/* Google Maps Embed */}
+          <div className="lg:col-span-6 bg-white border border-[#dcdde2]/60 rounded shadow-sm overflow-hidden flex flex-col min-h-[450px]">
+            <div className="p-4 border-b border-[#dcdde2]/60">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#565f69]">KONUMUMUZ</span>
+              <p className="text-xs text-[#565f69] mt-1">Antakya / Hatay — Showroom Ziyareti</p>
             </div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12841.023395270086!2d36.1479!3d36.2021!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x152f65e0b8d7d44f%3A0x3e8b1e7d1b6f8a3!2sAntakya%2C%20Hatay!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str"
+              width="100%"
+              height="100%"
+              style={{ border: 0, minHeight: '400px', flexGrow: 1 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="CEM-AS Alüminyum Konum - Antakya, Hatay"
+            />
           </div>
 
         </div>
