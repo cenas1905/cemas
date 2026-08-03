@@ -15,7 +15,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://cemas-alüminyum.vercel.app'),
+  metadataBase: new URL("https://www.cemasaluminyum.com.tr"),
   title: "CEM-AS Alüminyum | Hatay'daki Lider Alüminyum Firması",
   description:
     "Hatay Antakya ve Defne bölgesinde profesyonel alüminyum doğrama, cam balkon, korkuluk ve duşakabin çözümleri. CEM-AS Alüminyum ile estetik ve güvenliği keşfedin.",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     title: "CEM-AS Alüminyum & Cam Sistemleri",
     description: "Hatay'ın lider alüminyum ve cam sistemleri firması. Profesyonel çözümler için bize ulaşın.",
     type: "website",
-    url: 'https://cemas-alüminyum.vercel.app',
+    url: "https://www.cemasaluminyum.com.tr",
     siteName: 'CEM-AS Alüminyum',
     locale: 'tr_TR',
   },

@@ -1,4 +1,4 @@
-User-agent: *
+User-Agent: *
 Allow: /
 
-Sitemap: https://cem-as-al-m-nyum.vercel.app/sitemap.xml
+Sitemap: https://www.cemasaluminyum.com.tr/sitemap.xml
