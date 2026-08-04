@@ -338,6 +338,45 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 4d. YEREL SEO METNİ — Hatay Alüminyum anahtar kelimesi */}
+      <section className="py-24 bg-white w-full">
+        <div className="max-w-[1000px] mx-auto px-6">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-[#1a1a1a]/40 block mb-3 text-center">
+            HATAY'IN ALÜMİNYUM USTASI
+          </span>
+          <h2 className="font-display text-3xl md:text-5xl font-bold text-[#1a1a1a] text-center leading-tight">
+            Hatay'da Alüminyum Doğrama ve Cam Sistemleri
+          </h2>
+          <p className="mt-8 text-[#555555] text-base md:text-lg font-light leading-relaxed text-center">
+            CEM-AS Alüminyum, Hatay'ın Antakya ve Defne bölgesinde alüminyum
+            doğrama, cam balkon, korkuluk, duşakabin ve merdiven sistemleri
+            alanında hizmet veriyor. Botaş, hastaneler ve oteller gibi kurumsal
+            referanslarımızla; evinizden iş yerinize her ölçekte projede
+            estetik ve güvenli alüminyum çözümleri sunuyoruz.
+          </p>
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <Link href="/cambalkon" className="px-5 py-2.5 rounded-full border border-[#1a1a1a]/15 text-sm font-semibold text-[#1a1a1a] hover:bg-[#d21920] hover:text-white hover:border-[#d21920] transition-colors">
+              Cam Balkon
+            </Link>
+            <Link href="/korkuluk" className="px-5 py-2.5 rounded-full border border-[#1a1a1a]/15 text-sm font-semibold text-[#1a1a1a] hover:bg-[#d21920] hover:text-white hover:border-[#d21920] transition-colors">
+              Alüminyum Korkuluk
+            </Link>
+            <Link href="/dusakabin" className="px-5 py-2.5 rounded-full border border-[#1a1a1a]/15 text-sm font-semibold text-[#1a1a1a] hover:bg-[#d21920] hover:text-white hover:border-[#d21920] transition-colors">
+              Duşakabin
+            </Link>
+            <Link href="/merdivenler" className="px-5 py-2.5 rounded-full border border-[#1a1a1a]/15 text-sm font-semibold text-[#1a1a1a] hover:bg-[#d21920] hover:text-white hover:border-[#d21920] transition-colors">
+              Merdiven Sistemleri
+            </Link>
+            <Link href="/automatic-doors" className="px-5 py-2.5 rounded-full border border-[#1a1a1a]/15 text-sm font-semibold text-[#1a1a1a] hover:bg-[#d21920] hover:text-white hover:border-[#d21920] transition-colors">
+              Otomatik Kapı
+            </Link>
+            <Link href="/shutters" className="px-5 py-2.5 rounded-full border border-[#1a1a1a]/15 text-sm font-semibold text-[#1a1a1a] hover:bg-[#d21920] hover:text-white hover:border-[#d21920] transition-colors">
+              Kepenk Sistemleri
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* 5. DARK MODE GLOW CTA (Simulator) */}
       <section className="py-32 bg-[#050505] w-full relative overflow-hidden">
         {/* Glow Effects */}

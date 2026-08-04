@@ -18,9 +18,9 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.cemasaluminyum.com.tr"),
-  title: "CEM-AS Alüminyum | Hatay'daki Lider Alüminyum Firması",
+  title: "Hatay Alüminyum | CEM-AS Cam Balkon, Korkuluk & Duşakabin",
   description:
-    "Hatay Antakya ve Defne bölgesinde profesyonel alüminyum doğrama, cam balkon, korkuluk ve duşakabin çözümleri. CEM-AS Alüminyum ile estetik ve güvenliği keşfedin.",
+    "Hatay Antakya ve Defne'de alüminyum doğrama, cam balkon, korkuluk ve duşakabin sistemleri. CEM-AS Alüminyum ile estetik ve güvenli çözümler.",
   keywords: ["cemas", "cemas alüminyum", "cem-as alüminyum", "hatay alüminyum", "cam balkon hatay", "alüminyum korkuluk", "duşakabin", "merdiven hatay", "pvc pencere hatay"],
   authors: [{ name: "CEM-AS Alüminyum" }],
   openGraph: {
@@ -33,6 +33,43 @@ export const metadata: Metadata = {
   },
 };
 
+// Google'ın okuyacağı işletme künyesi (yerel arama sonuçları için kritik)
+const businessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  name: "CEM-AS Alüminyum",
+  description:
+    "Hatay Antakya ve Defne'de alüminyum doğrama, cam balkon, korkuluk, duşakabin ve merdiven sistemleri.",
+  url: "https://www.cemasaluminyum.com.tr",
+  telephone: "+905337747684",
+  image: "https://www.cemasaluminyum.com.tr/cemas-logo-round.png",
+  priceRange: "₺₺",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Atatürk Bulvarı No: 124",
+    addressLocality: "Antakya",
+    addressRegion: "Hatay",
+    addressCountry: "TR",
+  },
+  areaServed: ["Antakya", "Defne", "Hatay"],
+  sameAs: [
+    "https://tr-tr.facebook.com/cemasaluminyumkorkuluksistemleri/",
+    "https://www.instagram.com/cemashatay",
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Alüminyum ve Cam Sistemleri",
+    itemListElement: [
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Cam Balkon Sistemleri", url: "https://www.cemasaluminyum.com.tr/cambalkon" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Alüminyum Korkuluk", url: "https://www.cemasaluminyum.com.tr/korkuluk" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Duşakabin", url: "https://www.cemasaluminyum.com.tr/dusakabin" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Merdiven Sistemleri", url: "https://www.cemasaluminyum.com.tr/merdivenler" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Otomatik Kapı Sistemleri", url: "https://www.cemasaluminyum.com.tr/automatic-doors" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Otomatik Kepenk Sistemleri", url: "https://www.cemasaluminyum.com.tr/shutters" } },
+    ],
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -42,6 +79,10 @@ export default function RootLayout({
     <html lang="tr" className={`${inter.variable} ${outfit.variable} h-full antialiased`}>
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd) }}
+        />
       </head>
       <body className="min-h-full flex flex-col bg-[#fafafa] text-[#1a1a1a]">
         <CanonicalTag />
