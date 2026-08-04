@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import HomeContent from "./HomeContent";
 
 export const metadata: Metadata = {
-  title: "CEM-AS Alüminyum | Hatay'daki Lider Alüminyum Firması",
-  description: "Hatay Antakya ve Defne bölgesinde profesyonel alüminyum doğrama, cam balkon, korkuluk ve duşakabin çözümleri. CEM-AS Alüminyum ile estetik ve güvenliği keşfedin.",
+  title: "Hatay Alüminyum | CEM-AS Cam Balkon, Korkuluk & Duşakabin",
+  description: "Hatay Antakya ve Defne'de alüminyum doğrama, cam balkon, korkuluk ve duşakabin sistemleri. CEM-AS Alüminyum ile estetik ve güvenli çözümler.",
   alternates: {
     canonical: "https://www.cemasaluminyum.com.tr",
   },
