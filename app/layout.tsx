@@ -43,6 +43,7 @@ const businessJsonLd = {
   url: "https://www.cemasaluminyum.com.tr",
   telephone: "+905337747684",
   image: "https://www.cemasaluminyum.com.tr/cemas-logo-round.png",
+  logo: "https://www.cemasaluminyum.com.tr/cemas-logo-round.png",
   priceRange: "₺₺",
   address: {
     "@type": "PostalAddress",
