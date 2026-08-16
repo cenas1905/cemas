@@ -80,15 +80,11 @@ export default function Navbar() {
       <div className="bg-white/95 backdrop-blur-md border-b border-[#e5e7eb] w-full">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex items-center justify-between h-20">
           
-          <Link href="/" className="flex items-center gap-3 hover:opacity-85 transition-opacity mr-4 shrink-0">
-            <div className="flex items-center">
-              <span className="font-display font-black text-lg md:text-xl tracking-tight text-[#E30613]">WİNSA</span>
-            </div>
-            
-            <img src="/cemas-logo-round.png" alt="CEM-AS Alüminyum" className="h-8 md:h-10 w-auto object-contain rounded-full" />
-            
-            <div className="flex items-center">
-              <span className="font-display font-black text-lg md:text-xl tracking-tight text-[#00417A]">ROYALGLASS</span>
+          <Link href="/" className="flex items-center gap-2 hover:opacity-85 transition-opacity mr-4 shrink-0">
+            <span className="font-display font-black text-2xl md:text-3xl tracking-tight text-[#1a1a1a]">CEMAS</span>
+            <div className="flex flex-col items-start ml-1 border-l border-gray-300 pl-2">
+              <span className="font-display font-bold text-[8px] md:text-[9px] tracking-wider text-[#E30613] leading-tight">WİNSA</span>
+              <span className="font-display font-bold text-[8px] md:text-[9px] tracking-wider text-[#00417A] leading-tight">ROYALGLASS</span>
             </div>
           </Link>
 

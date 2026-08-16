@@ -40,6 +40,13 @@ export default function HomePage() {
     'Özel Defne Hastanesi',
   ];
 
+  const categories = [
+    { name: 'Korkuluk', href: '/korkuluk', icon: 'fence', image: '/images/korkuluk/korkuluk-1.jpg' },
+    { name: 'Merdiven', href: '/merdivenler', icon: 'stairs', image: '/images/merdivenler/merdivenler-1.jpeg' },
+    { name: 'Duşakabin', href: '/dusakabin', icon: 'shower', image: '/images/dusakabin/dusakabin-1.jpeg' },
+    { name: 'Cam Balkon', href: '/cambalkon', icon: 'window', image: '/images/cambalkon/cambalkon-1.jpeg' },
+  ];
+
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchSettings();
@@ -66,17 +73,6 @@ export default function HomePage() {
           style={{ opacity: opacityText }}
           className="relative z-10 flex flex-col items-center justify-center text-center px-6 mt-16"
         >
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-            className="backdrop-blur-md bg-white/5 border border-white/10 px-6 py-2 rounded-full mb-8"
-          >
-            <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-white/90">
-              MİMARİ ÇÖZÜM ORTAĞINIZ
-            </span>
-          </motion.div>
-
           <motion.h1 
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -84,15 +80,6 @@ export default function HomePage() {
             className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-[1.1] mb-6 max-w-5xl"
             dangerouslySetInnerHTML={{ __html: settings.hero_title || 'Sınırları Kaldırın, <br /> <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/40">Manzaraya Yer Açın.</span>' }}
           />
-
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="text-white/60 text-lg md:text-xl max-w-2xl font-light"
-          >
-            {settings.hero_subtitle || 'Alüminyum sistemlerinden lüks cam balkonlara kadar, yaşam alanlarınızı yeniden tanımlıyoruz.'}
-          </motion.p>
         </motion.div>
 
         {/* Scroll Indicator */}
@@ -113,122 +100,102 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* 2. PHILOSOPHY SCROLL REVEAL */}
-      <section className="py-32 md:py-40 bg-white w-full flex items-center justify-center">
-        <div className="max-w-[1000px] mx-auto px-6 text-center">
-          <motion.h2 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1 }}
-            className="font-display text-3xl md:text-5xl lg:text-6xl font-semibold text-[#1a1a1a] leading-tight"
-          >
-            Biz sadece profil ve cam satmıyoruz. <br className="hidden md:block" />
-            <span className="text-[#1a1a1a]/40">Yaşam alanlarınıza nefes aldırıyoruz.</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="mt-10 text-[#555555] text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed"
-          >
-            {settings.about_text || "Antakya'nın köklü tecrübesiyle, her detayı ustalıkla işliyor; estetiği mühendislikle, güveni tasarımla buluşturuyoruz."}
-          </motion.p>
+      {/* 2. MOBILE-FIRST CATEGORY QUICK NAV */}
+      <section className="py-6 md:py-10 bg-white w-full">
+        <div className="max-w-[1400px] mx-auto px-4">
+          <div className="flex gap-3 md:gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2 -mx-4 px-4 md:mx-0 md:px-0 md:justify-center">
+            {categories.map((cat) => (
+              <Link
+                key={cat.href}
+                href={cat.href}
+                className="flex-shrink-0 snap-start group relative w-[70vw] sm:w-[45vw] md:w-1/4 aspect-[16/10] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all"
+              >
+                <img
+                  src={cat.image}
+                  alt={cat.name}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 flex items-center gap-3">
+                  <span className="material-symbols-outlined text-white text-2xl md:text-3xl">{cat.icon}</span>
+                  <span className="font-display font-bold text-white text-lg md:text-xl">{cat.name}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* 3. PREMIUM SOLUTIONS (Symmetric Large Grid for ALL categories) */}
-      <section className="pb-32 bg-white w-full">
+      {/* 3. PREMIUM SOLUTIONS (Large Category Cards) */}
+      <section className="pb-16 md:pb-32 bg-white w-full">
         <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-          <div className="mb-16 md:px-4 flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#1a1a1a]/40 block mb-2">UZMANLIK ALANLARIMIZ</span>
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1a1a1a]">Premium Çözümler</h2>
-            </div>
-            <p className="text-[#555555] text-sm md:text-base max-w-md font-light">
-              Korkuluklardan PVC sistemlerine kadar her alanda maksimum kaliteyi ve kusursuz tasarımı sunuyoruz.
-            </p>
+          <div className="mb-10 md:mb-16 md:px-4">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#1a1a1a]/40 block mb-2">UZMANLIK ALANLARIMIZ</span>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-[#1a1a1a]">Premium Çözümler</h2>
           </div>
 
           {/* Equal Importance 2x2 Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
             
             {/* ALÜMİNYUM KORKULUK */}
-            <Link href="/korkuluk" className="group relative rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3] md:aspect-square lg:aspect-[4/3]">
+            <Link href="/korkuluk" className="group relative rounded-2xl md:rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3]">
               <img 
                 src="/images/korkuluk/korkuluk-1.jpg" 
                 alt="Alüminyum Korkuluk" 
                 className="w-full h-full object-cover opacity-80 transition-transform duration-1000 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent transition-opacity duration-500 group-hover:opacity-70"></div>
-              <div className="absolute inset-0 p-10 md:p-14 flex flex-col justify-end">
-                <span className="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em] mb-3">Güvenlik & Estetik</span>
-                <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">ALÜMİNYUM<br/>KORKULUK</h3>
-                <p className="text-white/70 max-w-md text-sm md:text-base font-light opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                  Merdiven, balkon ve teraslarınız için paslanmaz, uzun ömürlü ve modern mimariye uygun korkuluk sistemleri.
-                </p>
-                <div className="mt-8 w-12 h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white transition-colors duration-500">
+              <div className="absolute inset-0 p-6 md:p-14 flex flex-col justify-end">
+                <h3 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-2 md:mb-4 drop-shadow-lg">ALÜMİNYUM<br/>KORKULUK</h3>
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white transition-colors duration-500">
                   <span className="material-symbols-outlined text-white group-hover:text-black transition-colors">arrow_forward</span>
                 </div>
               </div>
             </Link>
 
             {/* MERDİVEN SİSTEMLERİ */}
-            <Link href="/merdivenler" className="group relative rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3] md:aspect-square lg:aspect-[4/3]">
+            <Link href="/merdivenler" className="group relative rounded-2xl md:rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3]">
               <img 
                 src="/images/merdivenler/merdivenler-1.jpeg" 
                 alt="Merdiven Sistemleri" 
                 className="w-full h-full object-cover opacity-80 transition-transform duration-1000 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent transition-opacity duration-500 group-hover:opacity-70"></div>
-              <div className="absolute inset-0 p-10 md:p-14 flex flex-col justify-end">
-                <span className="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em] mb-3">Mimari Zarafet</span>
-                <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">MERDİVEN<br/>SİSTEMLERİ</h3>
-                <p className="text-white/70 max-w-md text-sm md:text-base font-light opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                  Evinizin mimarisiyle bütünleşen, güvenli ve şık merdiven tasarımlarıyla katlar arası estetik bir bağ kurun.
-                </p>
-                <div className="mt-8 w-12 h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white transition-colors duration-500">
+              <div className="absolute inset-0 p-6 md:p-14 flex flex-col justify-end">
+                <h3 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-2 md:mb-4 drop-shadow-lg">MERDİVEN<br/>SİSTEMLERİ</h3>
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white transition-colors duration-500">
                   <span className="material-symbols-outlined text-white group-hover:text-black transition-colors">arrow_forward</span>
                 </div>
               </div>
             </Link>
 
             {/* DUŞAKABİN */}
-            <Link href="/dusakabin" className="group relative rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3] md:aspect-square lg:aspect-[4/3]">
+            <Link href="/dusakabin" className="group relative rounded-2xl md:rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3]">
               <img 
                 src="/images/dusakabin/dusakabin-1.jpeg" 
                 alt="Duşakabin Sistemleri" 
                 className="w-full h-full object-cover opacity-80 transition-transform duration-1000 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1d4ed8]/80 via-black/40 to-transparent transition-opacity duration-500 group-hover:opacity-90"></div>
-              <div className="absolute inset-0 p-10 md:p-14 flex flex-col justify-end">
-                <span className="text-white/80 text-[10px] font-bold uppercase tracking-[0.2em] mb-3">Banyo Çözümleri</span>
-                <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">DUŞAKABİN</h3>
-                <p className="text-white/80 max-w-md text-sm md:text-base font-light opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                  Banyonuza ferahlık katacak, sızdırmaz, dayanıklı ve kişiselleştirilebilir lüks duşakabin çözümleri.
-                </p>
-                <div className="mt-8 w-12 h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white transition-colors duration-500">
+              <div className="absolute inset-0 p-6 md:p-14 flex flex-col justify-end">
+                <h3 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-2 md:mb-4 drop-shadow-lg">DUŞAKABİN</h3>
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white transition-colors duration-500">
                   <span className="material-symbols-outlined text-white group-hover:text-[#1d4ed8] transition-colors">arrow_forward</span>
                 </div>
               </div>
             </Link>
 
             {/* CAM BALKON */}
-            <Link href="/cambalkon" className="group relative rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3] md:aspect-square lg:aspect-[4/3]">
+            <Link href="/cambalkon" className="group relative rounded-2xl md:rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3]">
               <img 
                 src="/images/cambalkon/cambalkon-1.jpeg" 
                 alt="Cam Balkon" 
                 className="w-full h-full object-cover opacity-80 transition-transform duration-1000 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#00417A]/90 via-black/40 to-transparent transition-opacity duration-500 group-hover:opacity-90"></div>
-              <div className="absolute inset-0 p-10 md:p-14 flex flex-col justify-end">
-                <span className="text-white/80 text-[10px] font-bold uppercase tracking-[0.2em] mb-3">Cam Balkon Sistemleri</span>
-                <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">CAM<br/>BALKON</h3>
-                <p className="text-white/80 max-w-md text-sm md:text-base font-light opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                  Dört mevsim kesintisiz manzara keyfi. Isı yalıtımlı, şık ve güvenli modern cam balkon tasarımları.
-                </p>
-                <div className="mt-8 w-12 h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white transition-colors duration-500">
+              <div className="absolute inset-0 p-6 md:p-14 flex flex-col justify-end">
+                <h3 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-2 md:mb-4 drop-shadow-lg">CAM<br/>BALKON</h3>
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white transition-colors duration-500">
                   <span className="material-symbols-outlined text-white group-hover:text-[#00417A] transition-colors">arrow_forward</span>
                 </div>
               </div>
@@ -239,8 +206,8 @@ export default function HomePage() {
       </section>
 
       {/* 4. INFINITE SCROLLING MARQUEE (References) */}
-      <section className="py-20 bg-[#f8f8f8] w-full overflow-hidden border-y border-gray-100">
-        <div className="text-center mb-10">
+      <section className="py-12 md:py-20 bg-[#f8f8f8] w-full overflow-hidden border-y border-gray-100">
+        <div className="text-center mb-8 md:mb-10">
           <span className="text-[10px] font-bold uppercase tracking-widest text-[#555]">BİZE GÜVENEN GÜÇLÜ İŞ ORTAKLARIMIZ</span>
         </div>
         
@@ -263,26 +230,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. DARK MODE GLOW CTA (Simulator) */}
-      <section className="py-32 bg-[#050505] w-full relative overflow-hidden">
-        {/* Glow Effects */}
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-white/5 blur-[150px] rounded-full pointer-events-none mix-blend-screen"></div>
-
-        <div className="max-w-[1000px] mx-auto px-6 text-center relative z-10">
-          <h2 className="font-display text-4xl md:text-6xl font-bold text-white mb-8">
-            Hayalinizdeki Projeyi <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-500">Gerçeğe Dönüştürelim.</span>
+      {/* 5. ABOUT TEXT (moved to bottom, condensed) */}
+      <section className="py-16 md:py-24 bg-white w-full">
+        <div className="max-w-[800px] mx-auto px-6 text-center">
+          <h2 className="font-display text-2xl md:text-4xl font-semibold text-[#1a1a1a] mb-6">
+            {settings.about_text || "Antakya'nın köklü tecrübesiyle, her detayı ustalıkla işliyor; estetiği mühendislikle, güveni tasarımla buluşturuyoruz."}
           </h2>
-          <p className="text-white/60 text-lg md:text-xl font-light mb-12 max-w-2xl mx-auto">
-            Gelişmiş simülatörümüzü kullanarak ölçülerinizi girin, kullanılacak malzemeyi seçin ve projenizin maliyetini saniyeler içinde hesaplayın.
-          </p>
-          
           <Link 
             href="/quote"
-            className="inline-flex items-center gap-4 bg-white text-black px-10 py-5 rounded-full font-bold uppercase tracking-widest text-xs hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] transition-all duration-300"
+            className="inline-flex items-center gap-3 bg-[#d21920] text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#1a1a1a] transition-all duration-300"
           >
-            Simülatörü Başlat
-            <span className="material-symbols-outlined">calculate</span>
+            Fiyat Teklifi Al
+            <span className="material-symbols-outlined">arrow_forward</span>
           </Link>
         </div>
       </section>

@@ -146,3 +146,12 @@
 .animate-marquee2 {
   animation: marquee2 25s linear infinite;
 }
+
+/* ─── Hide scrollbar for category nav ─── */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
