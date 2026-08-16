@@ -28,7 +28,12 @@ export default function MerdivenlerPage() {
     "/images/merdivenler/merdivenler-11.jpeg",
     "/images/merdivenler/merdivenler-12.jpeg",
     "/images/merdivenler/merdivenler-13.jpeg",
-    "/images/merdivenler/merdivenler-14.jpeg"
+    "/images/merdivenler/merdivenler-14.jpeg",
+    "/images/merdivenler/merdivenler-15.jpeg",
+    "/images/merdivenler/merdivenler-16.jpeg",
+    "/images/merdivenler/merdivenler-17.jpeg",
+    "/images/merdivenler/merdivenler-18.jpeg",
+    "/images/merdivenler/merdivenler-19.jpeg"
   ];
 
   const openLightbox = (idx: number) => {
