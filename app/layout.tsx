@@ -3,6 +3,7 @@ import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import CanonicalTag from "@/components/CanonicalTag";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,6 +31,9 @@ export const metadata: Metadata = {
     url: "https://www.cemasaluminyum.com.tr",
     siteName: 'CEM-AS Alüminyum',
     locale: 'tr_TR',
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "google-site-verification-placeholder",
   },
 };
 
@@ -84,6 +88,22 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd) }}
         />
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+              `}
+            </Script>
+          </>
+        )}
       </head>
       <body className="min-h-full flex flex-col bg-[#fafafa] text-[#1a1a1a]">
         <CanonicalTag />
