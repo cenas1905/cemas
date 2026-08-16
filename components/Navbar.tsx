@@ -80,11 +80,15 @@ export default function Navbar() {
       <div className="bg-white/95 backdrop-blur-md border-b border-[#e5e7eb] w-full">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex items-center justify-between h-20">
           
-          <Link href="/" className="flex items-center gap-2 hover:opacity-85 transition-opacity mr-4 shrink-0">
-            <span className="font-display font-black text-2xl md:text-3xl tracking-tight text-[#1a1a1a]">CEMAS</span>
-            <div className="flex flex-col items-start ml-1 border-l border-gray-300 pl-2">
-              <span className="font-display font-bold text-[8px] md:text-[9px] tracking-wider text-[#E30613] leading-tight">WİNSA</span>
-              <span className="font-display font-bold text-[8px] md:text-[9px] tracking-wider text-[#00417A] leading-tight">ROYALGLASS</span>
+          <Link href="/" className="flex items-center gap-3 hover:opacity-85 transition-opacity mr-4 shrink-0">
+            <div className="flex flex-col items-start">
+              <span className="font-display font-black text-xl md:text-2xl tracking-tight text-[#d21920] leading-none">CEM-AS</span>
+              <span className="font-display font-semibold text-[7px] md:text-[8px] tracking-[0.25em] text-[#555] leading-tight mt-0.5">ALÜMİNYUM</span>
+            </div>
+            <div className="flex items-center gap-2 ml-1 border-l border-gray-300 pl-3">
+              <span className="font-display font-bold text-[9px] md:text-[10px] tracking-wider text-[#E30613]">WİNSA</span>
+              <span className="text-gray-300 text-[10px]">|</span>
+              <span className="font-display font-bold text-[9px] md:text-[10px] tracking-wider text-[#00417A]">ROYALGLASS</span>
             </div>
           </Link>
 
