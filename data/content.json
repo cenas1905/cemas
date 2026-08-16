@@ -1,0 +1,34 @@
+{
+  "korkuluk": [
+    {"image": "yeni_korkuluk1.jpg", "title": "Modern Cam Korkuluk", "desc": "Şeffaf camlı, paslanmaz çelik tutamaklı estetik tasarım."},
+    {"image": "yeni_korkuluk2.jpg", "title": "Alüminyum Merdiven Korkuluğu", "desc": "Dayanıklı ve uzun ömürlü, şık görünümlü alüminyum gövde."},
+    {"image": "yeni_korkuluk3.jpg", "title": "Fransız Balkon Korkuluğu", "desc": "Güvenliği ön planda tutan, manzarayı kesmeyen özel tasarım."},
+    {"image": "yeni_korkuluk4.jpg", "title": "Havuz Kenarı Cam Korkuluk", "desc": "Suya ve neme dayanıklı, ferah bir görünüm sunan sistem."}
+  ],
+  "merdiven_pleksi": [
+    {"image": "merdiven1.jpg", "title": "Pleksi Merdiven Korkuluğu", "desc": "Şeffaf kristal pleksi dikmeler ve altın detaylarla lüks görünüm."},
+    {"image": "merdiven3.jpg", "title": "Pleksi Korkuluk — Avizeli", "desc": "Kristal avize ile tamamlanan, göz alıcı pleksi merdiven sistemi."},
+    {"image": "merdiven4.jpg", "title": "Pleksi Korkuluk — Siyah & Altın", "desc": "Siyah alüminyum ve altın detaylarla premium pleksi tasarım."}
+  ],
+  "merdiven_normal": [
+    {"image": "merdiven2.jpg", "title": "Paslanmaz Çelik Merdiven", "desc": "Dayanıklı ve şık paslanmaz çelik boru sistemli merdiven korkuluğu."}
+  ],
+  "cambalkon": [
+    {"image": "cambalkon1.jpg", "title": "Katlanır Cam Balkon", "desc": "Balkonunuzu 4 mevsim kullanıma uygun hale getiren sistem."},
+    {"image": "cambalkon2.jpg", "title": "Sürme (Sürgülü) Cam Balkon", "desc": "Geniş açıklıklar için pratik kullanım ve kesintisiz manzara."},
+    {"image": "cambalkon3.jpg", "title": "Isıcamlı Balkon Sistemi", "desc": "Maksimum ısı ve ses yalıtımı ile ekstra konfor."},
+    {"image": "cambalkon4.jpg", "title": "Giyotin Cam Sistemi", "desc": "Otomatik açılıp kapanabilen, modern ve lüks cam sistemi."}
+  ],
+  "dusakabin": [
+    {"image": "yeni_dusakabin1.jpg", "title": "Sürgülü Cam Duşakabin", "desc": "Dar banyolar için yer kazandıran, temperli güvenli cam."},
+    {"image": "yeni_dusakabin2.jpg", "title": "Menteşeli Şeffaf Duşakabin", "desc": "Kolay temizlenebilir, minimalist banyolar için ferah çözüm."},
+    {"image": "yeni_dusakabin3.jpg", "title": "Siyah Profilli Duşakabin", "desc": "Modern ve endüstriyel tasarıma sahip trend ürün."},
+    {"image": "yeni_dusakabin4.jpg", "title": "Kompakt Duş Sistemi", "desc": "Farklı ebatlara uyum sağlayabilen esnek tasarım."}
+  ],
+  "pvc": [
+    {"image": "pvc1.jpg", "title": "Isı Yalıtımlı PVC Pencere", "desc": "Enerji tasarrufu sağlayan, yüksek performanslı doğrama sistemi."},
+    {"image": "pvc2.jpg", "title": "Ahşap Görünümlü PVC", "desc": "Doğal ahşap görünümünü PVC dayanıklılığı ile birleştiren estetik seri."},
+    {"image": "pvc3.jpg", "title": "Çift Açılımlı PVC Pencere", "desc": "Pratik havalandırma sağlayan, kullanımı kolay modern sistem."},
+    {"image": "pvc4.jpg", "title": "Sürgülü PVC Kapı", "desc": "Geniş alanlarda yer kaplamadan kolay açılıp kapanan yapı."}
+  ]
+}
