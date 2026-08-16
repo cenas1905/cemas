@@ -6,9 +6,9 @@ import Footer from '@/components/Footer';
 import ImageLightbox from '@/components/ImageLightbox';
 import { motion, AnimatePresence } from 'framer-motion';
 
-type Category = 'tumu' | 'pleksi' | 'klasik' | 'camli';
+type Category = 'pleksi' | 'klasik' | 'camli';
 
-const categoryData: Record<Exclude<Category, 'tumu'>, { label: string; images: string[] }> = {
+const categoryData: Record<Category, { label: string; images: string[] }> = {
   pleksi: {
     label: 'Pleksi',
     images: [
@@ -55,7 +55,7 @@ const allImages = [
 ];
 
 export default function MerdivenlerPage() {
-  const [activeCategory, setActiveCategory] = useState<Category>('tumu');
+  const [activeCategory, setActiveCategory] = useState<Category>('pleksi');
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
@@ -63,9 +63,7 @@ export default function MerdivenlerPage() {
     window.scrollTo(0, 0);
   }, []);
 
-  const currentImages = activeCategory === 'tumu'
-    ? allImages
-    : categoryData[activeCategory].images;
+  const currentImages = categoryData[activeCategory].images;
 
   const openLightbox = (idx: number) => {
     setLightboxIndex(idx);
@@ -73,7 +71,6 @@ export default function MerdivenlerPage() {
   };
 
   const tabs: { key: Category; label: string }[] = [
-    { key: 'tumu', label: 'Tümü' },
     { key: 'pleksi', label: 'Pleksi' },
     { key: 'klasik', label: 'Klasik' },
     { key: 'camli', label: 'Camlı' },
@@ -115,7 +112,7 @@ export default function MerdivenlerPage() {
                 }`}
               >
                 {tab.label}
-                {activeCategory !== 'tumu' && tab.key !== 'tumu' && activeCategory === tab.key && (
+                {activeCategory === tab.key && (
                   <span className="ml-2 text-white/70">({categoryData[tab.key].images.length})</span>
                 )}
               </button>
