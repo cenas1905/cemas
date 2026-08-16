@@ -21,6 +21,10 @@ const categoryData: Record<Exclude<Category, 'tumu'>, { label: string; images: s
       "/images/merdivenler/merdivenler-8.jpeg",
       "/images/merdivenler/merdivenler-9.jpeg",
       "/images/merdivenler/merdivenler-10.jpeg",
+      "/images/merdivenler/merdivenler-15.jpeg",
+      "/images/merdivenler/merdivenler-17.jpeg",
+      "/images/merdivenler/merdivenler-18.jpeg",
+      "/images/merdivenler/merdivenler-19.jpeg",
     ],
   },
   klasik: {
@@ -36,6 +40,7 @@ const categoryData: Record<Exclude<Category, 'tumu'>, { label: string; images: s
     label: 'Camlı',
     images: [
       "/images/merdivenler/merdivenler-14.jpeg",
+      "/images/merdivenler/merdivenler-16.jpeg",
       "/images/merdivenler/merdivenler-camli-1.png",
       "/images/merdivenler/merdivenler-camli-2.png",
       "/images/merdivenler/merdivenler-camli-3.png",

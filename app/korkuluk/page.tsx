@@ -20,7 +20,27 @@ export default function KorkulukPage() {
     "/images/korkuluk/korkuluk-3.jpeg",
     "/images/korkuluk/korkuluk-4.jpeg",
     "/images/korkuluk/korkuluk-5.jpeg",
-    "/images/korkuluk/korkuluk-6.jpeg"
+    "/images/korkuluk/korkuluk-6.jpeg",
+    "/images/korkuluk/korkuluk-7.jpeg",
+    "/images/korkuluk/korkuluk-8.jpeg",
+    "/images/korkuluk/korkuluk-9.jpeg",
+    "/images/korkuluk/korkuluk-10.jpeg",
+    "/images/korkuluk/korkuluk-11.jpeg",
+    "/images/korkuluk/korkuluk-12.jpeg",
+    "/images/korkuluk/korkuluk-13.jpeg",
+    "/images/korkuluk/korkuluk-14.jpeg",
+    "/images/korkuluk/korkuluk-15.jpeg",
+    "/images/korkuluk/korkuluk-16.jpeg",
+    "/images/korkuluk/korkuluk-17.jpeg",
+    "/images/korkuluk/korkuluk-18.jpeg",
+    "/images/korkuluk/korkuluk-19.jpeg",
+    "/images/korkuluk/korkuluk-20.jpeg",
+    "/images/korkuluk/korkuluk-21.jpeg",
+    "/images/korkuluk/korkuluk-22.jpeg",
+    "/images/korkuluk/korkuluk-23.jpeg",
+    "/images/korkuluk/korkuluk-24.jpeg",
+    "/images/korkuluk/korkuluk-25.jpeg",
+    "/images/korkuluk/korkuluk-26.jpeg"
   ];
 
   const openLightbox = (idx: number) => {
