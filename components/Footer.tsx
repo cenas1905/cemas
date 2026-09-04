@@ -133,9 +133,14 @@ export default function Footer() {
           <ul className="flex flex-col gap-4 text-xs">
             <li className="flex gap-2">
               <span className="material-symbols-outlined text-[#8a9ca7] text-base">location_on</span>
-              <span className="text-white/50 whitespace-pre-line">
+              <a 
+                href="https://share.google/f3onLqVDnlKSEg9SO" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white/50 hover:text-white transition-colors whitespace-pre-line"
+              >
                 {settings.contact_address || 'Atatürk Bulvarı No: 124, Antakya / Hatay, Türkiye'}
-              </span>
+              </a>
             </li>
             <li className="flex gap-2 items-center">
               <span className="material-symbols-outlined text-[#8a9ca7] text-base">call</span>

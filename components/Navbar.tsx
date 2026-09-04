@@ -80,15 +80,22 @@ export default function Navbar() {
       <div className="bg-white/95 backdrop-blur-md border-b border-[#e5e7eb] w-full">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex items-center justify-between h-20">
           
-          <Link href="/" className="flex items-center gap-3 hover:opacity-85 transition-opacity mr-4 shrink-0">
-            <div className="flex flex-col items-start">
-              <span className="font-display font-black text-xl md:text-2xl tracking-tight text-[#d21920] leading-none">CEM-AS</span>
-              <span className="font-display font-semibold text-[7px] md:text-[8px] tracking-[0.25em] text-[#555] leading-tight mt-0.5">ALÜMİNYUM</span>
+          <Link href="/" className="flex items-center gap-3 hover:opacity-85 transition-opacity mr-4 shrink-0 group">
+            <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden border-2 border-[#d21920] shadow-md group-hover:scale-105 transition-transform duration-300">
+              <img 
+                src="/images/cemas-logo.jpg" 
+                alt="CEM-AS Alüminyum Logo" 
+                className="w-full h-full object-cover"
+              />
             </div>
-            <div className="flex items-center gap-2 ml-1 border-l border-gray-300 pl-3">
-              <span className="font-display font-bold text-[9px] md:text-[10px] tracking-wider text-[#E30613]">WİNSA</span>
+            <div className="flex flex-col items-start hidden sm:flex">
+              <span className="font-display font-black text-xl tracking-tight text-[#1a1a1a] leading-none group-hover:text-[#d21920] transition-colors">CEM-AS</span>
+              <span className="font-display font-semibold text-[9px] tracking-[0.2em] text-[#555] leading-tight mt-1">ALÜMİNYUM</span>
+            </div>
+            <div className="flex items-center gap-2 ml-2 border-l border-gray-300 pl-3 hidden md:flex">
+              <span className="font-display font-bold text-[10px] tracking-wider text-[#E30613]">WİNSA</span>
               <span className="text-gray-300 text-[10px]">|</span>
-              <span className="font-display font-bold text-[9px] md:text-[10px] tracking-wider text-[#00417A]">ROYALGLASS</span>
+              <span className="font-display font-bold text-[10px] tracking-wider text-[#00417A]">ROYALGLASS</span>
             </div>
           </Link>
 

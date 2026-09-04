@@ -71,15 +71,41 @@ export default function HomePage() {
 
         <motion.div 
           style={{ opacity: opacityText }}
-          className="relative z-10 flex flex-col items-center justify-center text-center px-6 mt-16"
+          className="relative z-10 flex flex-col items-center justify-center text-center px-6 mt-12"
         >
-          <motion.h1 
-            initial={{ opacity: 0, y: 40 }}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
+            className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-[4px] border-[#cda252] shadow-[0_0_50px_rgba(205,162,82,0.4)] mb-8"
+          >
+            <img 
+              src="/images/cemas-logo.jpg" 
+              alt="CEM-AS Alüminyum" 
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+          
+          <motion.h2 
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-[1.1] mb-6 max-w-5xl"
-            dangerouslySetInnerHTML={{ __html: settings.hero_title || 'Sınırları Kaldırın, <br /> <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/40">Manzaraya Yer Açın.</span>' }}
-          />
+            transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
+            className="font-display text-2xl md:text-4xl font-semibold text-white tracking-wide leading-relaxed max-w-3xl drop-shadow-xl"
+          >
+            Hatay'ın Güvenilir <br className="md:hidden" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d21920] to-[#ff4d4d] font-bold">
+              Alüminyum ve Cam
+            </span> Sistemleri
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.2 }}
+            className="mt-6 text-white/80 text-sm md:text-lg max-w-xl font-light"
+          >
+            Cam Balkon, Korkuluk ve Duşakabin'de estetik ve dayanıklılık bir arada. Yılların tecrübesiyle hizmetinizdeyiz.
+          </motion.p>
         </motion.div>
 
         {/* Scroll Indicator */}
