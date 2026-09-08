@@ -117,6 +117,44 @@ export default function CamBalkonPage() {
         </div>
       </section>
 
+      {/* SEO İçerik */}
+      <section className="py-16 md:py-24 bg-[#f8f8f8]">
+        <div className="max-w-[1000px] mx-auto px-6 md:px-12">
+          <h2 className="font-display text-2xl md:text-4xl font-bold text-[#1a1a1a] mb-6">
+            Hatay'da Cam Balkon Sistemleri
+          </h2>
+          <div className="flex flex-col gap-5 text-[#555] leading-relaxed text-[15px] md:text-base">
+            <p>
+              Hatay cam balkon denilince akla gelen ilk isimlerden biri olan CEM-AS Alüminyum, Antakya merkezli atölyemizde katlanır, sürgülü ve ısıcamlı cam balkon sistemlerini ölçüye özel üretiyor ve montajını yapıyor. Balkonunuzu dört mevsim kullanılabilir bir yaşam alanına dönüştürmek için Antakya, Defne ve Hatay genelinde ücretsiz keşif hizmeti sunuyoruz.
+            </p>
+            <p>
+              Cam balkon fiyatları; cam tipi (temperli, ısıcam, lamine), kanat sayısı ve profil kalitesine göre değişir. Hatay'da en uygun cam balkon fiyatı için balkonunuzun ölçüsünü alıp net teklif çıkarıyoruz — sürpriz maliyet yok.
+            </p>
+            <h3 className="font-display text-lg md:text-xl font-bold text-[#1a1a1a] pt-3">
+              Hizmet Verdiğimiz Bölgeler
+            </h3>
+            <p>
+              Antakya, Defne, Samandağ, İskenderun, Arsuz, Dörtyol, Kırıkhan, Reyhanlı, Altınözü, Yayladağı ve Hatay'ın tüm ilçelerine cam balkon montajı yapıyoruz.
+            </p>
+            <h3 className="font-display text-lg md:text-xl font-bold text-[#1a1a1a] pt-3">
+              Sık Sorulan Sorular
+            </h3>
+            <div>
+              <p className="font-semibold text-[#1a1a1a]">Cam balkon metrekare fiyatı ne kadar?</p>
+              <p>Cam balkon fiyatı modele, cam kalınlığına ve kanat adedine göre değişir. WhatsApp'tan veya telefondan ölçülerinizi iletin, aynı gün net fiyat alın.</p>
+            </div>
+            <div>
+              <p className="font-semibold text-[#1a1a1a]">Cam balkon kışın sıcak tutar mı?</p>
+              <p>Evet. Isıcamlı (çift camlı) sistemlerimiz ısı ve ses yalıtımı sağlayarak balkonunuzu kışın da kullanılabilir hale getirir.</p>
+            </div>
+            <div>
+              <p className="font-semibold text-[#1a1a1a]">Cam balkon montajı kaç gün sürer?</p>
+              <p>Ölçü alındıktan sonra üretim ve montaj genellikle 3-7 iş günü içinde tamamlanır.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
 
       {/* Lightbox */}

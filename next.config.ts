@@ -16,6 +16,13 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      { source: '/balconies', destination: '/cambalkon', permanent: true },
+      { source: '/railings', destination: '/korkuluk', permanent: true },
+      { source: '/showers', destination: '/dusakabin', permanent: true },
+    ];
+  },
   images: {
     remotePatterns: [
       {

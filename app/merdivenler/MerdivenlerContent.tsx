@@ -192,6 +192,44 @@ export default function MerdivenlerPage() {
         </div>
       </section>
 
+      {/* SEO İçerik */}
+      <section className="py-16 md:py-24 bg-[#f8f8f8]">
+        <div className="max-w-[1000px] mx-auto px-6 md:px-12">
+          <h2 className="font-display text-2xl md:text-4xl font-bold text-[#1a1a1a] mb-6">
+            Hatay'da Merdiven Korkuluğu Sistemleri
+          </h2>
+          <div className="flex flex-col gap-5 text-[#555] leading-relaxed text-[15px] md:text-base">
+            <p>
+              Hatay merdiven korkuluğu için CEM-AS Alüminyum; pleksi, camlı ve klasik metal detaylı merdiven sistemlerini Antakya'daki atölyemizde ölçüye özel üretiyor. Lüks ve güvenli merdiven tasarımlarıyla yaşam alanlarınıza değer katıyoruz.
+            </p>
+            <p>
+              Merdiven korkuluğu fiyatları; malzeme (pleksi, temperli cam, paslanmaz çelik), metre ve tasarım detayına göre değişir. Hatay'da merdiven korkuluğu fiyatı için ücretsiz keşif talep edin.
+            </p>
+            <h3 className="font-display text-lg md:text-xl font-bold text-[#1a1a1a] pt-3">
+              Hizmet Verdiğimiz Bölgeler
+            </h3>
+            <p>
+              Antakya, Defne, Samandağ, İskenderun, Arsuz, Dörtyol, Kırıkhan, Reyhanlı, Altınözü ve Hatay genelinde merdiven korkuluğu montajı yapıyoruz.
+            </p>
+            <h3 className="font-display text-lg md:text-xl font-bold text-[#1a1a1a] pt-3">
+              Sık Sorulan Sorular
+            </h3>
+            <div>
+              <p className="font-semibold text-[#1a1a1a]">Pleksi mi camlı merdiven korkuluğu mu?</p>
+              <p>Pleksi (akrilik) daha hafif ve şık görünür; temperli cam ise daha dayanıklı ve çizilmeye karşı dirençlidir. İkisini de ölçünüze göre üretiyoruz.</p>
+            </div>
+            <div>
+              <p className="font-semibold text-[#1a1a1a]">Merdiven korkuluğu kaç günde takılır?</p>
+              <p>Ölçü ve üretim sonrası montaj genellikle 3-7 iş günü içinde tamamlanır.</p>
+            </div>
+            <div>
+              <p className="font-semibold text-[#1a1a1a]">Özel ölçü merdiven korkuluğu yapıyor musunuz?</p>
+              <p>Evet. Her merdivene özel ölçü ve tasarım çalışıyoruz; klasik, camlı ve pleksi seçenekler sunuyoruz.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
 
       {/* Lightbox */}

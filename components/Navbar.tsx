@@ -11,9 +11,9 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const services = [
-    { name: 'Korkuluk Sistemleri', href: '/railings', icon: 'reorder' },
-    { name: 'Cam Balkon', href: '/balconies', icon: 'window' },
-    { name: 'Duşakabin', href: '/showers', icon: 'shower' },
+    { name: 'Korkuluk Sistemleri', href: '/korkuluk', icon: 'reorder' },
+    { name: 'Cam Balkon', href: '/cambalkon', icon: 'window' },
+    { name: 'Duşakabin', href: '/dusakabin', icon: 'shower' },
     { name: 'Fotoselli Kapı', href: '/automatic-doors', icon: 'door_sliding' },
     { name: 'Otomatik Kepenk', href: '/shutters', icon: 'roller_shutter' },
     { name: 'Camekan & Doğrama', href: '/showcase-glass', icon: 'grid_view' },
