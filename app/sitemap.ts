@@ -14,9 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/automatic-doors', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/shutters', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/showcase-glass', priority: 0.7, changeFrequency: 'monthly' },
-    { path: '/balconies', priority: 0.7, changeFrequency: 'monthly' },
-    { path: '/railings', priority: 0.7, changeFrequency: 'monthly' },
-    { path: '/showers', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/quote', priority: 0.8, changeFrequency: 'monthly' },
   ]
 

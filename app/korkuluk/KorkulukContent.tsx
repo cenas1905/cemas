@@ -135,6 +135,44 @@ export default function KorkulukPage() {
         </div>
       </section>
 
+      {/* SEO İçerik */}
+      <section className="py-16 md:py-24 bg-[#f8f8f8]">
+        <div className="max-w-[1000px] mx-auto px-6 md:px-12">
+          <h2 className="font-display text-2xl md:text-4xl font-bold text-[#1a1a1a] mb-6">
+            Hatay'da Korkuluk ve Küpeşte Sistemleri
+          </h2>
+          <div className="flex flex-col gap-5 text-[#555] leading-relaxed text-[15px] md:text-base">
+            <p>
+              Hatay korkuluk ihtiyaçlarınız için CEM-AS Alüminyum; Antakya ve çevresinde cam korkuluk, alüminyum korkuluk, merdiven korkuluğu ve balkon küpeştesi üretimi ile montajını kendi atölyemizde gerçekleştiriyor. Paslanmaz, dayanıklı ve estetik çözümlerle evinizin ve işyerinizin güvenliğini sağlıyoruz.
+            </p>
+            <p>
+              Korkuluk fiyatları; kullanılan malzeme (cam, alüminyum, paslanmaz çelik), metre ve tasarım detayına göre değişir. Hatay'da korkuluk fiyatı için ücretsiz keşif talep edin, yerinde net teklif alın.
+            </p>
+            <h3 className="font-display text-lg md:text-xl font-bold text-[#1a1a1a] pt-3">
+              Hizmet Verdiğimiz Bölgeler
+            </h3>
+            <p>
+              Antakya, Defne, Samandağ, İskenderun, Arsuz, Dörtyol, Kırıkhan, Reyhanlı, Altınözü ve Hatay genelinde korkuluk montajı yapıyoruz.
+            </p>
+            <h3 className="font-display text-lg md:text-xl font-bold text-[#1a1a1a] pt-3">
+              Sık Sorulan Sorular
+            </h3>
+            <div>
+              <p className="font-semibold text-[#1a1a1a]">Cam korkuluk metretül fiyatı ne kadar?</p>
+              <p>Cam korkuluk fiyatı cam kalınlığı (8-20 mm) ve tutucu sistemine göre değişir. Net fiyat için ölçünüzü iletmeniz yeterli.</p>
+            </div>
+            <div>
+              <p className="font-semibold text-[#1a1a1a]">Balkon korkuluğu kaç günde takılır?</p>
+              <p>Ölçü ve üretim sonrası montaj genellikle 1-3 gün içinde tamamlanır.</p>
+            </div>
+            <div>
+              <p className="font-semibold text-[#1a1a1a]">Hangi korkuluk daha dayanıklı?</p>
+              <p>Dış cephe ve teraslarda temperli camlı alüminyum sistemler, merdivenlerde ise paslanmaz çelik + cam kombinasyonu en uzun ömürlü çözümdür.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
 
       {/* Lightbox */}

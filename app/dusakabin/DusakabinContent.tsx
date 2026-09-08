@@ -116,6 +116,44 @@ export default function DusakabinPage() {
         </div>
       </section>
 
+      {/* SEO İçerik */}
+      <section className="py-16 md:py-24 bg-[#f8f8f8]">
+        <div className="max-w-[1000px] mx-auto px-6 md:px-12">
+          <h2 className="font-display text-2xl md:text-4xl font-bold text-[#1a1a1a] mb-6">
+            Hatay'da Duşakabin Sistemleri
+          </h2>
+          <div className="flex flex-col gap-5 text-[#555] leading-relaxed text-[15px] md:text-base">
+            <p>
+              Hatay duşakabin arayanlar için CEM-AS Alüminyum; Antakya merkezli atölyemizde sürgülü, menteşeli, siyah loft ve özel ölçü duşakabin sistemlerini temperli güvenli camla üretiyor. Banyonuza tam oturan, su sızdırmayan şık çözümler sunuyoruz.
+            </p>
+            <p>
+              Duşakabin fiyatları; cam kalınlığı (6-10 mm), profil kaplaması ve ölçüye göre değişir. Hatay'da duşakabin fiyatı için banyonuzun ölçüsünü iletin, aynı gün teklif alın.
+            </p>
+            <h3 className="font-display text-lg md:text-xl font-bold text-[#1a1a1a] pt-3">
+              Hizmet Verdiğimiz Bölgeler
+            </h3>
+            <p>
+              Antakya, Defne, Samandağ, İskenderun, Arsuz, Dörtyol, Kırıkhan, Reyhanlı ve Hatay genelinde duşakabin montajı yapıyoruz.
+            </p>
+            <h3 className="font-display text-lg md:text-xl font-bold text-[#1a1a1a] pt-3">
+              Sık Sorulan Sorular
+            </h3>
+            <div>
+              <p className="font-semibold text-[#1a1a1a]">Duşakabin ölçüsü nasıl alınır?</p>
+              <p>Duş alanının genişlik ve yüksekliği ölçülür. Keşif ekibimiz yerinde ölçü alarak en uygun modeli önerir.</p>
+            </div>
+            <div>
+              <p className="font-semibold text-[#1a1a1a]">Duşakabin su sızdırır mı?</p>
+              <p>Hayır. Özel UV filtreli magnetik fitiller ve doğru montaj sayesinde su sızdırmazlık garantisi veriyoruz.</p>
+            </div>
+            <div>
+              <p className="font-semibold text-[#1a1a1a]">Duşakabin kaç günde takılır?</p>
+              <p>Ölçü alındıktan sonra üretim ve montaj genellikle 3-5 iş günü içinde tamamlanır.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
 
       {/* Lightbox */}
