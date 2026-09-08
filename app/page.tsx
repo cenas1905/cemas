@@ -86,7 +86,7 @@ export default function HomePage() {
             />
           </motion.div>
           
-          <motion.h2 
+          <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
@@ -96,7 +96,7 @@ export default function HomePage() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d21920] to-[#ff4d4d] font-bold">
               Alüminyum ve Cam
             </span> Sistemleri
-          </motion.h2>
+          </motion.h1>
           
           <motion.p
             initial={{ opacity: 0 }}

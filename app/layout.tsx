@@ -19,7 +19,7 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.cemasaluminyum.com.tr"),
-  title: "Hatay Alüminyum | CEM-AS Cam Balkon, Korkuluk & Duşakabin",
+  title: "CEM-AS Alüminyum | Cam Balkon, Korkuluk & Duşakabin – Antakya, Hatay",
   description:
     "Hatay Antakya ve Defne'de alüminyum doğrama, cam balkon, korkuluk ve duşakabin sistemleri. CEM-AS Alüminyum ile estetik ve güvenli çözümler.",
   keywords: ["cemas", "cemas alüminyum", "cem-as alüminyum", "hatay alüminyum", "cam balkon hatay", "alüminyum korkuluk", "duşakabin", "merdiven hatay", "pvc pencere hatay"],
