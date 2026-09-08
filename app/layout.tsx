@@ -51,9 +51,10 @@ const businessJsonLd = {
   priceRange: "₺₺",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Atatürk Bulvarı No: 124",
-    addressLocality: "Antakya",
+    streetAddress: "Çekmece Mah. Samandağ Yolu Üzeri No:48",
+    addressLocality: "Defne",
     addressRegion: "Hatay",
+    postalCode: "31141",
     addressCountry: "TR",
   },
   areaServed: ["Antakya", "Defne", "Hatay"],

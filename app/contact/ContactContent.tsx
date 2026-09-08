@@ -53,7 +53,7 @@ export default function ContactPage() {
                   CEM-AS Alüminyum Merkez Ofis
                 </h3>
                 <p className="text-xs text-[#565f69] leading-relaxed max-w-sm">
-                  Atatürk Bulvarı No: 124, Antakya / Hatay, Türkiye
+                  Çekmece Mah. Samandağ Yolu Üzeri No:48, Defne / Hatay
                 </p>
               </div>
 

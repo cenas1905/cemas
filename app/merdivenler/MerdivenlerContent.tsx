@@ -200,7 +200,7 @@ export default function MerdivenlerPage() {
           </h2>
           <div className="flex flex-col gap-5 text-[#555] leading-relaxed text-[15px] md:text-base">
             <p>
-              Hatay merdiven korkuluğu için CEM-AS Alüminyum; pleksi, camlı ve klasik metal detaylı merdiven sistemlerini Antakya'daki atölyemizde ölçüye özel üretiyor. Lüks ve güvenli merdiven tasarımlarıyla yaşam alanlarınıza değer katıyoruz.
+              Hatay merdiven korkuluğu için CEM-AS Alüminyum; pleksi, camlı ve klasik metal detaylı merdiven sistemlerini Defne'deki atölyemizde ölçüye özel üretiyor. Lüks ve güvenli merdiven tasarımlarıyla yaşam alanlarınıza değer katıyoruz.
             </p>
             <p>
               Merdiven korkuluğu fiyatları; malzeme (pleksi, temperli cam, paslanmaz çelik), metre ve tasarım detayına göre değişir. Hatay'da merdiven korkuluğu fiyatı için ücretsiz keşif talep edin.
