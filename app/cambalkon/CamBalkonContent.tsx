@@ -125,7 +125,7 @@ export default function CamBalkonPage() {
           </h2>
           <div className="flex flex-col gap-5 text-[#555] leading-relaxed text-[15px] md:text-base">
             <p>
-              Hatay cam balkon denilince akla gelen ilk isimlerden biri olan CEM-AS Alüminyum, Antakya merkezli atölyemizde katlanır, sürgülü ve ısıcamlı cam balkon sistemlerini ölçüye özel üretiyor ve montajını yapıyor. Balkonunuzu dört mevsim kullanılabilir bir yaşam alanına dönüştürmek için Antakya, Defne ve Hatay genelinde ücretsiz keşif hizmeti sunuyoruz.
+              Hatay cam balkon denilince akla gelen ilk isimlerden biri olan CEM-AS Alüminyum, Defne merkezli atölyemizde katlanır, sürgülü ve ısıcamlı cam balkon sistemlerini ölçüye özel üretiyor ve montajını yapıyor. Balkonunuzu dört mevsim kullanılabilir bir yaşam alanına dönüştürmek için Antakya, Defne ve Hatay genelinde ücretsiz keşif hizmeti sunuyoruz.
             </p>
             <p>
               Cam balkon fiyatları; cam tipi (temperli, ısıcam, lamine), kanat sayısı ve profil kalitesine göre değişir. Hatay'da en uygun cam balkon fiyatı için balkonunuzun ölçüsünü alıp net teklif çıkarıyoruz — sürpriz maliyet yok.

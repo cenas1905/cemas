@@ -139,7 +139,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="text-white/50 hover:text-white transition-colors whitespace-pre-line"
               >
-                {settings.contact_address || 'Atatürk Bulvarı No: 124, Antakya / Hatay, Türkiye'}
+                {settings.contact_address || 'Çekmece Mah. Samandağ Yolu Üzeri No:48, Defne / Hatay'}
               </a>
             </li>
             <li className="flex gap-2 items-center">

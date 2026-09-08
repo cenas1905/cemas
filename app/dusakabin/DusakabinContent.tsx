@@ -124,7 +124,7 @@ export default function DusakabinPage() {
           </h2>
           <div className="flex flex-col gap-5 text-[#555] leading-relaxed text-[15px] md:text-base">
             <p>
-              Hatay duşakabin arayanlar için CEM-AS Alüminyum; Antakya merkezli atölyemizde sürgülü, menteşeli, siyah loft ve özel ölçü duşakabin sistemlerini temperli güvenli camla üretiyor. Banyonuza tam oturan, su sızdırmayan şık çözümler sunuyoruz.
+              Hatay duşakabin arayanlar için CEM-AS Alüminyum; Defne merkezli atölyemizde sürgülü, menteşeli, siyah loft ve özel ölçü duşakabin sistemlerini temperli güvenli camla üretiyor. Banyonuza tam oturan, su sızdırmayan şık çözümler sunuyoruz.
             </p>
             <p>
               Duşakabin fiyatları; cam kalınlığı (6-10 mm), profil kaplaması ve ölçüye göre değişir. Hatay'da duşakabin fiyatı için banyonuzun ölçüsünü iletin, aynı gün teklif alın.
