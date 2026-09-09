@@ -12,6 +12,16 @@ const categoryData: Record<Category, { label: string; images: string[] }> = {
   pleksi: {
     label: 'Pleksi',
     images: [
+      "/images/merdivenler/yeni/WhatsApp Image 2026-09-09 at 10.39.57 (1).jpeg",
+      "/images/merdivenler/yeni/WhatsApp Image 2026-09-09 at 10.39.57 (2).jpeg",
+      "/images/merdivenler/yeni/WhatsApp Image 2026-09-09 at 10.39.57 (3).jpeg",
+      "/images/merdivenler/yeni/WhatsApp Image 2026-09-09 at 10.39.57.jpeg",
+      "/images/merdivenler/yeni/WhatsApp Image 2026-09-09 at 10.39.58 (1).jpeg",
+      "/images/merdivenler/yeni/WhatsApp Image 2026-09-09 at 10.39.58 (2).jpeg",
+      "/images/merdivenler/yeni/WhatsApp Image 2026-09-09 at 10.39.58 (3).jpeg",
+      "/images/merdivenler/yeni/WhatsApp Image 2026-09-09 at 10.39.58 (5).jpeg",
+      "/images/merdivenler/yeni/WhatsApp Image 2026-09-09 at 10.39.58 (6).jpeg",
+      "/images/merdivenler/yeni/WhatsApp Image 2026-09-09 at 10.39.58.jpeg",
       "/images/merdivenler/merdivenler-1.jpeg",
       "/images/merdivenler/merdivenler-3.jpeg",
       "/images/merdivenler/merdivenler-4.jpeg",
@@ -84,7 +94,7 @@ export default function MerdivenlerPage() {
       <section className="relative w-full h-[40vh] md:h-[60vh] flex items-center justify-center overflow-hidden bg-black mt-20">
         <div className="absolute inset-0 w-full h-full">
           <img 
-            src={allImages[0]} 
+            src="/images/merdivenler/merdiven-hero-new.jpeg" 
             alt="Merdiven Sistemleri" 
             className="w-full h-full object-cover opacity-50"
           />
