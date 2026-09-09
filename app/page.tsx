@@ -42,7 +42,7 @@ export default function HomePage() {
 
   const categories = [
     { name: 'Korkuluk', href: '/korkuluk', icon: 'fence', image: '/images/korkuluk/korkuluk-1.jpg' },
-    { name: 'Merdiven', href: '/merdivenler', icon: 'stairs', image: '/images/merdivenler/merdivenler-1.jpeg' },
+    { name: 'Merdiven', href: '/merdivenler', icon: 'stairs', image: '/images/merdivenler/merdiven-hero-new.jpeg' },
     { name: 'Duşakabin', href: '/dusakabin', icon: 'shower', image: '/images/dusakabin/dusakabin-1.jpeg' },
     { name: 'Cam Balkon', href: '/cambalkon', icon: 'window', image: '/images/cambalkon/cambalkon-1.jpeg' },
   ];

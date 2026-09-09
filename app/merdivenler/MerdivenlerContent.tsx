@@ -150,13 +150,13 @@ export default function MerdivenlerPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: (idx % 4) * 0.1 }}
-                  className="group relative rounded-xl md:rounded-2xl overflow-hidden aspect-[4/3] bg-black cursor-pointer shadow-md hover:shadow-xl transition-all"
+                  className="group relative rounded-xl md:rounded-2xl overflow-hidden aspect-[4/5] bg-gray-100 cursor-pointer shadow-md hover:shadow-xl transition-all border border-gray-200"
                   onClick={() => openLightbox(idx)}
                 >
                   <img 
                     src={img} 
                     alt={`Merdiven Projesi ${idx + 1}`} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
+                    className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
                     <span className="material-symbols-outlined text-white text-4xl opacity-0 group-hover:opacity-100 transition-opacity">fullscreen</span>
