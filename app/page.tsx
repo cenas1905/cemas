@@ -182,7 +182,7 @@ export default function HomePage() {
             {/* MERDİVEN SİSTEMLERİ */}
             <Link href="/merdivenler" className="group relative rounded-2xl md:rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3]">
               <img 
-                src="/images/merdivenler/merdivenler-1.jpeg" 
+                src="/images/merdivenler/merdiven-hero-new.jpeg" 
                 alt="Merdiven Sistemleri" 
                 className="w-full h-full object-cover opacity-80 transition-transform duration-1000 group-hover:scale-105"
               />
