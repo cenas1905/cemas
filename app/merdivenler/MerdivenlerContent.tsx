@@ -12,6 +12,11 @@ const categoryData: Record<Category, { label: string; images: string[] }> = {
   pleksi: {
     label: 'Pleksi',
     images: [
+      "/images/merdivenler/ekstra/pleksi-yeni-1.jpg",
+      "/images/merdivenler/ekstra/pleksi-yeni-2.jpg",
+      "/images/merdivenler/ekstra/pleksi-yeni-3.jpeg",
+      "/images/merdivenler/ekstra/pleksi-yeni-4.jpeg",
+      "/images/merdivenler/ekstra/pleksi-yeni-5.jpeg",
       "/images/merdivenler/yeni/WhatsApp Image 2026-09-09 at 10.39.57 (1).jpeg",
       "/images/merdivenler/yeni/WhatsApp Image 2026-09-09 at 10.39.57 (2).jpeg",
       "/images/merdivenler/yeni/WhatsApp Image 2026-09-09 at 10.39.57 (3).jpeg",
@@ -49,6 +54,9 @@ const categoryData: Record<Category, { label: string; images: string[] }> = {
   camli: {
     label: 'Camlı',
     images: [
+      "/images/merdivenler/ekstra/camli-yeni-1.jpeg",
+      "/images/merdivenler/ekstra/camli-yeni-2.jpeg",
+      "/images/merdivenler/ekstra/camli-yeni-3.jpeg",
       "/images/merdivenler/merdivenler-14.jpeg",
       "/images/merdivenler/merdivenler-16.jpeg",
       "/images/merdivenler/merdivenler-camli-1.png",
