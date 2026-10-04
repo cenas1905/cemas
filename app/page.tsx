@@ -41,7 +41,7 @@ export default function HomePage() {
   ];
 
   const categories = [
-    { name: 'Korkuluk', href: '/korkuluk', icon: 'fence', image: '/images/korkuluk/korkuluk-1.jpg' },
+    { name: 'Korkuluk', href: '/korkuluk', icon: 'fence', image: '/images/korkuluk/hatay-cam-korkuluk-uygulamasi.jpg' },
     { name: 'Merdiven', href: '/merdivenler', icon: 'stairs', image: '/images/merdivenler/merdiven-hero-new.jpeg' },
     { name: 'Duşakabin', href: '/dusakabin', icon: 'shower', image: '/images/dusakabin/dusakabin-1.jpeg' },
     { name: 'Cam Balkon', href: '/cambalkon', icon: 'window', image: '/images/cambalkon/cambalkon-1.jpeg' },
@@ -138,8 +138,10 @@ export default function HomePage() {
               >
                 <img
                   src={cat.image}
-                  alt={cat.name}
+                alt={cat.name === 'Korkuluk' ? "Hatay'da CEM-AS Alüminyum cam korkuluk uygulaması" : cat.name}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+                decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 flex items-center gap-3">
@@ -166,9 +168,11 @@ export default function HomePage() {
             {/* ALÜMİNYUM KORKULUK */}
             <Link href="/korkuluk" className="group relative rounded-2xl md:rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3]">
               <img 
-                src="/images/korkuluk/korkuluk-1.jpg" 
-                alt="Alüminyum Korkuluk" 
+                src="/images/korkuluk/hatay-cam-korkuluk-uygulamasi.jpg"
+                alt="Hatay'da CEM-AS Alüminyum tarafından uygulanan cam korkuluk"
                 className="w-full h-full object-cover opacity-80 transition-transform duration-1000 group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent transition-opacity duration-500 group-hover:opacity-70"></div>
               <div className="absolute inset-0 p-6 md:p-14 flex flex-col justify-end">
