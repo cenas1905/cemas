@@ -19,22 +19,33 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.cemasaluminyum.com.tr"),
-  title: "CEM-AS Alüminyum | Cam Balkon, Korkuluk & Duşakabin – Antakya, Hatay",
+  title: {
+    default: "Hatay Korkuluk, Cam Balkon ve Duşakabin | CEM-AS Alüminyum",
+    template: "%s | CEM-AS Alüminyum",
+  },
   description:
-    "Hatay Antakya ve Defne'de alüminyum doğrama, cam balkon, korkuluk ve duşakabin sistemleri. CEM-AS Alüminyum ile estetik ve güvenli çözümler.",
-  keywords: ["cemas", "cemas alüminyum", "cem-as alüminyum", "hatay alüminyum", "cam balkon hatay", "alüminyum korkuluk", "duşakabin", "merdiven hatay", "pvc pencere hatay"],
+    "Hatay Antakya ve Defne'de cam korkuluk, cam balkon ve özel ölçü duşakabin. CEM-AS Alüminyum'dan keşif ve fiyat teklifi alın.",
+  keywords: ["Hatay korkuluk", "Hatay cam balkon", "Hatay duşakabin", "Antakya alüminyum", "CEM-AS Alüminyum"],
   authors: [{ name: "CEM-AS Alüminyum" }],
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "CEM-AS Alüminyum & Cam Sistemleri",
-    description: "Hatay'ın lider alüminyum ve cam sistemleri firması. Profesyonel çözümler için bize ulaşın.",
+    title: "Hatay Korkuluk, Cam Balkon ve Duşakabin | CEM-AS Alüminyum",
+    description: "Antakya ve Defne'de cam korkuluk, cam balkon ve özel ölçü duşakabin uygulamaları. CEM-AS Alüminyum ile iletişime geçin.",
     type: "website",
     url: "https://www.cemasaluminyum.com.tr",
     siteName: 'CEM-AS Alüminyum',
     locale: 'tr_TR',
+    images: [{ url: "/images/korkuluk/hatay-cam-korkuluk-uygulamasi.jpg", alt: "Hatay'da CEM-AS Alüminyum cam korkuluk uygulaması" }],
   },
-  verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "google-site-verification-placeholder",
+  twitter: {
+    card: "summary_large_image",
+    title: "Hatay Korkuluk, Cam Balkon ve Duşakabin | CEM-AS Alüminyum",
+    description: "Antakya ve Defne'de cam korkuluk, cam balkon ve özel ölçü duşakabin uygulamaları.",
+    images: ["/images/korkuluk/hatay-cam-korkuluk-uygulamasi.jpg"],
   },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
+    : {}),
 };
 
 // Google'ın okuyacağı işletme künyesi (yerel arama sonuçları için kritik)
@@ -46,7 +57,7 @@ const businessJsonLd = {
     "Hatay Antakya ve Defne'de alüminyum doğrama, cam balkon, korkuluk, duşakabin ve merdiven sistemleri.",
   url: "https://www.cemasaluminyum.com.tr",
   telephone: "+905337747684",
-  image: "https://www.cemasaluminyum.com.tr/cemas-logo-round.png",
+  image: "https://www.cemasaluminyum.com.tr/images/korkuluk/hatay-cam-korkuluk-uygulamasi.jpg",
   logo: "https://www.cemasaluminyum.com.tr/cemas-logo-round.png",
   priceRange: "₺₺",
   address: {
@@ -57,7 +68,10 @@ const businessJsonLd = {
     postalCode: "31141",
     addressCountry: "TR",
   },
-  areaServed: ["Antakya", "Defne", "Hatay"],
+  areaServed: [
+    "Antakya", "Defne", "Samandağ", "İskenderun", "Arsuz", "Dörtyol",
+    "Kırıkhan", "Reyhanlı", "Altınözü", "Yayladağı", "Hatay",
+  ].map((name) => ({ "@type": "AdministrativeArea", name })),
   sameAs: [
     "https://tr-tr.facebook.com/cemasaluminyumkorkuluksistemleri/",
     "https://www.instagram.com/cemashatay",

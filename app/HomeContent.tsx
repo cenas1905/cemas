@@ -157,9 +157,11 @@ export default function HomePage() {
             {/* ALÜMİNYUM KORKULUK */}
             <Link href="/korkuluk" className="group relative rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[4/3] md:aspect-square lg:aspect-[4/3]">
               <img 
-                src="/images/korkuluk/korkuluk-1.jpg" 
-                alt="Alüminyum Korkuluk" 
+                src="/images/korkuluk/hatay-cam-korkuluk-uygulamasi.jpg"
+                alt="Hatay'da CEM-AS Alüminyum tarafından uygulanan cam korkuluk"
                 className="w-full h-full object-cover opacity-80 transition-transform duration-1000 group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent transition-opacity duration-500 group-hover:opacity-70"></div>
               <div className="absolute inset-0 p-10 md:p-14 flex flex-col justify-end">
